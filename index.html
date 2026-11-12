@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProbashiMate Italy</title>
+<!-- Dynamic Italian Flag Icon for iPhone Home Screen -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'><rect width='1' height='2' fill='%23009246'/><rect x='1' width='1' height='2' fill='%23FFFFFF'/><rect x='2' width='1' height='2' fill='%23CE2B37'/></svg>">
+<style>
+  :root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #d4af37;
+    --accent-hover: #b4941f;
+    --border: #334155;
+    --danger: #ef4444;
+    --success: #22c55e;
+  }
+  [data-theme="light"] {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-color: #0f172a;
+    --text-muted: #64748b;
+    --accent: #b8860b;
+    --accent-hover: #996515;
+    --border: #e2e8f0;
+    --danger: #dc2626;
+    --success: #16a34a;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin:0; padding:15px; background:var(--bg-color); color:var(--text-color); transition: background 0.3s, color 0.3s; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+  h1 { font-size:20px; color:var(--accent); margin:0; display: flex; align-items: center; gap: 8px; }
+  .theme-btn { background:var(--card-bg); border:1px solid var(--border); color:var(--text-color); padding:6px 12px; border-radius:8px; cursor:pointer; font-size:14px; }
+  
+  .tabs { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; margin-bottom:15px; padding-bottom:5px; -webkit-overflow-scrolling: touch; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { padding:8px 14px; background:var(--card-bg); border:1px solid var(--border); color:var(--text-muted); cursor:pointer; text-align:center; border-radius:8px; font-size:13px; font-weight: 500; white-space:nowrap; transition: all 0.2s; }
+  .tab.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight: 600; }
+  
+  .content { display:none; }
+  .content.active { display:block; }
+  
+  .card { background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:15px; margin-bottom:15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+  .form-input { padding:10px; margin:6px 0; width:100%; border-radius:8px; border:1px solid var(--border); background:var(--bg-color); color:var(--text-color); box-sizing:border-box; font-size:14px; }
+  .submit-btn, .reset-btn { width:100%; padding:10px; border-radius:8px; cursor:pointer; border:none; margin-top:8px; font-weight:600; font-size:14px; transition: opacity 0.2s; }
+  .submit-btn { background:var(--accent); color:#000; }
+  .submit-btn:hover { opacity:0.9; }
+  .reset-btn { background:var(--danger); color:white; }
+  
+  table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+  th, td { border:1px solid var(--border); padding:8px; text-align:left; }
+  th { background:var(--card-bg); color:var(--accent); }
+  
+  .summary-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin-bottom:15px; }
+  .summary-box { background:var(--card-bg); border:1px solid var(--border); padding:12px; border-radius:10px; }
+  .summary-box span { font-size:12px; color:var(--text-muted); display: block; }
+  .summary-box strong { font-size:16px; color:var(--accent); }
+
+  .progress-bar { width:100%; background:var(--border); border-radius:6px; overflow:hidden; margin-top:5px; height:10px; }
+  .progress-bar-inner { height:100%; background:var(--success); width:0%; transition: width 0.3s; }
+  
+  /* Pin Lock Screen */
+  #pinLockScreen { position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+  .pin-dots { display: flex; gap: 12px; margin-bottom: 20px; }
+  .pin-dot { width: 16px; height: 16px; border: 2px solid var(--accent); border-radius: 50%; }
+  .pin-dot.filled { background: var(--accent); }
+  .pin-pad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; }
+  .pin-key { height: 70px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); font-size: 22px; font-weight: bold; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .pin-key:active { background: var(--accent); color: #000; }
+</style>
+</head>
+<body>
+
+<!-- PIN Lock Screen -->
+<div id="pinLockScreen" style="display:none;">
+  <h2>🔒 Enter Security PIN</h2>
+  <p style="color:var(--text-muted); font-size:13px;">Default PIN is 1234 (Change in Backup tab)</p>
+  <div class="pin-dots">
+    <div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div>
+    <div class="pin-dot" id="d3"></div>
+    <div class="pin-dot" id="d4"></div>
+  </div>
+  <div class="pin-pad">
+    <div class="pin-key" onclick="pressPin('1')">1</div>
+    <div class="pin-key" onclick="pressPin('2')">2</div>
+    <div class="pin-key" onclick="pressPin('3')">3</div>
+    <div class="pin-key" onclick="pressPin('4')">4</div>
+    <div class="pin-key" onclick="pressPin('5')">5</div>
+    <div class="pin-key" onclick="pressPin('6')">6</div>
+    <div class="pin-key" onclick="pressPin('7')">7</div>
+    <div class="pin-key" onclick="pressPin('8')">8</div>
+    <div class="pin-key" onclick="pressPin('9')">9</div>
+    <div class="pin-key" onclick="pressPin('0')">0</div>
+    <div class="pin-key" onclick="clearPin()" style="font-size:14px;">C</div>
+  </div>
+</div>
+
+<header>
+  <h1>🇮🇹 ProbashiMate <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">Ultimate</span></h1>
+  <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
+</header>
+
+<!-- Tabs -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('dashboard')">Dashboard</div>
+  <div class="tab" onclick="switchTab('finance')">Finance & Rem.</div>
+  <div class="tab" onclick="switchTab('work')">Work & OT</div>
+  <div class="tab" onclick="switchTab('docs')">Docs & Legal</div>
+  <div class="tab" onclick="switchTab('goals')">Goals & Loans</div>
+  <div class="tab" onclick="switchTab('italian')">Italian & Emergency</div>
+  <div class="tab" onclick="switchTab('backup')">Backup & PIN</div>
+</div>
+
+<!-- Dashboard -->
+<div class="content active" id="dashboardContent">
+  <div class="card">
+    <h3>📊 Financial Overview</h3>
+    <div class="summary-grid">
+      <div class="summary-box"><span>Total Income</span><strong id="dashIncome">€0</strong></div>
+      <div class="summary-box"><span>Total Expenses</span><strong id="dashExpense">€0</strong></div>
+      <div class="summary-box"><span>Remittance Sent</span><strong id="dashRemit">€0</strong></div>
+      <div class="summary-box"><span>Pocket Cash</span><strong id="dashPocket">€0</strong></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>📁 Italy Document Checklist</h3>
+    <div id="dashDocList"></div>
+  </div>
+</div>
+
+<!-- Finance & Remittance -->
+<div class="content" id="financeContent">
+  <div class="card">
+    <h3>💶 Remittance Calculator (Itali ➔ BD)</h3>
+    <input type="number" id="remitEuro" class="form-input" placeholder="Amount in Euro (€)" oninput="calcRemit()">
+    <input type="number" id="remitRate" class="form-input" placeholder="Exchange Rate (e.g. 130)" value="130" oninput="calcRemit()">
+    <input type="number" id="remitFee" class="form-input" placeholder="Transfer Fee (€)" value="3.99" oninput="calcRemit()">
+    <p style="font-weight:bold; color:var(--accent);" id="remitResult">BD Taka to receive: ৳0</p>
+    <button class="submit-btn" onclick="saveRemittance()">Save Remittance Record</button>
+  </div>
+  <div class="card">
+    <h3>➕ Income & Expense Manager</h3>
+    <select id="IEType" class="form-input"><option value="Income">Income</option><option value="Expense">Expense</option></select>
+    <input type="text" id="IECat" class="form-input" placeholder="Category (Salary / Rent / Food)">
+    <input type="number" id="IEAmt" class="form-input" placeholder="Amount (€)">
+    <button class="submit-btn" onclick="saveIE()">Save Record</button>
+    <table id="IETable"><tr><th>Type</th><th>Category</th><th>Amount</th><th>Action</th></tr></table>
+  </div>
+</div>
+
+<!-- Work & OT -->
+<div class="content" id="workContent">
+  <div class="card">
+    <h3>⏱️ Work & Overtime Busta Paga Estimator</h3>
+    <input type="number" id="hourlyRate" class="form-input" placeholder="Normal Hourly Rate (€)" value="10">
+    <input type="number" id="normalHours" class="form-input" placeholder="Total Normal Hours">
+    <input type="number" id="otHours" class="form-input" placeholder="Overtime Hours (1.25x rate)">
+    <button class="submit-btn" onclick="calcBustaPaga()">Calculate Estimated Salary</button>
+    <p style="font-size:16px; font-weight:bold; color:var(--accent); margin-top:10px;" id="bustaResult">Estimated Gross Salary: €0</p>
+  </div>
+  <div class="card">
+    <h3>📅 Weekly Shift & Riposo Planner</h3>
+    <input type="text" id="shiftDay" class="form-input" placeholder="Day (e.g. Monday - Morning Shift / Riposo)">
+    <button class="submit-btn" onclick="saveShift()">Save Shift Note</button>
+    <table id="shiftTable"><tr><th>Day & Shift Plan</th><th>Action</th></tr></table>
+  </div>
+</div>
+
+<!-- Docs & Legal -->
+<div class="content" id="docsContent">
+  <div class="card">
+    <h3>🏛️ Legal & Asylum Status</h3>
+    <input type="text" id="legalStatus" class="form-input" placeholder="Case Status (e.g. Commissione / Questura)">
+    <input type="date" id="appDate" class="form-input">
+    <input type="text" id="lawyerName" class="form-input" placeholder="Advocate Name">
+    <input type="text" id="lawyerPhone" class="form-input" placeholder="Advocate Phone / Contact">
+    <button class="submit-btn" onclick="saveLegalInfo()">Save Legal Details</button>
+    <p id="legalDisplay" style="margin-top:10px; font-size:13px;"></p>
+  </div>
+  <div class="card">
+    <h3>📑 Essential Document Expiry Vault</h3>
+    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso di Soggiorno)">
+    <input type="date" id="docExpiry" class="form-input">
+    <button class="submit-btn" onclick="saveDoc()">Save Document</button>
+    <table id="docTable"><tr><th>Document</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr></table>
+  </div>
+</div>
+
+<!-- Goals & Loans -->
+<div class="content" id="goalsContent">
+  <div class="card">
+    <h3>🎯 Smart Savings Goals</h3>
+    <input type="text" id="goalTitle" class="form-input" placeholder="Goal (e.g. Bangladesh House / Emergency)">
+    <input type="number" id="goalTarget" class="form-input" placeholder="Target Amount (€)">
+    <input type="number" id="goalCurrent" class="form-input" placeholder="Current Saved (€)">
+    <button class="submit-btn" onclick="saveGoal()">Save Goal</button>
+    <div id="goalList" style="margin-top:10px;"></div>
+  </div>
+  <div class="card">
+    <h3>🤝 Debt / Loan Tracker</h3>
+    <select id="loanType" class="form-input"><option value="Lent (Pabo)">Lent to someone (Pabo)</option><option value="Borrowed (Dibo)">Borrowed from someone (Dibo)</option></select>
+    <input type="text" id="loanPerson" class="form-input" placeholder="Person Name">
+    <input type="number" id="loanAmt" class="form-input" placeholder="Amount (€)">
+    <button class="submit-btn" onclick="saveLoan()">Save Loan Record</button>
+    <table id="loanTable"><tr><th>Type</th><th>Person</th><th>Amount</th><th>Action</th></tr></table>
+  </div>
+</div>
+
+<!-- Italian & Emergency -->
+<div class="content" id="italianContent">
+  <div class="card">
+    <h3>🇮🇹 Italian Essential Phrases & Voice</h3>
+    <input type="text" id="itaPhrase" class="form-input" placeholder="Italian Phrase (e.g. Ho un appuntamento)">
+    <input type="text" id="itaMeaning" class="form-input" placeholder="Bangla Meaning">
+    <button class="submit-btn" onclick="savePhrase()">Save Phrase</button>
+    <table id="phraseTable"><tr><th>Italian</th><th>Meaning</th><th>Audio</th><th>Action</th></tr></table>
+  </div>
+  <div class="card">
+    <h3>🚨 Italy Emergency Numbers</h3>
+    <button class="submit-btn" style="background:var(--danger); color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:112'">📞 Carabinieri / General Emergency: 112</button>
+    <button class="submit-btn" style="background:var(--danger); color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:118'">🚑 Ambulance (Pronto Soccorso): 118</button>
+  </div>
+</div>
+
+<!-- Backup & PIN -->
+<div class="content" id="backupContent">
+  <div class="card">
+    <h3>🔒 Security PIN Setup</h3>
+    <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Enter new 4-digit PIN">
+    <button class="submit-btn" onclick="updatePin()">Update PIN</button>
+  </div>
+  <div class="card">
+    <h3>☁️ JSON Backup & Restore</h3>
+    <button class="submit-btn" onclick="exportJSON()">📥 Download Backup File (.json)</button>
+    <input type="file" id="importFile" class="form-input" style="margin-top:15px;" onchange="importJSON(event)">
+    <button class="reset-btn" style="margin-top:15px;" onclick="resetAllData()">⚠️ Reset All App Data</button>
+  </div>
+</div>
+
+<script>
+  let db = JSON.parse(localStorage.getItem("probashiDB")) || {
+    pin: "1234",
+    ie: [], remit: [], shift: [], docs: [], goals: [], loans: [], phrases: [
+      {ita: "Ho un appuntamento", ban: "Amare ekta appointment ache"},
+      {ita: "Documenti in corso di rinnovo", ban: "Dokument renouvel cholche"}
+    ], legal: {status: "", date: "", lawyer: "", phone: ""}
+  };
+
+  let enteredPin = "";
+  if(db.pin) { document.getElementById("pinLockScreen").style.display = "flex"; }
+
+  function pressPin(num) {
+    enteredPin += num;
+    updatePinDots();
+    if(enteredPin.length === 4) {
+      if(enteredPin === db.pin) {
+        document.getElementById("pinLockScreen").style.display = "none";
+        enteredPin = "";
+        updatePinDots();
+      } else {
+        alert("❌ Incorrect PIN!");
+        enteredPin = "";
+        updatePinDots();
+      }
+    }
+  }
+  function clearPin() { enteredPin = ""; updatePinDots(); }
+  function updatePinDots() {
+    for(let i=1; i<=4; i++) {
+      document.getElementById("d"+i).className = i <= enteredPin.length ? "pin-dot filled" : "pin-dot";
+    }
+  }
+  function updatePin() {
+    let p = document.getElementById("newPinInput").value;
+    if(p.length === 4) { db.pin = p; saveDB(); alert("✅ PIN Updated!"); document.getElementById("newPinInput").value=""; }
+    else { alert("⚠️ Enter a 4-digit PIN"); }
+  }
+
+  function saveDB() { localStorage.setItem("probashiDB", JSON.stringify(db)); renderAll(); }
+
+  function switchTab(tabId) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
+    event.currentTarget.classList.add("active");
+    document.getElementById(tabId + "Content").classList.add("active");
+  }
+
+  function toggleTheme() {
+    let current = document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
+  }
+
+  // Finance & Remittance
+  function calcRemit() {
+    let euro = parseFloat(document.getElementById("remitEuro").value) || 0;
+    let rate = parseFloat(document.getElementById("remitRate").value) || 130;
+    let fee = parseFloat(document.getElementById("remitFee").value) || 0;
+    let net = (euro - fee) * rate;
+    document.getElementById("remitResult").innerText = `BD Taka to receive: ৳${net > 0 ? net.toFixed(2) : 0}`;
+  }
+  function saveRemittance() {
+    let euro = parseFloat(document.getElementById("remitEuro").value) || 0;
+    if(euro > 0) { db.remit.push(euro); saveDB(); alert("✅ Remittance recorded!"); }
+  }
+
+  function saveIE() {
+    let type = document.getElementById("IEType").value;
+    let cat = document.getElementById("IECat").value;
+    let amt = parseFloat(document.getElementById("IEAmt").value);
+    if(cat && !isNaN(amt)) {
+      db.ie.push({type, cat, amt});
+      document.getElementById("IECat").value = ""; document.getElementById("IEAmt").value = "";
+      saveDB();
+    }
+  }
+  function deleteIE(i) { db.ie.splice(i, 1); saveDB(); }
+
+  // Work & OT
+  function calcBustaPaga() {
+    let rate = parseFloat(document.getElementById("hourlyRate").value) || 0;
+    let normal = parseFloat(document.getElementById("normalHours").value) || 0;
+    let ot = parseFloat(document.getElementById("otHours").value) || 0;
+    let total = (normal * rate) + (ot * rate * 1.25);
+    document.getElementById("bustaResult").innerText = `Estimated Gross Salary: €${total.toFixed(2)}`;
+  }
+  function saveShift() {
+    let s = document.getElementById("shiftDay").value;
+    if(s) { db.shift.push(s); document.getElementById("shiftDay").value = ""; saveDB(); }
+  }
+  function deleteShift(i) { db.shift.splice(i, 1); saveDB(); }
+
+  // Legal & Docs
+  function saveLegalInfo() {
+    db.legal = {
+      status: document.getElementById("legalStatus").value,
+      date: document.getElementById("appDate").value,
+      lawyer: document.getElementById("lawyerName").value,
+      phone: document.getElementById("lawyerPhone").value
+    };
+    saveDB(); alert("✅ Legal details saved!");
+  }
+  function saveDoc() {
+    let name = document.getElementById("docName").value;
+    let exp = document.getElementById("docExpiry").value;
+    if(name && exp) {
+      db.docs.push({name, exp});
+      document.getElementById("docName").value = ""; document.getElementById("docExpiry").value = "";
+      saveDB();
+    }
+  }
+  function deleteDoc(i) { db.docs.splice(i, 1); saveDB(); }
+
+  // Goals & Loans
+  function saveGoal() {
+    let title = document.getElementById("goalTitle").value;
+    let target = parseFloat(document.getElementById("goalTarget").value);
+    let current = parseFloat(document.getElementById("goalCurrent").value) || 0;
+    if(title && !isNaN(target)) {
+      db.goals.push({title, target, current});
+      document.getElementById("goalTitle").value = ""; document.getElementById("goalTarget").value = ""; document.getElementById("goalCurrent").value = "";
+      saveDB();
+    }
+  }
+  function deleteGoal(i) { db.goals.splice(i, 1); saveDB(); }
+
+  function saveLoan() {
+    let type = document.getElementById("loanType").value;
+    let person = document.getElementById("loanPerson").value;
+    let amt = parseFloat(document.getElementById("loanAmt").value);
+    if(person && !isNaN(amt)) {
+      db.loans.push({type, person, amt});
+      document.getElementById("loanPerson").value = ""; document.getElementById("loanAmt").value = "";
+      saveDB();
+    }
+  }
+  function deleteLoan(i) { db.loans.splice(i, 1); saveDB(); }
+
+  // Italian
+  function savePhrase() {
+    let ita = document.getElementById("itaPhrase").value;
+    let ban = document.getElementById("itaMeaning").value;
+    if(ita && ban) {
+      db.phrases.push({ita, ban});
+      document.getElementById("itaPhrase").value = ""; document.getElementById("itaMeaning").value = "";
+      saveDB();
+    }
+  }
+  function deletePhrase(i) { db.phrases.splice(i, 1); saveDB(); }
+  function speakItal(text) {
+    let u = new SpeechSynthesisUtterance(text);
+    u.lang = 'it-IT';
+    window.speechSynthesis.speak(u);
+  }
+
+  // Backup & Restore
+  function exportJSON() {
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+    let dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", "ProbashiMate_Backup.json");
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+  }
+  function importJSON(event) {
+    let file = event.target.files[0];
+    if(!file) return;
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        db = JSON.parse(e.target.result);
+        saveDB();
+        alert("✅ Restore successful!");
+      } catch(err) { alert("❌ Invalid JSON file"); }
+    };
+    reader.readAsText(file);
+  }
+  function resetAllData() {
+    if(confirm("⚠️ Are you sure you want to reset all data?")) {
+      localStorage.removeItem("probashiDB");
+      location.reload();
+    }
+  }
+
+  // Render All UI
+  function renderAll() {
+    // Dashboard
+    let totInc = db.ie.filter(x=>x.type=="Income").reduce((a,c)=>a+c.amt,0);
+    let totExp = db.ie.filter(x=>x.type=="Expense").reduce((a,c)=>a+c.amt,0);
+    let totRem = db.remit.reduce((a,c)=>a+c,0);
+    document.getElementById("dashIncome").innerText = `€${totInc}`;
+    document.getElementById("dashExpense").innerText = `€${totExp}`;
+    document.getElementById("dashRemit").innerText = `€${totRem}`;
+    document.getElementById("dashPocket").innerText = `€${totInc - totExp - totRem}`;
+
+    // Dashboard Docs
+    let docHTML = "";
+    db.docs.forEach(d => {
+      docHTML += `<div style="margin-bottom:8px;">${d.name} (Exp: ${d.exp})</div>`;
+    });
+    document.getElementById("dashDocList").innerHTML = docHTML || "No documents added.";
+
+    // IE Table
+    let ieTable = "<tr><th>Type</th><th>Category</th><th>Amount</th><th>Action</th></tr>";
+    db.ie.forEach((x,i)=>{
+      ieTable += `<tr><td>${x.type}</td><td>${x.cat}</td><td>€${x.amt}</td><td><button onclick="deleteIE(${i})">🗑️</button></td></tr>`;
+    });
+    document.getElementById("IETable").innerHTML = ieTable;
+
+    // Shift Table
+    let sTable = "<tr><th>Day & Shift Plan</th><th>Action</th></tr>";
+    db.shift.forEach((x,i)=>{
+      sTable += `<tr><td>${x}</td><td><button onclick="deleteShift(${i})">🗑️</button></td></tr>`;
+    });
+    document.getElementById("shiftTable").innerHTML = sTable;
+
+    // Legal Info
+    document.getElementById("legalDisplay").innerHTML = `<b>Status:</b> ${db.legal.status || 'N/A'}<br><b>Appt Date:</b> ${db.legal.date || 'N/A'}<br><b>Lawyer:</b> ${db.legal.lawyer || 'N/A'} (${db.legal.phone || ''})`;
+
+    // Docs Table
+    let docTable = "<tr><th>Document</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>";
+    db.docs.forEach((d,i)=>{
+      docTable += `<tr><td>${d.name}</td><td>${d.exp}</td><td>Active</td><td><button onclick="deleteDoc(${i})">🗑️</button></td></tr>`;
+    });
+    document.getElementById("docTable").innerHTML = docTable;
+
+    // Goals
+    let gHTML = "";
+    db.goals.forEach((g,i)=>{
+      let pct = Math.min(100, (g.current / g.target)*100);
+      gHTML += `<div style="margin-bottom:10px;"><b>${g.title}</b> (€${g.current}/€${g.target})<div class="progress-bar"><div class="progress-bar-inner" style="width:${pct}%"></div></div><button onclick="deleteGoal(${i})" style="font-size:11px; margin-top:3px;">Delete</button></div>`;
+    });
+    document.getElementById("goalList").innerHTML = gHTML;
+
+    // Loans
+    let lTable = "<tr><th>Type</th><th>Person</th><th>Amount</th><th>Action</th></tr>";
+    db.loans.forEach((l,i)=>{
+      lTable += `<tr><td>${l.type}</td><td>${l.person}</td><td>€${l.amt}</td><td><button onclick="deleteLoan(${i})">🗑️</button></td></tr>`;
+    });
+    document.getElementById("loanTable").innerHTML = lTable;
+
+    // Phrases
+    let pTable = "<tr><th>Italian</th><th>Meaning</th><th>Audio</th><th>Action</th></tr>";
+    db.phrases.forEach((p,i)=>{
+      pTable += `<tr><td>${p.ita}</td><td>${p.ban}</td><td><button onclick="speakItal('${p.ita}')">🔊</button></td><td><button onclick="deletePhrase(${i})">🗑️</button></td></tr>`;
+    });
+    document.getElementById("phraseTable").innerHTML = pTable;
+  }
+
+  renderAll();
+</script>
+</body>
+</html>
