@@ -2,495 +2,1046 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ProbashiMate Italy</title>
-<!-- Dynamic Italian Flag Icon for iPhone Home Screen -->
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'><rect width='1' height='2' fill='%23009246'/><rect x='1' width='1' height='2' fill='%23FFFFFF'/><rect x='2' width='1' height='2' fill='%23CE2B37'/></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ProbashiMate</title>
+
+<!-- High-Res Italian Tricolor Flag Icon for iPhone Home Screen -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%230b0f19'/><rect x='25' y='45' width='43.3' height='90' rx='6' fill='%23009246'/><rect x='68.3' y='45' width='43.4' height='90' fill='%23FFFFFF'/><rect x='111.7' y='45' width='43.3' height='90' rx='6' fill='%23CE2B37'/></svg>">
+
 <style>
   :root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-color: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #d4af37;
-    --accent-hover: #b4941f;
-    --border: #334155;
-    --danger: #ef4444;
-    --success: #22c55e;
+    --bg-main: #090d16;
+    --bg-gradient: radial-gradient(circle at top right, #172038, #090d16 60%);
+    --glass-bg: rgba(23, 32, 56, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --gold: #eab308;
+    --gold-grad: linear-gradient(135deg, #facc15 0%, #ca8a04 100%);
+    --emerald: #10b981;
+    --crimson: #ef4444;
+    --amber: #f59e0b;
+    --input-bg: rgba(15, 23, 42, 0.8);
+    --nav-bg: rgba(15, 23, 42, 0.88);
   }
-  [data-theme="light"] {
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --text-color: #0f172a;
-    --text-muted: #64748b;
-    --accent: #b8860b;
-    --accent-hover: #996515;
-    --border: #e2e8f0;
-    --danger: #dc2626;
-    --success: #16a34a;
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin:0; padding:15px; background:var(--bg-color); color:var(--text-color); transition: background 0.3s, color 0.3s; }
-  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-  h1 { font-size:20px; color:var(--accent); margin:0; display: flex; align-items: center; gap: 8px; }
-  .theme-btn { background:var(--card-bg); border:1px solid var(--border); color:var(--text-color); padding:6px 12px; border-radius:8px; cursor:pointer; font-size:14px; }
-  
-  .tabs { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; margin-bottom:15px; padding-bottom:5px; -webkit-overflow-scrolling: touch; }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab { padding:8px 14px; background:var(--card-bg); border:1px solid var(--border); color:var(--text-muted); cursor:pointer; text-align:center; border-radius:8px; font-size:13px; font-weight: 500; white-space:nowrap; transition: all 0.2s; }
-  .tab.active { background:var(--accent); color:#000; border-color:var(--accent); font-weight: 600; }
-  
-  .content { display:none; }
-  .content.active { display:block; }
-  
-  .card { background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:15px; margin-bottom:15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-  .form-input { padding:10px; margin:6px 0; width:100%; border-radius:8px; border:1px solid var(--border); background:var(--bg-color); color:var(--text-color); box-sizing:border-box; font-size:14px; }
-  .submit-btn, .reset-btn { width:100%; padding:10px; border-radius:8px; cursor:pointer; border:none; margin-top:8px; font-weight:600; font-size:14px; transition: opacity 0.2s; }
-  .submit-btn { background:var(--accent); color:#000; }
-  .submit-btn:hover { opacity:0.9; }
-  .reset-btn { background:var(--danger); color:white; }
-  
-  table { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
-  th, td { border:1px solid var(--border); padding:8px; text-align:left; }
-  th { background:var(--card-bg); color:var(--accent); }
-  
-  .summary-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin-bottom:15px; }
-  .summary-box { background:var(--card-bg); border:1px solid var(--border); padding:12px; border-radius:10px; }
-  .summary-box span { font-size:12px; color:var(--text-muted); display: block; }
-  .summary-box strong { font-size:16px; color:var(--accent); }
 
-  .progress-bar { width:100%; background:var(--border); border-radius:6px; overflow:hidden; margin-top:5px; height:10px; }
-  .progress-bar-inner { height:100%; background:var(--success); width:0%; transition: width 0.3s; }
-  
-  /* Pin Lock Screen */
-  #pinLockScreen { position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-  .pin-dots { display: flex; gap: 12px; margin-bottom: 20px; }
-  .pin-dot { width: 16px; height: 16px; border: 2px solid var(--accent); border-radius: 50%; }
-  .pin-dot.filled { background: var(--accent); }
-  .pin-pad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; }
-  .pin-key { height: 70px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); font-size: 22px; font-weight: bold; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-  .pin-key:active { background: var(--accent); color: #000; }
+  [data-theme="light"] {
+    --bg-main: #f1f5f9;
+    --bg-gradient: radial-gradient(circle at top right, #e2e8f0, #f8fafc 65%);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(15, 23, 42, 0.08);
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --gold: #b45309;
+    --gold-grad: linear-gradient(135deg, #d97706 0%, #92400e 100%);
+    --emerald: #059669;
+    --crimson: #dc2626;
+    --amber: #d97706;
+    --input-bg: #f8fafc;
+    --nav-bg: rgba(255, 255, 255, 0.92);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-main);
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    padding-bottom: 95px;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+  }
+
+  /* Top App Bar */
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .flag-pill {
+    display: flex;
+    width: 24px;
+    height: 16px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .flag-pill span:nth-child(1) { flex:1; background:#009246; }
+  .flag-pill span:nth-child(2) { flex:1; background:#ffffff; }
+  .flag-pill span:nth-child(3) { flex:1; background:#ce2b37; }
+
+  .brand h1 {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+
+  .brand span.badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    background: var(--gold-grad);
+    color: #000;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 800;
+  }
+
+  .icon-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Container & Views */
+  .container {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  .view-section {
+    display: none;
+    animation: fadeSlide 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .view-section.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Luxury Glass Cards */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-primary);
+  }
+
+  /* Hero Balance Card */
+  .hero-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero-card::after {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 130px; height: 130px;
+    background: radial-gradient(circle, rgba(234, 179, 8, 0.25), transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+  .hero-amount { font-size: 34px; font-weight: 800; margin: 6px 0 16px 0; color: #facc15; letter-spacing: -1px; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-item span { font-size: 11px; color: #94a3b8; display: block; }
+  .stat-item strong { font-size: 14px; font-weight: 700; }
+
+  /* Inputs & Buttons */
+  .input-group { margin-bottom: 10px; }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  input, select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus { border-color: var(--gold); }
+
+  .btn-primary {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    background: var(--gold-grad);
+    color: #090d16;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.25);
+    transition: transform 0.15s;
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--crimson);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 12px;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* List Items */
+  .item-list { display: flex; flex-direction: column; gap: 10px; }
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+  }
+  .item-main { display: flex; flex-direction: column; gap: 3px; }
+  .item-title { font-size: 14px; font-weight: 600; }
+  .item-sub { font-size: 12px; color: var(--text-secondary); }
+  .item-right { display: flex; align-items: center; gap: 10px; }
+
+  .badge-pill {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 20px;
+  }
+  .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+  .badge-yellow { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+  .badge-red { background: rgba(239, 68, 68, 0.15); color: var(--crimson); }
+
+  .del-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  /* Progress Bar */
+  .prog-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(148, 163, 184, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .prog-fill {
+    height: 100%;
+    background: var(--gold-grad);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+  }
+
+  /* Donut Chart Visual */
+  .chart-wrap {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .donut-ring {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .donut-hole {
+    width: 64px;
+    height: 64px;
+    background: var(--bg-main);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+  .legend-list { flex: 1; display: flex; flex-direction: column; gap: 6px; font-size: 12px; }
+  .legend-row { display: flex; justify-content: space-between; align-items: center; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+
+  /* Bottom iOS Tab Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 4px 20px 4px;
+    z-index: 200;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .nav-item .nav-icon { font-size: 20px; transition: transform 0.2s; }
+  .nav-item.active { color: var(--gold); }
+  .nav-item.active .nav-icon { transform: translateY(-2px); }
+
+  /* PIN Lock Screen */
+  #pinScreen {
+    position: fixed;
+    inset: 0;
+    background: #090d16;
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #fff;
+  }
+  .pin-dots { display: flex; gap: 16px; margin: 24px 0 32px 0; }
+  .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #eab308; transition: 0.2s; }
+  .pin-dot.active { background: #eab308; transform: scale(1.15); }
+  .keypad { display: grid; grid-template-columns: repeat(3, 74px); gap: 18px; }
+  .key-btn {
+    height: 74px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .key-btn:active { background: #eab308; color: #000; }
+
+  /* Checklist */
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--input-bg);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+  }
+  .check-box {
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: bold;
+  }
+  .check-item.done .check-box { background: var(--gold); color: #000; }
+  .check-item.done span { text-decoration: line-through; color: var(--text-secondary); }
 </style>
 </head>
 <body>
 
-<!-- PIN Lock Screen -->
-<div id="pinLockScreen" style="display:none;">
-  <h2>🔒 Enter Security PIN</h2>
-  <p style="color:var(--text-muted); font-size:13px;">Default PIN is 1234 (Change in Backup tab)</p>
+<!-- Security PIN Screen -->
+<div id="pinScreen">
+  <div class="flag-pill" style="width:42px; height:28px; margin-bottom:16px;"><span></span><span></span><span></span></div>
+  <h2 style="margin:0; font-size:20px;">ProbashiMate Vault</h2>
+  <p style="color:#94a3b8; font-size:13px; margin-top:6px;">Enter 4-Digit PIN (Default: 1234)</p>
   <div class="pin-dots">
-    <div class="pin-dot" id="d1"></div>
-    <div class="pin-dot" id="d2"></div>
-    <div class="pin-dot" id="d3"></div>
-    <div class="pin-dot" id="d4"></div>
+    <div class="pin-dot" id="dot1"></div>
+    <div class="pin-dot" id="dot2"></div>
+    <div class="pin-dot" id="dot3"></div>
+    <div class="pin-dot" id="dot4"></div>
   </div>
-  <div class="pin-pad">
-    <div class="pin-key" onclick="pressPin('1')">1</div>
-    <div class="pin-key" onclick="pressPin('2')">2</div>
-    <div class="pin-key" onclick="pressPin('3')">3</div>
-    <div class="pin-key" onclick="pressPin('4')">4</div>
-    <div class="pin-key" onclick="pressPin('5')">5</div>
-    <div class="pin-key" onclick="pressPin('6')">6</div>
-    <div class="pin-key" onclick="pressPin('7')">7</div>
-    <div class="pin-key" onclick="pressPin('8')">8</div>
-    <div class="pin-key" onclick="pressPin('9')">9</div>
-    <div class="pin-key" onclick="pressPin('0')">0</div>
-    <div class="pin-key" onclick="clearPin()" style="font-size:14px;">C</div>
+  <div class="keypad">
+    <button class="key-btn" onclick="tapPin('1')">1</button>
+    <button class="key-btn" onclick="tapPin('2')">2</button>
+    <button class="key-btn" onclick="tapPin('3')">3</button>
+    <button class="key-btn" onclick="tapPin('4')">4</button>
+    <button class="key-btn" onclick="tapPin('5')">5</button>
+    <button class="key-btn" onclick="tapPin('6')">6</button>
+    <button class="key-btn" onclick="tapPin('7')">7</button>
+    <button class="key-btn" onclick="tapPin('8')">8</button>
+    <button class="key-btn" onclick="tapPin('9')">9</button>
+    <button class="key-btn" style="font-size:14px; color:#94a3b8;" onclick="clearPin()">CLEAR</button>
+    <button class="key-btn" onclick="tapPin('0')">0</button>
+    <button class="key-btn" style="font-size:16px;" onclick="unlockSkip()">🔓</button>
   </div>
 </div>
 
-<header>
-  <h1>🇮🇹 ProbashiMate <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">Ultimate</span></h1>
-  <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
+<!-- Sticky Top Bar -->
+<header class="app-header">
+  <div class="brand">
+    <div class="flag-pill"><span></span><span></span><span></span></div>
+    <h1>ProbashiMate</h1>
+    <span class="badge">Italy</span>
+  </div>
+  <button class="icon-btn" onclick="toggleTheme()" title="Switch Theme">🌓</button>
 </header>
 
-<!-- Tabs -->
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('dashboard')">Dashboard</div>
-  <div class="tab" onclick="switchTab('finance')">Finance & Rem.</div>
-  <div class="tab" onclick="switchTab('work')">Work & OT</div>
-  <div class="tab" onclick="switchTab('docs')">Docs & Legal</div>
-  <div class="tab" onclick="switchTab('goals')">Goals & Loans</div>
-  <div class="tab" onclick="switchTab('italian')">Italian & Emergency</div>
-  <div class="tab" onclick="switchTab('backup')">Backup & PIN</div>
-</div>
+<div class="container">
 
-<!-- Dashboard -->
-<div class="content active" id="dashboardContent">
-  <div class="card">
-    <h3>📊 Financial Overview</h3>
-    <div class="summary-grid">
-      <div class="summary-box"><span>Total Income</span><strong id="dashIncome">€0</strong></div>
-      <div class="summary-box"><span>Total Expenses</span><strong id="dashExpense">€0</strong></div>
-      <div class="summary-box"><span>Remittance Sent</span><strong id="dashRemit">€0</strong></div>
-      <div class="summary-box"><span>Pocket Cash</span><strong id="dashPocket">€0</strong></div>
+  <!-- 1. DASHBOARD VIEW -->
+  <div class="view-section active" id="view-home">
+    <div class="hero-card">
+      <div class="hero-label">Available Pocket Balance</div>
+      <div class="hero-amount" id="heroBalance">€0.00</div>
+      <div class="stat-row">
+        <div class="stat-item"><span>Income</span><strong style="color:#4ade80;" id="heroIncome">€0</strong></div>
+        <div class="stat-item"><span>Expenses</span><strong style="color:#f87171;" id="heroExpense">€0</strong></div>
+        <div class="stat-item"><span>Remitted</span><strong style="color:#facc15;" id="heroRemit">€0</strong></div>
+      </div>
+    </div>
+
+    <!-- Expense Breakdown Donut -->
+    <div class="glass-card">
+      <div class="card-title">📊 Outflow Breakdown</div>
+      <div class="chart-wrap">
+        <div class="donut-ring" id="donutChart" style="background: conic-gradient(#eab308 0% 100%);">
+          <div class="donut-hole">EURO</div>
+        </div>
+        <div class="legend-list">
+          <div class="legend-row"><span><i class="dot" style="background:#ef4444;"></i>Local Expenses</span><strong id="legExp">€0</strong></div>
+          <div class="legend-row"><span><i class="dot" style="background:#eab308;"></i>BD Remittance</span><strong id="legRem">€0</strong></div>
+          <div class="legend-row"><span><i class="dot" style="background:#10b981;"></i>Net Savings</span><strong id="legSav">€0</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Alerts -->
+    <div class="glass-card">
+      <div class="card-title">🔔 Active Alerts & Legal Status</div>
+      <div id="homeAlertsList" class="item-list"></div>
+    </div>
+
+    <!-- Italy Essential Papers Checklist -->
+    <div class="glass-card">
+      <div class="card-title">
+        <span>✅ Italy Paperwork Checklist</span>
+        <span id="checkProgressText" style="font-size:12px; color:var(--gold);">0/6</span>
+      </div>
+      <div id="checklistContainer" class="item-list"></div>
     </div>
   </div>
-  <div class="card">
-    <h3>📁 Italy Document Checklist</h3>
-    <div id="dashDocList"></div>
+
+  <!-- 2. FINANCE & REMITTANCE VIEW -->
+  <div class="view-section" id="view-finance">
+    <div class="glass-card">
+      <div class="card-title">🇧🇩 Remittance Calculator (EUR ➔ BDT)</div>
+      <div class="input-group">
+        <input type="number" id="remitEuro" placeholder="Amount to send (€)" oninput="calcRemit()">
+      </div>
+      <div class="input-row input-group">
+        <input type="number" id="remitRate" placeholder="Rate (e.g. 131)" value="131" oninput="calcRemit()">
+        <input type="number" id="remitFee" placeholder="Fee (€)" value="2.99" oninput="calcRemit()">
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0; padding:10px 14px; background:var(--input-bg); border-radius:12px;">
+        <span style="font-size:12px; color:var(--text-secondary);">Family Receives:</span>
+        <strong style="font-size:18px; color:var(--emerald);" id="remitBdtResult">৳0.00</strong>
+      </div>
+      <button class="btn-primary" onclick="saveRemit()">Log Remittance Transfer</button>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title">💶 Income & Expense Entry</div>
+      <div class="input-row input-group">
+        <select id="ieType">
+          <option value="Income">➕ Income</option>
+          <option value="Expense">➖ Expense</option>
+        </select>
+        <input type="number" id="ieAmt" placeholder="Amount (€)">
+      </div>
+      <div class="input-group">
+        <input type="text" id="ieCat" placeholder="Category (e.g. Salary, Rent, Affitto, Spesa)">
+      </div>
+      <button class="btn-primary" onclick="addIE()">Add Transaction</button>
+      <div id="ieList" class="item-list" style="margin-top:14px;"></div>
+    </div>
+
+    <!-- Goals & Loans -->
+    <div class="glass-card">
+      <div class="card-title">🎯 Savings Goals</div>
+      <div class="input-group"><input type="text" id="goalName" placeholder="Goal (e.g. BD Land / Emergency)"></div>
+      <div class="input-row input-group">
+        <input type="number" id="goalSaved" placeholder="Saved (€)">
+        <input type="number" id="goalTarget" placeholder="Target (€)">
+      </div>
+      <button class="btn-primary" onclick="addGoal()">Save Goal</button>
+      <div id="goalsList" class="item-list" style="margin-top:14px;"></div>
+    </div>
   </div>
+
+  <!-- 3. WORK & SHIFT VIEW -->
+  <div class="view-section" id="view-work">
+    <div class="glass-card">
+      <div class="card-title">⏱️ Busta Paga & Overtime Estimator</div>
+      <div class="input-group">
+        <input type="number" id="workRate" placeholder="Hourly Pay Rate (€/hr)" value="9.5">
+      </div>
+      <div class="input-row input-group">
+        <input type="number" id="workNorm" placeholder="Normal Hours">
+        <input type="number" id="workOt" placeholder="Overtime Hours (1.25x)">
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0; padding:10px 14px; background:var(--input-bg); border-radius:12px;">
+        <span style="font-size:12px; color:var(--text-secondary);">Estimated Gross Pay:</span>
+        <strong style="font-size:18px; color:var(--gold);" id="bustaTotal">€0.00</strong>
+      </div>
+      <div class="input-row">
+        <button class="btn-primary" onclick="calcWork()">Calculate</button>
+        <button class="btn-primary" style="background:var(--emerald); color:#fff;" onclick="pushWorkToIncome()">+ Add to Income</button>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title">📅 Weekly Duty & Riposo Schedule</div>
+      <div class="input-row input-group">
+        <select id="shiftDay">
+          <option>Lunedì (Mon)</option>
+          <option>Martedì (Tue)</option>
+          <option>Mercoledì (Wed)</option>
+          <option>Giovedì (Thu)</option>
+          <option>Venerdì (Fri)</option>
+          <option>Sabato (Sat)</option>
+          <option>Domenica (Sun)</option>
+        </select>
+        <input type="text" id="shiftNote" placeholder="Shift / Riposo">
+      </div>
+      <button class="btn-primary" onclick="addShift()">Save Schedule</button>
+      <div id="shiftList" class="item-list" style="margin-top:14px;"></div>
+    </div>
+  </div>
+
+  <!-- 4. LEGAL & DOCS VAULT VIEW -->
+  <div class="view-section" id="view-legal">
+    <div class="glass-card">
+      <div class="card-title">⚖️ Asilo & Advocate Directory</div>
+      <div class="input-group">
+        <input type="text" id="legStatus" placeholder="Case Stage (e.g. Commissione / Questura)">
+      </div>
+      <div class="input-row input-group">
+        <input type="text" id="legLawyer" placeholder="Avvocato (Lawyer) Name">
+        <input type="tel" id="legPhone" placeholder="Lawyer Phone">
+      </div>
+      <div class="input-group">
+        <label style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:4px;">Next Appointment / Audizione Date:</label>
+        <input type="date" id="legAppt">
+      </div>
+      <button class="btn-primary" onclick="saveLegal()">Update Legal Profile</button>
+      <div id="legalCardPreview" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title">🪪 Document Expiry Tracker</div>
+      <div class="input-group">
+        <input type="text" id="docTitle" placeholder="Document (e.g. Permesso di Soggiorno)">
+      </div>
+      <div class="input-group">
+        <label style="font-size:11px; color:var(--text-secondary); display:block; margin-bottom:4px;">Expiration Date:</label>
+        <input type="date" id="docExp">
+      </div>
+      <button class="btn-primary" onclick="addDoc()">Add Document Alert</button>
+      <div id="docList" class="item-list" style="margin-top:14px;"></div>
+    </div>
+  </div>
+
+  <!-- 5. ITALIAN & TOOLS VIEW -->
+  <div class="view-section" id="view-tools">
+    <div class="glass-card">
+      <div class="card-title">🗣️ Italian Phrasebook + Voice</div>
+      <div class="input-group"><input type="text" id="phrIt" placeholder="Italian Phrase (e.g. Vorrei rinnovare il permesso)"></div>
+      <div class="input-group"><input type="text" id="phrBn" placeholder="Bangla Meaning"></div>
+      <button class="btn-primary" onclick="addPhrase()">Save Phrase</button>
+      <div id="phraseList" class="item-list" style="margin-top:14px;"></div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title">🚨 Italy Emergency Quick-Dial</div>
+      <div class="input-row">
+        <a href="tel:112" style="text-decoration:none;"><button class="btn-danger">🚓 Carabinieri (112)</button></a>
+        <a href="tel:118" style="text-decoration:none;"><button class="btn-danger">🚑 Ambulance (118)</button></a>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <div class="card-title">🔒 Privacy PIN & Data Backup</div>
+      <div class="input-row input-group">
+        <input type="password" maxlength="4" id="pinInput" placeholder="New 4-Digit PIN">
+        <button class="btn-primary" onclick="setPin()">Set PIN</button>
+      </div>
+      <button class="btn-primary" style="margin-bottom:10px;" onclick="exportBackup()">📥 Export JSON Backup</button>
+      <label style="font-size:12px; color:var(--text-secondary); display:block; margin-bottom:6px;">Restore from Backup File:</label>
+      <input type="file" accept=".json" onchange="importBackup(event)" style="margin-bottom:12px;">
+      <button class="btn-danger" onclick="wipeAll()">⚠️ Factory Reset App</button>
+    </div>
+  </div>
+
 </div>
 
-<!-- Finance & Remittance -->
-<div class="content" id="financeContent">
-  <div class="card">
-    <h3>💶 Remittance Calculator (Itali ➔ BD)</h3>
-    <input type="number" id="remitEuro" class="form-input" placeholder="Amount in Euro (€)" oninput="calcRemit()">
-    <input type="number" id="remitRate" class="form-input" placeholder="Exchange Rate (e.g. 130)" value="130" oninput="calcRemit()">
-    <input type="number" id="remitFee" class="form-input" placeholder="Transfer Fee (€)" value="3.99" oninput="calcRemit()">
-    <p style="font-weight:bold; color:var(--accent);" id="remitResult">BD Taka to receive: ৳0</p>
-    <button class="submit-btn" onclick="saveRemittance()">Save Remittance Record</button>
+<!-- Native iOS Style Bottom Navigation -->
+<nav class="bottom-nav">
+  <div class="nav-item active" onclick="openView('home', this)">
+    <span class="nav-icon">🏠</span><span>Home</span>
   </div>
-  <div class="card">
-    <h3>➕ Income & Expense Manager</h3>
-    <select id="IEType" class="form-input"><option value="Income">Income</option><option value="Expense">Expense</option></select>
-    <input type="text" id="IECat" class="form-input" placeholder="Category (Salary / Rent / Food)">
-    <input type="number" id="IEAmt" class="form-input" placeholder="Amount (€)">
-    <button class="submit-btn" onclick="saveIE()">Save Record</button>
-    <table id="IETable"><tr><th>Type</th><th>Category</th><th>Amount</th><th>Action</th></tr></table>
+  <div class="nav-item" onclick="openView('finance', this)">
+    <span class="nav-icon">💶</span><span>Finance</span>
   </div>
-</div>
-
-<!-- Work & OT -->
-<div class="content" id="workContent">
-  <div class="card">
-    <h3>⏱️ Work & Overtime Busta Paga Estimator</h3>
-    <input type="number" id="hourlyRate" class="form-input" placeholder="Normal Hourly Rate (€)" value="10">
-    <input type="number" id="normalHours" class="form-input" placeholder="Total Normal Hours">
-    <input type="number" id="otHours" class="form-input" placeholder="Overtime Hours (1.25x rate)">
-    <button class="submit-btn" onclick="calcBustaPaga()">Calculate Estimated Salary</button>
-    <p style="font-size:16px; font-weight:bold; color:var(--accent); margin-top:10px;" id="bustaResult">Estimated Gross Salary: €0</p>
+  <div class="nav-item" onclick="openView('work', this)">
+    <span class="nav-icon">⏱️</span><span>Work/OT</span>
   </div>
-  <div class="card">
-    <h3>📅 Weekly Shift & Riposo Planner</h3>
-    <input type="text" id="shiftDay" class="form-input" placeholder="Day (e.g. Monday - Morning Shift / Riposo)">
-    <button class="submit-btn" onclick="saveShift()">Save Shift Note</button>
-    <table id="shiftTable"><tr><th>Day & Shift Plan</th><th>Action</th></tr></table>
+  <div class="nav-item" onclick="openView('legal', this)">
+    <span class="nav-icon">⚖️</span><span>Legal/Docs</span>
   </div>
-</div>
-
-<!-- Docs & Legal -->
-<div class="content" id="docsContent">
-  <div class="card">
-    <h3>🏛️ Legal & Asylum Status</h3>
-    <input type="text" id="legalStatus" class="form-input" placeholder="Case Status (e.g. Commissione / Questura)">
-    <input type="date" id="appDate" class="form-input">
-    <input type="text" id="lawyerName" class="form-input" placeholder="Advocate Name">
-    <input type="text" id="lawyerPhone" class="form-input" placeholder="Advocate Phone / Contact">
-    <button class="submit-btn" onclick="saveLegalInfo()">Save Legal Details</button>
-    <p id="legalDisplay" style="margin-top:10px; font-size:13px;"></p>
+  <div class="nav-item" onclick="openView('tools', this)">
+    <span class="nav-icon">🇮🇹</span><span>More</span>
   </div>
-  <div class="card">
-    <h3>📑 Essential Document Expiry Vault</h3>
-    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso di Soggiorno)">
-    <input type="date" id="docExpiry" class="form-input">
-    <button class="submit-btn" onclick="saveDoc()">Save Document</button>
-    <table id="docTable"><tr><th>Document</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr></table>
-  </div>
-</div>
-
-<!-- Goals & Loans -->
-<div class="content" id="goalsContent">
-  <div class="card">
-    <h3>🎯 Smart Savings Goals</h3>
-    <input type="text" id="goalTitle" class="form-input" placeholder="Goal (e.g. Bangladesh House / Emergency)">
-    <input type="number" id="goalTarget" class="form-input" placeholder="Target Amount (€)">
-    <input type="number" id="goalCurrent" class="form-input" placeholder="Current Saved (€)">
-    <button class="submit-btn" onclick="saveGoal()">Save Goal</button>
-    <div id="goalList" style="margin-top:10px;"></div>
-  </div>
-  <div class="card">
-    <h3>🤝 Debt / Loan Tracker</h3>
-    <select id="loanType" class="form-input"><option value="Lent (Pabo)">Lent to someone (Pabo)</option><option value="Borrowed (Dibo)">Borrowed from someone (Dibo)</option></select>
-    <input type="text" id="loanPerson" class="form-input" placeholder="Person Name">
-    <input type="number" id="loanAmt" class="form-input" placeholder="Amount (€)">
-    <button class="submit-btn" onclick="saveLoan()">Save Loan Record</button>
-    <table id="loanTable"><tr><th>Type</th><th>Person</th><th>Amount</th><th>Action</th></tr></table>
-  </div>
-</div>
-
-<!-- Italian & Emergency -->
-<div class="content" id="italianContent">
-  <div class="card">
-    <h3>🇮🇹 Italian Essential Phrases & Voice</h3>
-    <input type="text" id="itaPhrase" class="form-input" placeholder="Italian Phrase (e.g. Ho un appuntamento)">
-    <input type="text" id="itaMeaning" class="form-input" placeholder="Bangla Meaning">
-    <button class="submit-btn" onclick="savePhrase()">Save Phrase</button>
-    <table id="phraseTable"><tr><th>Italian</th><th>Meaning</th><th>Audio</th><th>Action</th></tr></table>
-  </div>
-  <div class="card">
-    <h3>🚨 Italy Emergency Numbers</h3>
-    <button class="submit-btn" style="background:var(--danger); color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:112'">📞 Carabinieri / General Emergency: 112</button>
-    <button class="submit-btn" style="background:var(--danger); color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:118'">🚑 Ambulance (Pronto Soccorso): 118</button>
-  </div>
-</div>
-
-<!-- Backup & PIN -->
-<div class="content" id="backupContent">
-  <div class="card">
-    <h3>🔒 Security PIN Setup</h3>
-    <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Enter new 4-digit PIN">
-    <button class="submit-btn" onclick="updatePin()">Update PIN</button>
-  </div>
-  <div class="card">
-    <h3>☁️ JSON Backup & Restore</h3>
-    <button class="submit-btn" onclick="exportJSON()">📥 Download Backup File (.json)</button>
-    <input type="file" id="importFile" class="form-input" style="margin-top:15px;" onchange="importJSON(event)">
-    <button class="reset-btn" style="margin-top:15px;" onclick="resetAllData()">⚠️ Reset All App Data</button>
-  </div>
-</div>
+</nav>
 
 <script>
-  let db = JSON.parse(localStorage.getItem("probashiDB")) || {
+  const defaultChecks = [
+    { name: "Codice Fiscale", done: false },
+    { name: "Permesso di Soggiorno / Ricevuta", done: false },
+    { name: "Tessera Sanitaria (Health Card)", done: false },
+    { name: "Certificato di Residenza", done: false },
+    { name: "Contratto di Lavoro", done: false },
+    { name: "SPID Digital Identity", done: false }
+  ];
+
+  let state = JSON.parse(localStorage.getItem("probashi_v4")) || {
     pin: "1234",
-    ie: [], remit: [], shift: [], docs: [], goals: [], loans: [], phrases: [
-      {ita: "Ho un appuntamento", ban: "Amare ekta appointment ache"},
-      {ita: "Documenti in corso di rinnovo", ban: "Dokument renouvel cholche"}
-    ], legal: {status: "", date: "", lawyer: "", phone: ""}
+    ie: [],
+    remit: [],
+    goals: [],
+    shifts: [],
+    docs: [],
+    legal: { status: "", lawyer: "", phone: "", appt: "" },
+    checks: defaultChecks,
+    phrases: [
+      { it: "Ho un appuntamento con l'avvocato", bn: "Amar advocate-er sathe appointment ache" },
+      { it: "Vorrei controllare la mia pratica", bn: "Ami amar file-er obostha jante chai" },
+      { it: "Mi serve la busta paga", bn: "Amar salary slip (busta paga) dorkar" }
+    ]
   };
 
-  let enteredPin = "";
-  if(db.pin) { document.getElementById("pinLockScreen").style.display = "flex"; }
+  let lastCalcPay = 0;
+  let pinBuffer = "";
 
-  function pressPin(num) {
-    enteredPin += num;
-    updatePinDots();
-    if(enteredPin.length === 4) {
-      if(enteredPin === db.pin) {
-        document.getElementById("pinLockScreen").style.display = "none";
-        enteredPin = "";
-        updatePinDots();
+  // PIN Logic
+  if (state.pin) {
+    document.getElementById("pinScreen").style.display = "flex";
+  }
+
+  function tapPin(n) {
+    if (pinBuffer.length >= 4) return;
+    pinBuffer += n;
+    refreshPinDots();
+    if (pinBuffer.length === 4) {
+      if (pinBuffer === state.pin) {
+        document.getElementById("pinScreen").style.display = "none";
+        pinBuffer = "";
+        refreshPinDots();
       } else {
-        alert("❌ Incorrect PIN!");
-        enteredPin = "";
-        updatePinDots();
+        alert("Wrong PIN");
+        pinBuffer = "";
+        refreshPinDots();
       }
     }
   }
-  function clearPin() { enteredPin = ""; updatePinDots(); }
-  function updatePinDots() {
-    for(let i=1; i<=4; i++) {
-      document.getElementById("d"+i).className = i <= enteredPin.length ? "pin-dot filled" : "pin-dot";
+  function clearPin() { pinBuffer = ""; refreshPinDots(); }
+  function refreshPinDots() {
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById("dot" + i).classList.toggle("active", i <= pinBuffer.length);
     }
   }
-  function updatePin() {
-    let p = document.getElementById("newPinInput").value;
-    if(p.length === 4) { db.pin = p; saveDB(); alert("✅ PIN Updated!"); document.getElementById("newPinInput").value=""; }
-    else { alert("⚠️ Enter a 4-digit PIN"); }
+  function setPin() {
+    const val = document.getElementById("pinInput").value.trim();
+    if (/^\d{4}$/.test(val)) {
+      state.pin = val;
+      saveState();
+      document.getElementById("pinInput").value = "";
+      alert("✅ 4-Digit Security PIN Updated!");
+    } else {
+      alert("Please enter exactly 4 numbers.");
+    }
   }
 
-  function saveDB() { localStorage.setItem("probashiDB", JSON.stringify(db)); renderAll(); }
+  function saveState() {
+    localStorage.setItem("probashi_v4", JSON.stringify(state));
+    render();
+  }
 
-  function switchTab(tabId) {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    document.querySelectorAll(".content").forEach(c => c.classList.remove("active"));
-    event.currentTarget.classList.add("active");
-    document.getElementById(tabId + "Content").classList.add("active");
+  function openView(name, el) {
+    document.querySelectorAll(".view-section").forEach(v => v.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+    document.getElementById("view-" + name).classList.add("active");
+    el.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function toggleTheme() {
-    let current = document.documentElement.getAttribute("data-theme");
-    document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    document.documentElement.setAttribute("data-theme", isLight ? "dark" : "light");
   }
 
   // Finance & Remittance
   function calcRemit() {
-    let euro = parseFloat(document.getElementById("remitEuro").value) || 0;
-    let rate = parseFloat(document.getElementById("remitRate").value) || 130;
-    let fee = parseFloat(document.getElementById("remitFee").value) || 0;
-    let net = (euro - fee) * rate;
-    document.getElementById("remitResult").innerText = `BD Taka to receive: ৳${net > 0 ? net.toFixed(2) : 0}`;
-  }
-  function saveRemittance() {
-    let euro = parseFloat(document.getElementById("remitEuro").value) || 0;
-    if(euro > 0) { db.remit.push(euro); saveDB(); alert("✅ Remittance recorded!"); }
+    const eur = parseFloat(document.getElementById("remitEuro").value) || 0;
+    const rate = parseFloat(document.getElementById("remitRate").value) || 0;
+    const fee = parseFloat(document.getElementById("remitFee").value) || 0;
+    const bdt = Math.max(0, (eur - fee) * rate);
+    document.getElementById("remitBdtResult").innerText = "৳" + bdt.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  function saveIE() {
-    let type = document.getElementById("IEType").value;
-    let cat = document.getElementById("IECat").value;
-    let amt = parseFloat(document.getElementById("IEAmt").value);
-    if(cat && !isNaN(amt)) {
-      db.ie.push({type, cat, amt});
-      document.getElementById("IECat").value = ""; document.getElementById("IEAmt").value = "";
-      saveDB();
-    }
+  function saveRemit() {
+    const eur = parseFloat(document.getElementById("remitEuro").value) || 0;
+    const rate = parseFloat(document.getElementById("remitRate").value) || 131;
+    const fee = parseFloat(document.getElementById("remitFee").value) || 0;
+    if (eur <= 0) return;
+    const bdt = Math.max(0, (eur - fee) * rate);
+    state.remit.unshift({ eur, bdt, date: new Date().toLocaleDateString() });
+    document.getElementById("remitEuro").value = "";
+    calcRemit();
+    saveState();
   }
-  function deleteIE(i) { db.ie.splice(i, 1); saveDB(); }
+
+  function addIE() {
+    const type = document.getElementById("ieType").value;
+    const amt = parseFloat(document.getElementById("ieAmt").value);
+    const cat = document.getElementById("ieCat").value.trim() || type;
+    if (isNaN(amt) || amt <= 0) return;
+    state.ie.unshift({ type, cat, amt, date: new Date().toLocaleDateString() });
+    document.getElementById("ieAmt").value = "";
+    document.getElementById("ieCat").value = "";
+    saveState();
+  }
+  function delIE(i) { state.ie.splice(i, 1); saveState(); }
+
+  // Goals
+  function addGoal() {
+    const name = document.getElementById("goalName").value.trim();
+    const saved = parseFloat(document.getElementById("goalSaved").value) || 0;
+    const target = parseFloat(document.getElementById("goalTarget").value) || 0;
+    if (!name || target <= 0) return;
+    state.goals.push({ name, saved, target });
+    document.getElementById("goalName").value = "";
+    document.getElementById("goalSaved").value = "";
+    document.getElementById("goalTarget").value = "";
+    saveState();
+  }
+  function delGoal(i) { state.goals.splice(i, 1); saveState(); }
 
   // Work & OT
-  function calcBustaPaga() {
-    let rate = parseFloat(document.getElementById("hourlyRate").value) || 0;
-    let normal = parseFloat(document.getElementById("normalHours").value) || 0;
-    let ot = parseFloat(document.getElementById("otHours").value) || 0;
-    let total = (normal * rate) + (ot * rate * 1.25);
-    document.getElementById("bustaResult").innerText = `Estimated Gross Salary: €${total.toFixed(2)}`;
+  function calcWork() {
+    const rate = parseFloat(document.getElementById("workRate").value) || 0;
+    const norm = parseFloat(document.getElementById("workNorm").value) || 0;
+    const ot = parseFloat(document.getElementById("workOt").value) || 0;
+    lastCalcPay = (norm * rate) + (ot * rate * 1.25);
+    document.getElementById("bustaTotal").innerText = "€" + lastCalcPay.toFixed(2);
   }
-  function saveShift() {
-    let s = document.getElementById("shiftDay").value;
-    if(s) { db.shift.push(s); document.getElementById("shiftDay").value = ""; saveDB(); }
+  function pushWorkToIncome() {
+    calcWork();
+    if (lastCalcPay <= 0) return;
+    state.ie.unshift({ type: "Income", cat: "Work / Busta Paga", amt: parseFloat(lastCalcPay.toFixed(2)), date: new Date().toLocaleDateString() });
+    saveState();
+    alert("✅ Added €" + lastCalcPay.toFixed(2) + " to Income!");
   }
-  function deleteShift(i) { db.shift.splice(i, 1); saveDB(); }
+
+  function addShift() {
+    const day = document.getElementById("shiftDay").value;
+    const note = document.getElementById("shiftNote").value.trim();
+    if (!note) return;
+    state.shifts.push({ day, note });
+    document.getElementById("shiftNote").value = "";
+    saveState();
+  }
+  function delShift(i) { state.shifts.splice(i, 1); saveState(); }
 
   // Legal & Docs
-  function saveLegalInfo() {
-    db.legal = {
-      status: document.getElementById("legalStatus").value,
-      date: document.getElementById("appDate").value,
-      lawyer: document.getElementById("lawyerName").value,
-      phone: document.getElementById("lawyerPhone").value
+  function saveLegal() {
+    state.legal = {
+      status: document.getElementById("legStatus").value.trim(),
+      lawyer: document.getElementById("legLawyer").value.trim(),
+      phone: document.getElementById("legPhone").value.trim(),
+      appt: document.getElementById("legAppt").value
     };
-    saveDB(); alert("✅ Legal details saved!");
-  }
-  function saveDoc() {
-    let name = document.getElementById("docName").value;
-    let exp = document.getElementById("docExpiry").value;
-    if(name && exp) {
-      db.docs.push({name, exp});
-      document.getElementById("docName").value = ""; document.getElementById("docExpiry").value = "";
-      saveDB();
-    }
-  }
-  function deleteDoc(i) { db.docs.splice(i, 1); saveDB(); }
-
-  // Goals & Loans
-  function saveGoal() {
-    let title = document.getElementById("goalTitle").value;
-    let target = parseFloat(document.getElementById("goalTarget").value);
-    let current = parseFloat(document.getElementById("goalCurrent").value) || 0;
-    if(title && !isNaN(target)) {
-      db.goals.push({title, target, current});
-      document.getElementById("goalTitle").value = ""; document.getElementById("goalTarget").value = ""; document.getElementById("goalCurrent").value = "";
-      saveDB();
-    }
-  }
-  function deleteGoal(i) { db.goals.splice(i, 1); saveDB(); }
-
-  function saveLoan() {
-    let type = document.getElementById("loanType").value;
-    let person = document.getElementById("loanPerson").value;
-    let amt = parseFloat(document.getElementById("loanAmt").value);
-    if(person && !isNaN(amt)) {
-      db.loans.push({type, person, amt});
-      document.getElementById("loanPerson").value = ""; document.getElementById("loanAmt").value = "";
-      saveDB();
-    }
-  }
-  function deleteLoan(i) { db.loans.splice(i, 1); saveDB(); }
-
-  // Italian
-  function savePhrase() {
-    let ita = document.getElementById("itaPhrase").value;
-    let ban = document.getElementById("itaMeaning").value;
-    if(ita && ban) {
-      db.phrases.push({ita, ban});
-      document.getElementById("itaPhrase").value = ""; document.getElementById("itaMeaning").value = "";
-      saveDB();
-    }
-  }
-  function deletePhrase(i) { db.phrases.splice(i, 1); saveDB(); }
-  function speakItal(text) {
-    let u = new SpeechSynthesisUtterance(text);
-    u.lang = 'it-IT';
-    window.speechSynthesis.speak(u);
+    saveState();
   }
 
-  // Backup & Restore
-  function exportJSON() {
-    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
-    let dlAnchor = document.createElement('a');
-    dlAnchor.setAttribute("href", dataStr);
-    dlAnchor.setAttribute("download", "ProbashiMate_Backup.json");
-    document.body.appendChild(dlAnchor);
-    dlAnchor.click();
-    dlAnchor.remove();
+  function addDoc() {
+    const title = document.getElementById("docTitle").value.trim();
+    const exp = document.getElementById("docExp").value;
+    if (!title || !exp) return;
+    state.docs.push({ title, exp });
+    document.getElementById("docTitle").value = "";
+    document.getElementById("docExp").value = "";
+    saveState();
   }
-  function importJSON(event) {
-    let file = event.target.files[0];
-    if(!file) return;
-    let reader = new FileReader();
-    reader.onload = function(e) {
+  function delDoc(i) { state.docs.splice(i, 1); saveState(); }
+
+  function toggleCheck(i) {
+    state.checks[i].done = !state.checks[i].done;
+    saveState();
+  }
+
+  // Italian Phrases
+  function addPhrase() {
+    const it = document.getElementById("phrIt").value.trim();
+    const bn = document.getElementById("phrBn").value.trim();
+    if (!it || !bn) return;
+    state.phrases.unshift({ it, bn });
+    document.getElementById("phrIt").value = "";
+    document.getElementById("phrBn").value = "";
+    saveState();
+  }
+  function delPhrase(i) { state.phrases.splice(i, 1); saveState(); }
+  function speakIt(text) {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "it-IT";
+    speechSynthesis.speak(utter);
+  }
+
+  // Backup
+  function exportBackup() {
+    const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ProbashiMate_Italy_Backup.json";
+    a.click();
+  }
+
+  function importBackup(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
       try {
-        db = JSON.parse(e.target.result);
-        saveDB();
-        alert("✅ Restore successful!");
-      } catch(err) { alert("❌ Invalid JSON file"); }
+        state = JSON.parse(ev.target.result);
+        saveState();
+        alert("✅ Data Restored!");
+      } catch {
+        alert("❌ Invalid Backup File");
+      }
     };
     reader.readAsText(file);
   }
-  function resetAllData() {
-    if(confirm("⚠️ Are you sure you want to reset all data?")) {
-      localStorage.removeItem("probashiDB");
+
+  function wipeAll() {
+    if (confirm("Delete all data permanently?")) {
+      localStorage.removeItem("probashi_v4");
       location.reload();
     }
   }
 
-  // Render All UI
-  function renderAll() {
-    // Dashboard
-    let totInc = db.ie.filter(x=>x.type=="Income").reduce((a,c)=>a+c.amt,0);
-    let totExp = db.ie.filter(x=>x.type=="Expense").reduce((a,c)=>a+c.amt,0);
-    let totRem = db.remit.reduce((a,c)=>a+c,0);
-    document.getElementById("dashIncome").innerText = `€${totInc}`;
-    document.getElementById("dashExpense").innerText = `€${totExp}`;
-    document.getElementById("dashRemit").innerText = `€${totRem}`;
-    document.getElementById("dashPocket").innerText = `€${totInc - totExp - totRem}`;
-
-    // Dashboard Docs
-    let docHTML = "";
-    db.docs.forEach(d => {
-      docHTML += `<div style="margin-bottom:8px;">${d.name} (Exp: ${d.exp})</div>`;
-    });
-    document.getElementById("dashDocList").innerHTML = docHTML || "No documents added.";
-
-    // IE Table
-    let ieTable = "<tr><th>Type</th><th>Category</th><th>Amount</th><th>Action</th></tr>";
-    db.ie.forEach((x,i)=>{
-      ieTable += `<tr><td>${x.type}</td><td>${x.cat}</td><td>€${x.amt}</td><td><button onclick="deleteIE(${i})">🗑️</button></td></tr>`;
-    });
-    document.getElementById("IETable").innerHTML = ieTable;
-
-    // Shift Table
-    let sTable = "<tr><th>Day & Shift Plan</th><th>Action</th></tr>";
-    db.shift.forEach((x,i)=>{
-      sTable += `<tr><td>${x}</td><td><button onclick="deleteShift(${i})">🗑️</button></td></tr>`;
-    });
-    document.getElementById("shiftTable").innerHTML = sTable;
-
-    // Legal Info
-    document.getElementById("legalDisplay").innerHTML = `<b>Status:</b> ${db.legal.status || 'N/A'}<br><b>Appt Date:</b> ${db.legal.date || 'N/A'}<br><b>Lawyer:</b> ${db.legal.lawyer || 'N/A'} (${db.legal.phone || ''})`;
-
-    // Docs Table
-    let docTable = "<tr><th>Document</th><th>Expiry Date</th><th>Status</th><th>Action</th></tr>";
-    db.docs.forEach((d,i)=>{
-      docTable += `<tr><td>${d.name}</td><td>${d.exp}</td><td>Active</td><td><button onclick="deleteDoc(${i})">🗑️</button></td></tr>`;
-    });
-    document.getElementById("docTable").innerHTML = docTable;
-
-    // Goals
-    let gHTML = "";
-    db.goals.forEach((g,i)=>{
-      let pct = Math.min(100, (g.current / g.target)*100);
-      gHTML += `<div style="margin-bottom:10px;"><b>${g.title}</b> (€${g.current}/€${g.target})<div class="progress-bar"><div class="progress-bar-inner" style="width:${pct}%"></div></div><button onclick="deleteGoal(${i})" style="font-size:11px; margin-top:3px;">Delete</button></div>`;
-    });
-    document.getElementById("goalList").innerHTML = gHTML;
-
-    // Loans
-    let lTable = "<tr><th>Type</th><th>Person</th><th>Amount</th><th>Action</th></tr>";
-    db.loans.forEach((l,i)=>{
-      lTable += `<tr><td>${l.type}</td><td>${l.person}</td><td>€${l.amt}</td><td><button onclick="deleteLoan(${i})">🗑️</button></td></tr>`;
-    });
-    document.getElementById("loanTable").innerHTML = lTable;
-
-    // Phrases
-    let pTable = "<tr><th>Italian</th><th>Meaning</th><th>Audio</th><th>Action</th></tr>";
-    db.phrases.forEach((p,i)=>{
-      pTable += `<tr><td>${p.ita}</td><td>${p.ban}</td><td><button onclick="speakItal('${p.ita}')">🔊</button></td><td><button onclick="deletePhrase(${i})">🗑️</button></td></tr>`;
-    });
-    document.getElementById("phraseTable").innerHTML = pTable;
+  function daysLeft(dateStr) {
+    if (!dateStr) return null;
+    const diff = new Date(dateStr) - new Date().setHours(0,0,0,0);
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
   }
 
-  renderAll();
+  function render() {
+    const inc = state.ie.filter(x => x.type === "Income").reduce((s, x) => s + x.amt, 0);
+    const exp = state.ie.filter(x => x.type === "Expense").reduce((s, x) => s + x.amt, 0);
+    const rem = state.remit.reduce((s, x) => s + x.eur, 0);
+    const bal = inc - exp - rem;
+
+    document.getElementById("heroBalance").innerText = "€" + bal.toFixed(2);
+    document.getElementById("heroIncome").innerText = "€" + inc.toFixed(0);
+    document.getElementById("heroExpense").innerText = "€" + exp.toFixed(0);
+    document.getElementById("heroRemit").innerText = "€" + rem.toFixed(0);
+
+    // Donut chart
+    const sav = Math.max(0, bal);
+    const total = exp + rem + sav;
+    document.getElementById("legExp").innerText = "€" + exp.toFixed(0);
+    document.getElementById("legRem").innerText = "€" + rem.toFixed(0);
+    document.getElementById("legSav").innerText = "€" + sav.toFixed(0);
+
+    if (total > 0) {
+      const pExp = (exp / total) * 100;
+      const pRem = pExp + (rem / total) * 100;
+      document.getElementById("donutChart").style.background =
+        `conic-gradient(#ef4444 0% ${pExp}%, #eab308 ${pExp}% ${pRem}%, #10b981 ${pRem}% 100%)`;
+    }
+
+    // Home Alerts
+    let alertsHtml = "";
+    if (state.legal.appt) {
+      const d = daysLeft(state.legal.appt);
+      const cls = d <= 7 ? "badge-red" : d <= 30 ? "badge-yellow" : "badge-green";
+      alertsHtml += `<div class="list-item"><div class="item-main"><span class="item-title">⚖️ Appointment (${state.legal.status || 'Legal'})</span><span class="item-sub">${state.legal.appt}</span></div><span class="badge-pill ${cls}">${d >= 0 ? d + ' days left' : 'Passed'}</span></div>`;
+    }
+    state.docs.forEach(doc => {
+      const d = daysLeft(doc.exp);
+      const cls = d <= 30 ? "badge-red" : d <= 90 ? "badge-yellow" : "badge-green";
+      alertsHtml += `<div class="list-item"><div class="item-main"><span class="item-title">🪪 ${doc.title}</span><span class="item-sub">Exp: ${doc.exp}</span></div><span class="badge-pill ${cls}">${d >= 0 ? d + 'd left' : 'Expired'}</span></div>`;
+    });
+    document.getElementById("homeAlertsList").innerHTML = alertsHtml || `<div style="font-size:12px; color:var(--text-secondary);">No upcoming deadlines. Add documents or appointments in Legal/Docs tab.</div>`;
+
+    // Checklist
+    const doneCount = state.checks.filter(c => c.done).length;
+    document.getElementById("checkProgressText").innerText = `${doneCount}/${state.checks.length}`;
+    document.getElementById("checklistContainer").innerHTML = state.checks.map((c, i) => `
+      <div class="check-item ${c.done ? 'done' : ''}" onclick="toggleCheck(${i})">
+        <div class="check-box">${c.done ? '✓' : ''}</div>
+        <span style="font-size:13px; font-weight:500;">${c.name}</span>
+      </div>
+    `).join("");
+
+    // IE List
+    document.getElementById("ieList").innerHTML = state.ie.map((x, i) => `
+      <div class="list-item">
+        <div class="item-main">
+          <span class="item-title">${x.cat}</span>
+          <span class="item-sub">${x.date}</span>
+        </div>
+        <div class="item-right">
+          <strong style="color:${x.type === 'Income' ? 'var(--emerald)' : 'var(--crimson)'};">${x.type === 'Income' ? '+' : '-'}€${x.amt}</strong>
+          <button class="del-btn" onclick="delIE(${i})">✕</button>
+        </div>
+      </div>
+    `).join("");
+
+    // Goals
+    document.getElementById("goalsList").innerHTML = state.goals.map((g, i) => {
+      const pct = Math.min(100, Math.round((g.saved / g.target) * 100));
+      return `
+        <div class="list-item" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="item-title">${g.name}</span>
+            <div class="item-right">
+              <span style="font-size:12px; color:var(--gold); font-weight:700;">€${g.saved} / €${g.target} (${pct}%)</span>
+              <button class="del-btn" onclick="delGoal(${i})">✕</button>
+            </div>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:${pct}%;"></div></div>
+        </div>
+      `;
+    }).join("");
+
+    // Shifts
+    document.getElementById("shiftList").innerHTML = state.shifts.map((s, i) => `
+      <div class="list-item">
+        <div class="item-main"><span class="item-title">${s.day}</span><span class="item-sub">${s.note}</span></div>
+        <button class="del-btn" onclick="delShift(${i})">✕</button>
+      </div>
+    `).join("");
+
+    // Legal Preview
+    document.getElementById("legStatus").value = state.legal.status || "";
+    document.getElementById("legLawyer").value = state.legal.lawyer || "";
+    document.getElementById("legPhone").value = state.legal.phone || "";
+    document.getElementById("legAppt").value = state.legal.appt || "";
+
+    if (state.legal.lawyer || state.legal.status) {
+      document.getElementById("legalCardPreview").innerHTML = `
+        <div class="list-item">
+          <div class="item-main">
+            <span class="item-title">Avv. ${state.legal.lawyer || 'Not Assigned'}</span>
+            <span class="item-sub">Stage: ${state.legal.status || 'Pending'} • Appt: ${state.legal.appt || 'N/A'}</span>
+          </div>
+          ${state.legal.phone ? `<a href="tel:${state.legal.phone}" style="text-decoration:none;"><span class="badge-pill badge-green">📞 Call</span></a>` : ''}
+        </div>
+      `;
+    }
+
+    // Docs List
+    document.getElementById("docList").innerHTML = state.docs.map((doc, i) => {
+      const d = daysLeft(doc.exp);
+      const cls = d <= 30 ? "badge-red" : d <= 90 ? "badge-yellow" : "badge-green";
+      return `
+        <div class="list-item">
+          <div class="item-main"><span class="item-title">${doc.title}</span><span class="item-sub">Expires: ${doc.exp}</span></div>
+          <div class="item-right">
+            <span class="badge-pill ${cls}">${d >= 0 ? d + ' days' : 'Expired'}</span>
+            <button class="del-btn" onclick="delDoc(${i})">✕</button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    // Phrases
+    document.getElementById("phraseList").innerHTML = state.phrases.map((p, i) => `
+      <div class="list-item">
+        <div class="item-main">
+          <span class="item-title">${p.it}</span>
+          <span class="item-sub">${p.bn}</span>
+        </div>
+        <div class="item-right">
+          <button class="icon-btn" onclick="speakIt('${p.it.replace(/'/g, "\\'")}')">🔊</button>
+          <button class="del-btn" onclick="delPhrase(${i})">✕</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  render();
 </script>
 </body>
 </html>
