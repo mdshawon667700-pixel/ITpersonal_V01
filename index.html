@@ -31,34 +31,11 @@
     --success: #16a34a;
   }
   * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 40px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 50px; }
   header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   h1 { font-size: 20px; color: var(--accent); margin: 0; display: flex; align-items: center; gap: 8px; }
   h3 { margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 6px; }
   .theme-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-
-  /* Professional Inline Global Search */
-  .search-wrapper { position: relative; margin-bottom: 14px; }
-  .search-box-row { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--accent); border-radius: 10px; padding: 2px 10px; }
-  .search-box-row input { flex: 1; border: none; background: transparent; color: var(--text-color); padding: 9px 6px; font-size: 14px; outline: none; }
-  .clear-search-btn { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; padding: 4px 6px; display: none; }
-  
-  /* Inline Search Results Panel */
-  #inlineSearchResults {
-    display: none;
-    background: var(--card-bg);
-    border: 1px solid var(--accent);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  }
-  .search-section-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
-  .search-section-title:first-child { margin-top: 0; }
-  
-  /* Search Item Card */
-  .search-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; transition: border-color 0.2s; }
-  .search-item:hover, .search-item:active { border-color: var(--accent); }
 
   .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-bottom: 15px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
   .tabs::-webkit-scrollbar { display: none; }
@@ -70,7 +47,10 @@
 
   .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
   .form-input { padding: 10px; margin: 6px 0; width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; }
-  .submit-btn, .reset-btn { width: 100%; padding: 11px; border-radius: 8px; cursor: pointer; border: none; margin-top: 8px; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
+  
+  /* Buttons moved cleanly to bottom of cards/sections */
+  .btn-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .submit-btn, .reset-btn { width: 100%; padding: 11px; border-radius: 8px; cursor: pointer; border: none; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
   .submit-btn { background: var(--accent); color: #000; }
   .submit-btn:hover { opacity: 0.9; }
   .reset-btn { background: var(--danger); color: white; }
@@ -110,7 +90,8 @@
   .badge-pabo { background: rgba(34, 197, 94, 0.2); color: var(--success); }
   .badge-dibo { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
 
-  .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); }
+  .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; }
+  .item-row:hover { border-color: var(--accent); }
   .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
   .small-btn { padding: 6px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 12px; font-weight: 600; }
   .small-btn.danger { border-color: var(--danger); color: var(--danger); }
@@ -165,7 +146,7 @@
   </div>
 </div>
 
-<!-- File & Search Detail Preview Modal -->
+<!-- Details & File Preview Modal -->
 <div id="previewModal" class="modal" onclick="closeModal('previewModal', event)">
   <div class="modal-content" style="text-align:center;" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -203,7 +184,9 @@
     <label style="font-size:12px; color:var(--text-muted);">Date:</label>
     <input type="date" id="spendDate" class="form-input">
 
-    <button class="submit-btn" style="background:var(--danger); color:#fff; margin-top:12px;" onclick="confirmSpend()">✅ Confirm & Deduct Balance</button>
+    <div class="btn-container">
+      <button class="submit-btn" style="background:var(--danger); color:#fff;" onclick="confirmSpend()">✅ Confirm & Deduct Balance</button>
+    </div>
   </div>
 </div>
 
@@ -224,7 +207,9 @@
       <option value="cash">💵 Cash in Hand</option>
     </select>
 
-    <button class="submit-btn" style="background:var(--success); color:#000; margin-top:12px;" onclick="confirmSettle()">✅ Confirm & Update Balance</button>
+    <div class="btn-container">
+      <button class="submit-btn" style="background:var(--success); color:#000;" onclick="confirmSettle()">✅ Confirm & Update Balance</button>
+    </div>
   </div>
 </div>
 
@@ -233,21 +218,10 @@
   <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
 </header>
 
-<!-- Professional Inline Global Search Bar -->
-<div class="search-wrapper">
-  <div class="search-box-row">
-    <span>🔍</span>
-    <input type="text" id="globalSearchInput" placeholder="Search person, card, expense, doc..." oninput="handleGlobalSearch(this.value)">
-    <button id="clearSearchBtn" class="clear-search-btn" onclick="clearGlobalSearch()">✖</button>
-  </div>
-</div>
-
-<!-- Inline Search Results Panel (Tap item to open full popup details) -->
-<div id="inlineSearchResults"></div>
-
-<!-- Navigation Tabs -->
+<!-- Navigation Tabs (Search is now a dedicated tab) -->
 <div class="tabs">
   <div class="tab active" onclick="switchTab('home', this)">🏠 Home</div>
+  <div class="tab" onclick="switchTab('search', this)">🔍 Search</div>
   <div class="tab" onclick="switchTab('banks', this)">💳 Wallet</div>
   <div class="tab" onclick="switchTab('loans', this)">🤝 Lent & Borrow</div>
   <div class="tab" onclick="switchTab('summary', this)">📊 Summary</div>
@@ -295,7 +269,17 @@
   </div>
 </div>
 
-<!-- 2. WALLET (CASH + BANKS) & PIGGY BANK -->
+<!-- 2. SEARCH TAB (Dedicated Tab for Searching Everything) -->
+<div class="content" id="searchContent">
+  <div class="card">
+    <h3>🔍 Universal Search</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">Search by person name, bank card, transaction, or document. Tap any result to view full info and attached files.</p>
+    <input type="text" id="tabSearchInput" class="form-input" placeholder="Type name, card, store, doc name..." oninput="handleTabSearch(this.value)">
+    <div id="tabSearchResults" style="margin-top:12px;"></div>
+  </div>
+</div>
+
+<!-- 3. WALLET (CASH + BANKS) & PIGGY BANK -->
 <div class="content" id="banksContent">
   <div class="card">
     <h3>💵 Cash in Hand (Pocket / Home Euro)</h3>
@@ -321,7 +305,10 @@
     <input type="text" id="cardLast4" maxlength="19" class="form-input" placeholder="Card Number or Last 4 Digits (e.g. **** 4521)" oninput="checkExistingBank()">
     <div id="bankDetectNotice" class="detect-notice"></div>
     <input type="number" step="0.01" id="bankBal" class="form-input" placeholder="Amount to Add / Initial Balance (€)">
-    <button class="submit-btn" id="bankSubmitBtn" onclick="saveBank()">+ Add New Card</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" id="bankSubmitBtn" onclick="saveBank()">+ Add New Card</button>
+    </div>
     <div id="bankList"></div>
   </div>
 
@@ -330,12 +317,15 @@
     <input type="text" id="goalTitle" class="form-input" placeholder="Dream Goal (e.g. Bari kora, New Phone, Family)">
     <input type="number" step="0.01" id="goalTarget" class="form-input" placeholder="Target Amount (€)">
     <input type="number" step="0.01" id="goalSaved" class="form-input" placeholder="Already Saved (€)">
-    <button class="submit-btn" onclick="saveGoal()">+ Create / Update Dream Goal</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" onclick="saveGoal()">+ Create / Update Dream Goal</button>
+    </div>
     <div id="goalList"></div>
   </div>
 </div>
 
-<!-- 3. LENT & BORROW (Dena-Paona Tracker) -->
+<!-- 4. LENT & BORROW (Dena-Paona Tracker) -->
 <div class="content" id="loansContent">
   <div class="card">
     <h3>🤝 Add Lent / Borrow Record</h3>
@@ -346,7 +336,10 @@
     <input type="text" id="loanPerson" class="form-input" placeholder="Person Name (e.g. Rahim Bhai)">
     <input type="number" step="0.01" id="loanAmt" class="form-input" placeholder="Total Amount (€)">
     <input type="text" id="loanNote" class="form-input" placeholder="Note / Reason (Optional, e.g. Loan for ticket)">
-    <button class="submit-btn" onclick="saveLoan()">+ Save Record</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" onclick="saveLoan()">+ Save Record</button>
+    </div>
   </div>
 
   <div class="card">
@@ -355,7 +348,7 @@
   </div>
 </div>
 
-<!-- 4. EXPENSE SUMMARY -->
+<!-- 5. EXPENSE SUMMARY -->
 <div class="content" id="summaryContent">
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
@@ -394,16 +387,19 @@
   </div>
 </div>
 
-<!-- 5. DOCUMENT VAULT & EXPIRY REMINDER -->
+<!-- 6. DOCUMENT VAULT & EXPIRY REMINDER -->
 <div class="content" id="docsContent">
   <div class="card">
     <h3>📄 Upload & Track Documents</h3>
-    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso di Soggiorno, Passport, Carta d'Identità)">
+    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso di Soggiorno, Passport)">
     <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Expiry Date (Meyad Ses Date):</label>
     <input type="date" id="docExpiry" class="form-input">
     <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Upload Photo / PDF (Optional):</label>
     <input type="file" id="docFile" accept="image/*,application/pdf" class="form-input">
-    <button class="submit-btn" onclick="saveDoc()">💾 Save Document</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" onclick="saveDoc()">💾 Save Document</button>
+    </div>
   </div>
 
   <div class="card">
@@ -412,15 +408,18 @@
   </div>
 </div>
 
-<!-- 6. APPOINTMENT TRACKER -->
+<!-- 7. APPOINTMENT TRACKER -->
 <div class="content" id="apptsContent">
   <div class="card">
     <h3>📅 Add New Appointment</h3>
-    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura Fingerprints, Dottore, Comune)">
+    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura Fingerprints, Dottore)">
     <input type="date" id="apptDate" class="form-input">
     <input type="time" id="apptTime" class="form-input">
     <input type="text" id="apptLocation" class="form-input" placeholder="Location / Address (Optional)">
-    <button class="submit-btn" onclick="saveAppt()">+ Save Appointment</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" onclick="saveAppt()">+ Save Appointment</button>
+    </div>
   </div>
 
   <div class="card">
@@ -429,7 +428,7 @@
   </div>
 </div>
 
-<!-- 7. LAWYER INFO & ITALY EMERGENCY -->
+<!-- 8. LAWYER INFO & ITALY EMERGENCY -->
 <div class="content" id="contactsContent">
   <div class="card">
     <h3>⚖️ My Lawyer (Avvocato) Info</h3>
@@ -437,31 +436,40 @@
     <input type="tel" id="lawyerPhone" class="form-input" placeholder="Phone / WhatsApp Number">
     <input type="text" id="lawyerAddress" class="form-input" placeholder="Studio / Office Address">
     <input type="text" id="lawyerNote" class="form-input" placeholder="Case Note / Reference">
-    <button class="submit-btn" onclick="saveLawyer()">💾 Save Lawyer Info</button>
+    
+    <div class="btn-container">
+      <button class="submit-btn" onclick="saveLawyer()">💾 Save Lawyer Info</button>
+    </div>
     <div id="lawyerDisplay" style="margin-top:12px;"></div>
   </div>
 
   <div class="card">
     <h3>🚨 Italy Emergency Contacts</h3>
-    <button class="submit-btn" style="background:#dc2626; color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:112'">🚓 Carabinieri / Emergency (112)</button>
-    <button class="submit-btn" style="background:#ea580c; color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:118'">🚑 Ambulance / Pronto Soccorso (118)</button>
-    <button class="submit-btn" style="background:#b91c1c; color:#fff; margin-bottom:8px;" onclick="window.location.href='tel:115'">🚒 Fire Brigade / Vigili del Fuoco (115)</button>
-    <button class="submit-btn" style="background:#1d4ed8; color:#fff;" onclick="window.location.href='tel:113'">👮 Polizia di Stato (113)</button>
+    <div class="btn-container" style="border-top:none; padding-top:0;">
+      <button class="submit-btn" style="background:#dc2626; color:#fff;" onclick="window.location.href='tel:112'">🚓 Carabinieri / Emergency (112)</button>
+      <button class="submit-btn" style="background:#ea580c; color:#fff;" onclick="window.location.href='tel:118'">🚑 Ambulance / Pronto Soccorso (118)</button>
+      <button class="submit-btn" style="background:#b91c1c; color:#fff;" onclick="window.location.href='tel:115'">🚒 Fire Brigade / Vigili del Fuoco (115)</button>
+      <button class="submit-btn" style="background:#1d4ed8; color:#fff;" onclick="window.location.href='tel:113'">👮 Polizia di Stato (113)</button>
+    </div>
   </div>
 </div>
 
-<!-- 8. BACKUP & SECURITY -->
+<!-- 9. BACKUP & SECURITY -->
 <div class="content" id="backupContent">
   <div class="card">
     <h3>🔒 App Security PIN</h3>
     <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Set New 4-Digit PIN (Leave empty to disable)">
-    <button class="submit-btn" onclick="updatePin()">Update PIN</button>
+    <div class="btn-container">
+      <button class="submit-btn" onclick="updatePin()">Update PIN</button>
+    </div>
   </div>
 
   <div class="card">
     <h3>☁️ Export Backup</h3>
     <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download a backup file or copy backup text to save in Apple Notes / WhatsApp.</p>
-    <button class="submit-btn" onclick="exportBackup()">📥 Download / Copy Backup (.json)</button>
+    <div class="btn-container" style="border-top:none; padding-top:0;">
+      <button class="submit-btn" onclick="exportBackup()">📥 Download / Copy Backup (.json)</button>
+    </div>
   </div>
 
   <div class="card">
@@ -469,14 +477,14 @@
     
     <label style="font-size:13px; color:var(--accent); font-weight:bold; display:block; margin-top:6px;">Option 1: Paste Backup Text (From Notes / WhatsApp)</label>
     <textarea id="pasteBackupInput" class="form-input" style="height:100px; font-family:monospace; font-size:12px;" placeholder='Paste your copied backup text here (starting with { "pin": ... })'></textarea>
-    <button class="submit-btn" style="background:var(--success); color:#000;" onclick="importBackupFromText()">✅ Restore from Pasted Text</button>
-
-    <hr style="border:0; border-top:1px solid var(--border); margin:18px 0;">
-
-    <label style="font-size:13px; color:var(--text-muted); display:block;">Option 2: Upload Backup File (.json):</label>
+    
+    <label style="font-size:13px; color:var(--text-muted); display:block; margin-top:12px;">Option 2: Upload Backup File (.json):</label>
     <input type="file" id="importFile" accept=".json,application/json,text/plain" class="form-input" onchange="importBackup(event)">
     
-    <button class="reset-btn" style="margin-top:25px;" onclick="resetAll()">⚠️ Reset All App Data</button>
+    <div class="btn-container">
+      <button class="submit-btn" style="background:var(--success); color:#000;" onclick="importBackupFromText()">✅ Restore from Pasted Text</button>
+      <button class="reset-btn" onclick="resetAll()">⚠️ Reset All App Data</button>
+    </div>
   </div>
 </div>
 
@@ -541,7 +549,6 @@
     }
   }
 
-  // Save & Render
   function saveDB() {
     try {
       localStorage.setItem("probashiEssentialDB", JSON.stringify(db));
@@ -563,50 +570,34 @@
     document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // Show Full Details Modal when clicking any search result item
+  // Show Full Details Modal
   function showSearchItemDetail(title, htmlContent) {
     document.getElementById("modalTitle").innerText = title;
     document.getElementById("modalBody").innerHTML = htmlContent;
     document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Professional Inline Global Search
-  function clearGlobalSearch() {
-    document.getElementById("globalSearchInput").value = "";
-    document.getElementById("clearSearchBtn").style.display = "none";
-    document.getElementById("inlineSearchResults").style.display = "none";
-  }
-
-  function handleGlobalSearch(query) {
+  // Dedicated Tab Search Implementation
+  function handleTabSearch(query) {
     let q = query.trim().toLowerCase();
-    let resultsBox = document.getElementById("inlineSearchResults");
-    let clearBtn = document.getElementById("clearSearchBtn");
+    let resultsBox = document.getElementById("tabSearchResults");
 
     if (!q) {
-      resultsBox.style.display = "none";
-      clearBtn.style.display = "none";
+      resultsBox.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">Type something to search across all your records...</p>`;
       return;
     }
-
-    clearBtn.style.display = "block";
 
     let matchedLoans = db.loans.filter(l => l.person.toLowerCase().includes(q) || (l.note && l.note.toLowerCase().includes(q)));
     let matchedBanks = db.banks.filter(b => b.name.toLowerCase().includes(q) || (b.card && b.card.toLowerCase().includes(q)));
     let matchedExpenses = db.expenses.filter(e => e.where.toLowerCase().includes(q) || e.sourceName.toLowerCase().includes(q) || (e.date && e.date.includes(q)));
     let matchedDocs = db.docs.filter(d => d.name.toLowerCase().includes(q));
 
-    let html = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <span style="font-size:13px; font-weight:bold; color:var(--text-color);">Results for "${query}" <span style="font-size:11px; color:var(--accent);">(Tap to view full info)</span></span>
-        <button class="small-btn danger" style="padding:3px 8px;" onclick="clearGlobalSearch()">Close ✖</button>
-      </div>`;
-
+    let html = "";
     let hasResults = false;
 
-    // Loans Results
     if (matchedLoans.length > 0) {
       hasResults = true;
-      html += `<div class="search-section-title">🤝 Lent & Borrow (Dena-Paona)</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Lent & Borrow Records</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
         let detailHtml = `
@@ -615,12 +606,10 @@
           <p><b>Amount:</b> €${l.amt.toFixed(2)}</p>
           <p><b>Note / Reason:</b> ${l.note || 'No note added'}</p>
           <p style="font-size:11px; color:var(--text-muted);">Record ID: ${l.id}</p>
-        `;
-        // Escape quotes for inline click
-        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+        `.replace(/"/g, '&quot;');
 
         html += `
-          <div class="search-item" onclick="showSearchItemDetail('🤝 Loan Record: ${l.person}', '${escapedHtml}')">
+          <div class="item-row" onclick="showSearchItemDetail('🤝 Loan Record: ${l.person}', '${detailHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>👤 ${l.person}</strong>
               <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size:15px;">€${l.amt.toFixed(2)}</span>
@@ -632,20 +621,18 @@
       });
     }
 
-    // Banks Results
     if (matchedBanks.length > 0) {
       hasResults = true;
-      html += `<div class="search-section-title">💳 Bank Cards & Balances</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💳 Bank Cards</div>`;
       matchedBanks.forEach(b => {
         let detailHtml = `
           <p><b>Bank / Card Name:</b> ${b.name}</p>
           <p><b>Card Number / Last 4 Digits:</b> ${b.card || 'Not provided'}</p>
           <p><b>Current Balance:</b> €${b.bal.toFixed(2)}</p>
-        `;
-        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+        `.replace(/"/g, '&quot;');
 
         html += `
-          <div class="search-item" onclick="showSearchItemDetail('💳 Bank Card: ${b.name}', '${escapedHtml}')">
+          <div class="item-row" onclick="showSearchItemDetail('💳 Bank Card: ${b.name}', '${detailHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <div>
                 <strong>💳 ${b.name}</strong>
@@ -658,10 +645,9 @@
       });
     }
 
-    // Expenses Results
     if (matchedExpenses.length > 0) {
       hasResults = true;
-      html += `<div class="search-section-title">💸 Card & Cash Transactions</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💸 Transactions</div>`;
       matchedExpenses.forEach(e => {
         let detailHtml = `
           <p><b>Where / What:</b> ${e.where}</p>
@@ -669,11 +655,10 @@
           <p><b>Exact Date:</b> ${e.date}</p>
           <p><b>Payment Source:</b> ${e.sourceType === 'cash' ? '💵 Cash in Hand' : '💳 Bank: ' + e.sourceName}</p>
           <p style="font-size:11px; color:var(--text-muted);">Transaction ID: ${e.id}</p>
-        `;
-        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+        `.replace(/"/g, '&quot;');
 
         html += `
-          <div class="search-item" onclick="showSearchItemDetail('🧾 Transaction: ${e.where}', '${escapedHtml}')">
+          <div class="item-row" onclick="showSearchItemDetail('🧾 Transaction: ${e.where}', '${detailHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${e.where}</strong>
               <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
@@ -683,10 +668,9 @@
       });
     }
 
-    // Docs Results
     if (matchedDocs.length > 0) {
       hasResults = true;
-      html += `<div class="search-section-title">📄 Saved Documents</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">📄 Documents</div>`;
       matchedDocs.forEach((d, dIdx) => {
         let st = getExpiryStatus(d.exp);
         let detailHtml = `
@@ -694,11 +678,10 @@
           <p><b>Expiry Date:</b> ${d.exp}</p>
           <p><b>Status:</b> ${st.text}</p>
           ${d.fileData ? `<button class="submit-btn success" style="margin-top:10px;" onclick="viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '<p style="color:var(--text-muted);">No file attached.</p>'}
-        `;
-        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+        `.replace(/"/g, '&quot;');
 
         html += `
-          <div class="search-item" onclick="showSearchItemDetail('📄 Document: ${d.name}', '${escapedHtml}')">
+          <div class="item-row" onclick="showSearchItemDetail('📄 Document: ${d.name}', '${detailHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${d.name}</strong>
               <span class="badge ${st.cls}">${st.text}</span>
@@ -709,11 +692,10 @@
     }
 
     if (!hasResults) {
-      html += `<p style="font-size:13px; color:var(--text-muted); margin:6px 0;">No matching records found.</p>`;
+      html = `<p style="font-size:13px; color:var(--text-muted);">No matching records found for "<b>${query}</b>".</p>`;
     }
 
     resultsBox.innerHTML = html;
-    resultsBox.style.display = "block";
   }
 
   function viewDocByObj(docIndex) {
@@ -726,24 +708,16 @@
     document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Cash in Hand
   function adjustCash(mode) {
     if (mode === "set") {
       let val = prompt("Enter total physical Cash in Hand (€):", db.cash);
-      if (val !== null && !isNaN(parseFloat(val))) {
-        db.cash = Math.max(0, parseFloat(val));
-        saveDB();
-      }
+      if (val !== null && !isNaN(parseFloat(val))) { db.cash = Math.max(0, parseFloat(val)); saveDB(); }
     } else if (mode === "add") {
       let val = prompt("How much Cash (€) did you add to your wallet?");
-      if (val !== null && !isNaN(parseFloat(val))) {
-        db.cash += parseFloat(val);
-        saveDB();
-      }
+      if (val !== null && !isNaN(parseFloat(val))) { db.cash += parseFloat(val); saveDB(); }
     }
   }
 
-  // Spend Modal
   function openSpendModal(type, bankIndex) {
     activeSpendContext = { type, bankIndex };
     let titleEl = document.getElementById("spendModalTitle");
@@ -762,18 +736,14 @@
     document.getElementById("spendWhere").value = "";
     document.getElementById("spendDate").value = new Date().toISOString().slice(0, 10);
     document.getElementById("spendModal").style.display = "flex";
-    setTimeout(() => document.getElementById("spendAmt").focus(), 100);
   }
 
-  function setSpendTag(label) {
-    document.getElementById("spendWhere").value = label;
-  }
+  function setSpendTag(label) { document.getElementById("spendWhere").value = label; }
 
   function confirmSpend() {
     let amt = parseFloat(document.getElementById("spendAmt").value);
     let where = document.getElementById("spendWhere").value.trim() || "General Expense";
     let date = document.getElementById("spendDate").value || new Date().toISOString().slice(0, 10);
-
     if (isNaN(amt) || amt <= 0) return alert("⚠️ Please enter a valid amount (€).");
 
     let sourceName = "Cash in Hand";
@@ -791,7 +761,6 @@
 
     db.expenses.push({ id: Date.now(), amount: amt, where, date, sourceType, sourceName });
     db.expenses.sort((a, b) => new Date(b.date) - new Date(a.date) || b.id - a.id);
-
     document.getElementById("spendModal").style.display = "none";
     saveDB();
   }
@@ -800,11 +769,9 @@
     let idx = db.expenses.findIndex(e => e.id === id);
     if (idx === -1) return;
     let exp = db.expenses[idx];
-
     if (confirm(`Delete this €${exp.amount.toFixed(2)} expense (${exp.where})?\n\nTip: Balance will be refunded.`)) {
-      if (exp.sourceType === "cash") {
-        db.cash += exp.amount;
-      } else {
+      if (exp.sourceType === "cash") db.cash += exp.amount;
+      else {
         let bIdx = db.banks.findIndex(b => b.name.toLowerCase() === exp.sourceName.toLowerCase());
         if (bIdx !== -1) db.banks[bIdx].bal += exp.amount;
       }
@@ -813,13 +780,11 @@
     }
   }
 
-  // Lent & Borrow
   function saveLoan() {
     let type = document.getElementById("loanType").value;
     let person = document.getElementById("loanPerson").value.trim();
     let amt = parseFloat(document.getElementById("loanAmt").value);
     let note = document.getElementById("loanNote").value.trim();
-
     if (!person || isNaN(amt) || amt <= 0) return alert("⚠️ Enter Person Name and Amount.");
 
     db.loans.push({ id: Date.now(), type, person, amt, note });
@@ -845,14 +810,12 @@
     }
 
     document.getElementById("settleAmt").value = loan.amt;
-
     let destSelect = document.getElementById("settleDestination");
     let opts = `<option value="cash">💵 Cash in Hand</option>`;
     db.banks.forEach((b, i) => {
       opts += `<option value="bank_${i}">💳 ${b.name} (${b.card || 'Card'}) - €${b.bal.toFixed(2)}</option>`;
     });
     destSelect.innerHTML = opts;
-
     document.getElementById("settleModal").style.display = "flex";
   }
 
@@ -860,7 +823,6 @@
     let loan = db.loans[activeSettleIndex];
     let settleAmt = parseFloat(document.getElementById("settleAmt").value);
     let dest = document.getElementById("settleDestination").value;
-
     if (isNaN(settleAmt) || settleAmt <= 0) return alert("⚠️ Enter valid amount.");
 
     let destName = "Cash in Hand";
@@ -882,7 +844,7 @@
       alert(`✅ Fully settled with ${loan.person}! Balance updated (${destName}).`);
     } else {
       loan.amt -= settleAmt;
-      alert(`✅ Partially settled €${settleAmt.toFixed(2)} with ${loan.person}! Remaining: €${loan.amt.toFixed(2)}. Balance updated (${destName}).`);
+      alert(`✅ Partially settled €${settleAmt.toFixed(2)} with ${loan.person}! Remaining: €${loan.amt.toFixed(2)}. Balance updated.`);
     }
 
     document.getElementById("settleModal").style.display = "none";
@@ -890,13 +852,9 @@
   }
 
   function deleteLoan(index) {
-    if (confirm("Delete this record without adjusting main balance?")) {
-      db.loans.splice(index, 1);
-      saveDB();
-    }
+    if (confirm("Delete this record without adjusting main balance?")) { db.loans.splice(index, 1); saveDB(); }
   }
 
-  // Banks & Balances
   function findExistingBankIndex(name, card) {
     return db.banks.findIndex(b =>
       (name !== "" && b.name.toLowerCase() === name.toLowerCase()) ||
@@ -943,7 +901,7 @@
         let prevBal = db.banks[existingIndex].bal;
         db.banks[existingIndex].bal = prevBal + amt;
         if (card) db.banks[existingIndex].card = card;
-        alert(`✅ Added €${amt.toFixed(2)} to ${db.banks[existingIndex].name}!\nPrevious: €${prevBal.toFixed(2)} ➔ New Balance: €${db.banks[existingIndex].bal.toFixed(2)}`);
+        alert(`✅ Added €${amt.toFixed(2)} to ${db.banks[existingIndex].name}!\nNew Balance: €${db.banks[existingIndex].bal.toFixed(2)}`);
       } else {
         db.banks.push({ name, card, bal: amt });
       }
@@ -954,17 +912,14 @@
     document.getElementById("bankBal").value = "";
     document.getElementById("bankDetectNotice").style.display = "none";
     document.getElementById("bankSubmitBtn").innerText = "+ Add New Card";
-    document.getElementById("bankBal").placeholder = "Amount to Add / Initial Balance (€)";
+    document.getElementById("bankBal").placeholder = "Initial Balance (€)";
     saveDB();
   }
 
   function quickDepositBank(index) {
     let bank = db.banks[index];
     let val = prompt(`How much Euro (€) did you add/deposit to ${bank.name}?`);
-    if (val !== null && !isNaN(parseFloat(val))) {
-      bank.bal += parseFloat(val);
-      saveDB();
-    }
+    if (val !== null && !isNaN(parseFloat(val))) { bank.bal += parseFloat(val); saveDB(); }
   }
 
   function editBankCard(index) {
@@ -981,16 +936,12 @@
 
   function deleteBank(index) {
     if (confirm("Delete this bank card?")) {
-      if (editingBankIndex === index) {
-        editingBankIndex = -1;
-        document.getElementById("bankSubmitBtn").innerText = "+ Add New Card";
-      }
+      if (editingBankIndex === index) { editingBankIndex = -1; document.getElementById("bankSubmitBtn").innerText = "+ Add New Card"; }
       db.banks.splice(index, 1);
       saveDB();
     }
   }
 
-  // Piggy Bank
   function saveGoal() {
     let title = document.getElementById("goalTitle").value.trim();
     let target = parseFloat(document.getElementById("goalTarget").value);
@@ -1014,25 +965,17 @@
 
   function addMoneyToGoal(index) {
     let addAmt = prompt(`How much € do you want to add to "${db.goals[index].title}"?`);
-    if (addAmt !== null && !isNaN(parseFloat(addAmt))) {
-      db.goals[index].saved += parseFloat(addAmt);
-      saveDB();
-    }
+    if (addAmt !== null && !isNaN(parseFloat(addAmt))) { db.goals[index].saved += parseFloat(addAmt); saveDB(); }
   }
 
   function deleteGoal(index) {
-    if (confirm("Delete this goal?")) {
-      db.goals.splice(index, 1);
-      saveDB();
-    }
+    if (confirm("Delete this goal?")) { db.goals.splice(index, 1); saveDB(); }
   }
 
-  // Docs
   function saveDoc() {
     let name = document.getElementById("docName").value.trim();
     let exp = document.getElementById("docExpiry").value;
     let fileInput = document.getElementById("docFile");
-
     if (!name || !exp) return alert("⚠️ Please enter Document Name and Expiry Date.");
 
     if (fileInput.files && fileInput.files[0]) {
@@ -1088,19 +1031,16 @@
     today.setHours(0, 0, 0, 0);
     let exp = new Date(expDateStr);
     let diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-
     if (diffDays < 0) return { text: `Expired (${Math.abs(diffDays)} days ago)`, cls: "badge-exp", urgent: true, diff: diffDays };
     else if (diffDays <= 45) return { text: `Expires in ${diffDays} days!`, cls: "badge-warn", urgent: true, diff: diffDays };
     else return { text: `Valid (${diffDays} days left)`, cls: "badge-ok", urgent: false, diff: diffDays };
   }
 
-  // Appointments
   function saveAppt() {
     let title = document.getElementById("apptTitle").value.trim();
     let date = document.getElementById("apptDate").value;
     let time = document.getElementById("apptTime").value;
     let location = document.getElementById("apptLocation").value.trim();
-
     if (!title || !date) return alert("⚠️ Enter Appointment Purpose and Date.");
 
     db.appts.push({ title, date, time, location });
@@ -1116,7 +1056,6 @@
     if (confirm("Remove this appointment?")) { db.appts.splice(index, 1); saveDB(); }
   }
 
-  // Lawyer Info
   function saveLawyer() {
     db.lawyer = {
       name: document.getElementById("lawyerName").value.trim(),
@@ -1128,7 +1067,6 @@
     alert("✅ Lawyer details saved!");
   }
 
-  // Export & Restore Backup
   function exportBackup() {
     let dataStr = JSON.stringify(db, null, 2);
     let isIOSStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
@@ -1136,11 +1074,10 @@
     if (isIOSStandalone) {
       let modalTitle = document.getElementById("modalTitle");
       let modalBody = document.getElementById("modalBody");
-      
       modalTitle.innerText = "☁️ Copy Backup Text";
       modalBody.innerHTML = `
         <p style="font-size:12px; color:var(--text-muted); margin-top:0;">
-          Nicher button-e click kore copy korun, ebong Apple Notes-e paste kore save rakhun. Pore restore korte oi text-ta copy kore "Option 1: Paste Backup Text" box-e dilei hobe!
+          Nicher button-e click kore copy korun, ebong Apple Notes-e paste kore save rakhun.
         </p>
         <textarea id="exportTextArea" class="form-input" style="height:150px; font-family:monospace; font-size:11px;" readonly>${dataStr}</textarea>
         <button class="submit-btn" style="margin-top:10px;" onclick="copyExportText()">📋 Copy All Backup Text</button>
@@ -1160,11 +1097,7 @@
   function copyExportText() {
     let copyArea = document.getElementById("exportTextArea");
     copyArea.select();
-    copyArea.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyArea.value).then(() => {
-      alert("✅ Copied! Ekhon Apple Notes-e paste kore save rakhun.");
-    }).catch(() => {
-      document.execCommand("copy");
       alert("✅ Copied! Ekhon Apple Notes-e paste kore save rakhun.");
     });
   }
@@ -1172,12 +1105,8 @@
   function importBackupFromText() {
     let rawText = document.getElementById("pasteBackupInput").value.trim();
     if (!rawText) return alert("⚠️ Please paste your copied backup text first.");
-    
     try {
-      let cleanedText = rawText
-        .replace(/[\u201C\u201D]/g, '"')
-        .replace(/[\u2018\u2019]/g, "'");
-
+      let cleanedText = rawText.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
       let parsed = JSON.parse(cleanedText);
       if (parsed && typeof parsed === "object") {
         db = parsed;
@@ -1186,13 +1115,9 @@
         if (!Array.isArray(db.loans)) db.loans = [];
         saveDB();
         document.getElementById("pasteBackupInput").value = "";
-        alert("✅ Backup restored successfully from pasted text!");
-      } else {
-        alert("❌ Invalid backup format.");
+        alert("✅ Backup restored successfully!");
       }
-    } catch (err) {
-      alert("❌ Invalid JSON text! Make sure you copied the full text starting with { and ending with }.");
-    }
+    } catch (err) { alert("❌ Invalid JSON text!"); }
   }
 
   function importBackup(event) {
@@ -1208,7 +1133,7 @@
           if (!Array.isArray(db.expenses)) db.expenses = [];
           if (!Array.isArray(db.loans)) db.loans = [];
           saveDB();
-          alert("✅ Backup restored successfully from file!");
+          alert("✅ Backup restored successfully!");
         }
       } catch (err) { alert("❌ Invalid backup file."); }
     };
@@ -1222,7 +1147,6 @@
     }
   }
 
-  // Expense Summary Tab
   function clearSummaryDateFilter() {
     document.getElementById("summaryDatePicker").value = "";
     renderExpenseSummary();
@@ -1237,7 +1161,7 @@
     if (selectedDate) {
       filtered = db.expenses.filter(e => e.date === selectedDate);
       document.getElementById("summaryHeading").innerText = `📅 Expense on ${selectedDate}`;
-      document.getElementById("summarySubtext").innerText = `Showing expenses for ${selectedDate}. Click "This Month" to return.`;
+      document.getElementById("summarySubtext").innerText = `Showing expenses for ${selectedDate}.`;
       document.getElementById("sumTotalLabel").innerText = `Total Spent on ${selectedDate}`;
       document.getElementById("breakdownHeading").innerText = `📍 Where You Spent on ${selectedDate}`;
       document.getElementById("resetDateFilterBtn").style.display = "inline-block";
@@ -1306,7 +1230,6 @@
     }
   }
 
-  // Render All UI
   function renderAll() {
     document.getElementById("cashDisplay").innerText = `€${db.cash.toFixed(2)}`;
     document.getElementById("dashTotalCash").innerText = `€${db.cash.toFixed(2)}`;
@@ -1441,7 +1364,7 @@
           <strong>👨‍⚖️ ${db.lawyer.name || 'Advocate'}</strong>
           ${db.lawyer.address ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📍 ${db.lawyer.address}</div>` : ""}
           ${db.lawyer.note ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📝 ${db.lawyer.note}</div>` : ""}
-          ${db.lawyer.phone ? `<button class="submit-sbtn" style="background:var(--success); color:#000; margin-top:10px;" onclick="window.location.href='tel:${db.lawyer.phone}'">📞 Call Lawyer (${db.lawyer.phone})</button>` : ""}
+          ${db.lawyer.phone ? `<button class="submit-btn" style="background:var(--success); color:#000; margin-top:10px;" onclick="window.location.href='tel:${db.lawyer.phone}'">📞 Call Lawyer (${db.lawyer.phone})</button>` : ""}
         </div>`;
     } else {
       document.getElementById("lawyerDisplay").innerHTML = "";
