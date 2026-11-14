@@ -56,10 +56,9 @@
   .search-section-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
   .search-section-title:first-child { margin-top: 0; }
   
-  /* Clickable Search Item */
+  /* Search Item Card */
   .search-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; transition: border-color 0.2s; }
-  .search-item:hover { border-color: var(--accent); }
-  .search-item-details { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); font-size: 12px; color: var(--text-muted); }
+  .search-item:hover, .search-item:active { border-color: var(--accent); }
 
   .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-bottom: 15px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
   .tabs::-webkit-scrollbar { display: none; }
@@ -166,14 +165,14 @@
   </div>
 </div>
 
-<!-- File & Backup Preview Modal -->
+<!-- File & Search Detail Preview Modal -->
 <div id="previewModal" class="modal" onclick="closeModal('previewModal', event)">
   <div class="modal-content" style="text-align:center;" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-      <strong id="modalTitle">Preview</strong>
+      <strong id="modalTitle">Full Details</strong>
       <button class="small-btn danger" onclick="document.getElementById('previewModal').style.display='none'">Close ✖</button>
     </div>
-    <div id="modalBody"></div>
+    <div id="modalBody" style="text-align:left;"></div>
   </div>
 </div>
 
@@ -243,7 +242,7 @@
   </div>
 </div>
 
-<!-- Inline Search Results Panel (Click to toggle full details) -->
+<!-- Inline Search Results Panel (Tap item to open full popup details) -->
 <div id="inlineSearchResults"></div>
 
 <!-- Navigation Tabs -->
@@ -564,18 +563,14 @@
     document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // Toggle Search Item Details (Click to Expand Full Info)
-  function toggleSearchDetail(headerEl) {
-    let detailsEl = headerEl.nextElementSibling;
-    if (detailsEl.style.display === "block") {
-      detailsEl.style.display = "none";
-    } else {
-      // Close others or keep open
-      detailsEl.style.display = "block";
-    }
+  // Show Full Details Modal when clicking any search result item
+  function showSearchItemDetail(title, htmlContent) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalBody").innerHTML = htmlContent;
+    document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Professional Inline Global Search with Expandable Details
+  // Professional Inline Global Search
   function clearGlobalSearch() {
     document.getElementById("globalSearchInput").value = "";
     document.getElementById("clearSearchBtn").style.display = "none";
@@ -602,9 +597,9 @@
 
     let html = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <span style="font-size:13px; font-weight:bold; color:var(--text-color);">Results for "${query}" <span style="font-size:11px; color:var(--accent);">(Tap item to view full details)</span></span>
+        <span style="font-size:13px; font-weight:bold; color:var(--text-color);">Results for "${query}" <span style="font-size:11px; color:var(--accent);">(Tap to view full info)</span></span>
         <button class="small-btn danger" style="padding:3px 8px;" onclick="clearGlobalSearch()">Close ✖</button>
-      `;
+      </div>`;
 
     let hasResults = false;
 
@@ -614,21 +609,24 @@
       html += `<div class="search-section-title">🤝 Lent & Borrow (Dena-Paona)</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
+        let detailHtml = `
+          <p><b>Person Name:</b> ${l.person}</p>
+          <p><b>Type:</b> ${isPabo ? '🟢 Lent to someone (Kar kache Pabo)' : '🔴 Borrowed from someone (Kar kache Dibo)'}</p>
+          <p><b>Amount:</b> €${l.amt.toFixed(2)}</p>
+          <p><b>Note / Reason:</b> ${l.note || 'No note added'}</p>
+          <p style="font-size:11px; color:var(--text-muted);">Record ID: ${l.id}</p>
+        `;
+        // Escape quotes for inline click
+        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+
         html += `
-          <div class="search-item" onclick="toggleSearchDetail(this)">
+          <div class="search-item" onclick="showSearchItemDetail('🤝 Loan Record: ${l.person}', '${escapedHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>👤 ${l.person}</strong>
               <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size:15px;">€${l.amt.toFixed(2)}</span>
             </div>
-            <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">
-              ${isPabo ? '🟢 Pabo (Lent)' : '🔴 Dibo (Borrowed)'} <span style="font-size:10px; color:var(--accent);">👆 Tap for full info</span>
-            </div>
-            <div class="search-item-details">
-              <div><b>Type:</b> ${isPabo ? 'Lent to someone (Kar kache Pabo)' : 'Borrowed from someone (Kar kache Dibo)'}</div>
-              <div><b>Person Name:</b> ${l.person}</div>
-              <div><b>Remaining Amount:</b> €${l.amt.toFixed(2)}</div>
-              <div><b>Note / Reason:</b> ${l.note || 'No note added'}</div>
-              <div><b>Record ID:</b> ${l.id}</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">
+              ${isPabo ? '🟢 Pabo (Lent)' : '🔴 Dibo (Borrowed)'} ${l.note ? ' • ' + l.note : ''} <span style="color:var(--accent); float:right;">👆 Tap for full info</span>
             </div>
           </div>`;
       });
@@ -639,8 +637,15 @@
       hasResults = true;
       html += `<div class="search-section-title">💳 Bank Cards & Balances</div>`;
       matchedBanks.forEach(b => {
+        let detailHtml = `
+          <p><b>Bank / Card Name:</b> ${b.name}</p>
+          <p><b>Card Number / Last 4 Digits:</b> ${b.card || 'Not provided'}</p>
+          <p><b>Current Balance:</b> €${b.bal.toFixed(2)}</p>
+        `;
+        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+
         html += `
-          <div class="search-item" onclick="toggleSearchDetail(this)">
+          <div class="search-item" onclick="showSearchItemDetail('💳 Bank Card: ${b.name}', '${escapedHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <div>
                 <strong>💳 ${b.name}</strong>
@@ -649,11 +654,6 @@
               <span style="color:var(--success); font-weight:bold; font-size:15px;">€${b.bal.toFixed(2)}</span>
             </div>
             <div style="font-size:10px; color:var(--accent); margin-top:3px;">👆 Tap for full details</div>
-            <div class="search-item-details">
-              <div><b>Bank / Card Name:</b> ${b.name}</div>
-              <div><b>Card Number / Last 4 Digits:</b> ${b.card || 'Not provided'}</div>
-              <div><b>Current Available Balance:</b> €${b.bal.toFixed(2)}</div>
-            </div>
           </div>`;
       });
     }
@@ -663,20 +663,22 @@
       hasResults = true;
       html += `<div class="search-section-title">💸 Card & Cash Transactions</div>`;
       matchedExpenses.forEach(e => {
+        let detailHtml = `
+          <p><b>Where / What:</b> ${e.where}</p>
+          <p><b>Amount Spent:</b> €${e.amount.toFixed(2)}</p>
+          <p><b>Exact Date:</b> ${e.date}</p>
+          <p><b>Payment Source:</b> ${e.sourceType === 'cash' ? '💵 Cash in Hand' : '💳 Bank: ' + e.sourceName}</p>
+          <p style="font-size:11px; color:var(--text-muted);">Transaction ID: ${e.id}</p>
+        `;
+        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+
         html += `
-          <div class="search-item" onclick="toggleSearchDetail(this)">
+          <div class="search-item" onclick="showSearchItemDetail('🧾 Transaction: ${e.where}', '${escapedHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${e.where}</strong>
               <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} • Via: <b>${e.sourceName}</b> <span style="color:var(--accent); font-size:10px;">👆 Tap</span></div>
-            <div class="search-item-details">
-              <div><b>Expense Where / What:</b> ${e.where}</div>
-              <div><b>Amount Spent:</b> €${e.amount.toFixed(2)}</div>
-              <div><b>Exact Date:</b> ${e.date}</div>
-              <div><b>Payment Source:</b> ${e.sourceType === 'cash' ? '💵 Cash in Hand' : '💳 Bank: ' + e.sourceName}</div>
-              <div><b>Transaction ID:</b> ${e.id}</div>
-            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} • Via: <b>${e.sourceName}</b> <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -687,19 +689,21 @@
       html += `<div class="search-section-title">📄 Saved Documents</div>`;
       matchedDocs.forEach((d, dIdx) => {
         let st = getExpiryStatus(d.exp);
+        let detailHtml = `
+          <p><b>Document Name:</b> ${d.name}</p>
+          <p><b>Expiry Date:</b> ${d.exp}</p>
+          <p><b>Status:</b> ${st.text}</p>
+          ${d.fileData ? `<button class="submit-btn success" style="margin-top:10px;" onclick="viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '<p style="color:var(--text-muted);">No file attached.</p>'}
+        `;
+        let escapedHtml = detailHtml.replace(/"/g, '&quot;');
+
         html += `
-          <div class="search-item" onclick="toggleSearchDetail(this)">
+          <div class="search-item" onclick="showSearchItemDetail('📄 Document: ${d.name}', '${escapedHtml}')">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${d.name}</strong>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry Date: ${d.exp} <span style="color:var(--accent); font-size:10px;">👆 Tap for file</span></div>
-            <div class="search-item-details">
-              <div><b>Document Name:</b> ${d.name}</div>
-              <div><b>Expiry Date (Meyad Ses):</b> ${d.exp}</div>
-              <div><b>Status:</b> ${st.text}</div>
-              ${d.fileData ? `<button class="small-btn success" style="margin-top:6px;" onclick="event.stopPropagation(); viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '<div style="margin-top:4px; color:var(--text-muted);">No file attached to this document.</div>'}
-            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry Date: ${d.exp} <span style="color:var(--accent); float:right;">👆 Tap for file/info</span></div>
           </div>`;
       });
     }
