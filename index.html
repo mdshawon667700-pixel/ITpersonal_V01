@@ -617,15 +617,16 @@
     </div>
   </div>
 
-  <div class="card">
-    <h3>📋 <span data-i18n="active_lent_title">Active Lent & Borrow List</span></h3>
-    <div id="loanList"></div>
-  </div>
-
+  <!-- Settled History (Archive) - ওপরের দিকে আনা হয়েছে -->
   <div class="card" style="border-color:rgba(50,215,75,0.3);">
     <h3 style="color:var(--success);">✅ <span data-i18n="settled_history_title">Settled History (Archive)</span></h3>
     <p style="font-size:12px; color:var(--text-muted); margin-top:0;" data-i18n="settled_history_desc">Tap any settled record to view complete entry date, settled date, and history.</p>
     <div id="settledLoanList"></div>
+  </div>
+
+  <div class="card">
+    <h3>📋 <span data-i18n="active_lent_title">Active Lent & Borrow List</span></h3>
+    <div id="loanList"></div>
   </div>
 </div>
 
@@ -677,13 +678,7 @@
     </div>
   </div>
 
-  <!-- Active Appointments Section -->
-  <div class="card">
-    <h3>🗓️ <span data-i18n="my_appointments">My Appointments</span></h3>
-    <div id="apptList"></div>
-  </div>
-
-  <!-- Appointment History & Archive Section (Collapsible Button to avoid vertical clutter) -->
+  <!-- Appointment History & Archive Section - ওপরের দিকে আনা হয়েছে -->
   <div class="card">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <h3 style="margin:0;">🗂️ <span data-i18n="appt_archive_title">Appointment History & Archive</span></h3>
@@ -694,6 +689,12 @@
     <div id="apptArchiveContainer" style="display:none; margin-top:12px; border-top:1px solid var(--border); padding-top:12px;">
       <div id="apptArchiveList"></div>
     </div>
+  </div>
+
+  <!-- Active Appointments Section -->
+  <div class="card">
+    <h3>🗓️ <span data-i18n="my_appointments">My Appointments</span></h3>
+    <div id="apptList"></div>
   </div>
 </div>
 
