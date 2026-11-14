@@ -30,7 +30,7 @@
     --warning: #d97706;
     --success: #16a34a;
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 50px; }
   header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   h1 { font-size: 20px; color: var(--accent); margin: 0; display: flex; align-items: center; gap: 8px; }
@@ -48,7 +48,7 @@
   .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
   .form-input { padding: 10px; margin: 6px 0; width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; }
   
-  /* Buttons moved cleanly to bottom of cards/sections */
+  /* Buttons strictly placed at the bottom of cards */
   .btn-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 12px; }
   .submit-btn, .reset-btn { width: 100%; padding: 11px; border-radius: 8px; cursor: pointer; border: none; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
   .submit-btn { background: var(--accent); color: #000; }
@@ -91,7 +91,7 @@
   .badge-dibo { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
 
   .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; }
-  .item-row:hover { border-color: var(--accent); }
+  .item-row:active { border-color: var(--accent); background: var(--card-bg); }
   .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
   .small-btn { padding: 6px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 12px; font-weight: 600; }
   .small-btn.danger { border-color: var(--danger); color: var(--danger); }
@@ -103,7 +103,7 @@
   .chip { padding: 5px 10px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-muted); font-size: 12px; cursor: pointer; }
   .chip:hover, .chip:active { border-color: var(--accent); color: var(--accent); }
 
-  /* Modal */
+  /* Modal Popup */
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
   .modal-content { background: var(--card-bg); border: 1px solid var(--border); padding: 18px; border-radius: 12px; max-width: 480px; width: 100%; max-height: 85vh; overflow: auto; }
   .modal-content img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
@@ -218,7 +218,7 @@
   <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
 </header>
 
-<!-- Navigation Tabs (Search is now a dedicated tab) -->
+<!-- Navigation Tabs -->
 <div class="tabs">
   <div class="tab active" onclick="switchTab('home', this)">🏠 Home</div>
   <div class="tab" onclick="switchTab('search', this)">🔍 Search</div>
@@ -269,7 +269,7 @@
   </div>
 </div>
 
-<!-- 2. SEARCH TAB (Dedicated Tab for Searching Everything) -->
+<!-- 2. SEARCH TAB -->
 <div class="content" id="searchContent">
   <div class="card">
     <h3>🔍 Universal Search</h3>
@@ -325,7 +325,7 @@
   </div>
 </div>
 
-<!-- 4. LENT & BORROW (Dena-Paona Tracker) -->
+<!-- 4. LENT & BORROW -->
 <div class="content" id="loansContent">
   <div class="card">
     <h3>🤝 Add Lent / Borrow Record</h3>
@@ -335,7 +335,7 @@
     </select>
     <input type="text" id="loanPerson" class="form-input" placeholder="Person Name (e.g. Rahim Bhai)">
     <input type="number" step="0.01" id="loanAmt" class="form-input" placeholder="Total Amount (€)">
-    <input type="text" id="loanNote" class="form-input" placeholder="Note / Reason (Optional, e.g. Loan for ticket)">
+    <input type="text" id="loanNote" class="form-input" placeholder="Note / Reason (Optional)">
     
     <div class="btn-container">
       <button class="submit-btn" onclick="saveLoan()">+ Save Record</button>
@@ -358,7 +358,7 @@
         <button id="resetDateFilterBtn" class="small-btn accent" style="display:none; padding:7px 10px;" onclick="clearSummaryDateFilter()">This Month</button>
       </div>
     </div>
-    <p id="summarySubtext" style="font-size:12px; color:var(--text-muted); margin-top:0;">Showing running month summary (Banks + Cash). Select a date above to check a specific day.</p>
+    <p id="summarySubtext" style="font-size:12px; color:var(--text-muted); margin-top:0;">Showing running month summary (Banks + Cash).</p>
 
     <div class="summary-grid" style="margin-bottom:0;">
       <div class="summary-box full" style="border-color:var(--danger);">
@@ -387,12 +387,12 @@
   </div>
 </div>
 
-<!-- 6. DOCUMENT VAULT & EXPIRY REMINDER -->
+<!-- 6. DOCUMENT VAULT -->
 <div class="content" id="docsContent">
   <div class="card">
     <h3>📄 Upload & Track Documents</h3>
-    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso di Soggiorno, Passport)">
-    <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Expiry Date (Meyad Ses Date):</label>
+    <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso, Passport)">
+    <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Expiry Date:</label>
     <input type="date" id="docExpiry" class="form-input">
     <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Upload Photo / PDF (Optional):</label>
     <input type="file" id="docFile" accept="image/*,application/pdf" class="form-input">
@@ -408,14 +408,14 @@
   </div>
 </div>
 
-<!-- 7. APPOINTMENT TRACKER -->
+<!-- 7. APPOINTMENTS -->
 <div class="content" id="apptsContent">
   <div class="card">
     <h3>📅 Add New Appointment</h3>
-    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura Fingerprints, Dottore)">
+    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura, Dottore)">
     <input type="date" id="apptDate" class="form-input">
     <input type="time" id="apptTime" class="form-input">
-    <input type="text" id="apptLocation" class="form-input" placeholder="Location / Address (Optional)">
+    <input type="text" id="apptLocation" class="form-input" placeholder="Location (Optional)">
     
     <div class="btn-container">
       <button class="submit-btn" onclick="saveAppt()">+ Save Appointment</button>
@@ -428,14 +428,14 @@
   </div>
 </div>
 
-<!-- 8. LAWYER INFO & ITALY EMERGENCY -->
+<!-- 8. LAWYER & EMERGENCY -->
 <div class="content" id="contactsContent">
   <div class="card">
     <h3>⚖️ My Lawyer (Avvocato) Info</h3>
     <input type="text" id="lawyerName" class="form-input" placeholder="Lawyer Name">
-    <input type="tel" id="lawyerPhone" class="form-input" placeholder="Phone / WhatsApp Number">
-    <input type="text" id="lawyerAddress" class="form-input" placeholder="Studio / Office Address">
-    <input type="text" id="lawyerNote" class="form-input" placeholder="Case Note / Reference">
+    <input type="tel" id="lawyerPhone" class="form-input" placeholder="Phone Number">
+    <input type="text" id="lawyerAddress" class="form-input" placeholder="Studio Address">
+    <input type="text" id="lawyerNote" class="form-input" placeholder="Case Note">
     
     <div class="btn-container">
       <button class="submit-btn" onclick="saveLawyer()">💾 Save Lawyer Info</button>
@@ -458,7 +458,7 @@
 <div class="content" id="backupContent">
   <div class="card">
     <h3>🔒 App Security PIN</h3>
-    <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Set New 4-Digit PIN (Leave empty to disable)">
+    <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Set New 4-Digit PIN">
     <div class="btn-container">
       <button class="submit-btn" onclick="updatePin()">Update PIN</button>
     </div>
@@ -466,17 +466,16 @@
 
   <div class="card">
     <h3>☁️ Export Backup</h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download a backup file or copy backup text to save in Apple Notes / WhatsApp.</p>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download backup file or copy text for Notes/WhatsApp.</p>
     <div class="btn-container" style="border-top:none; padding-top:0;">
       <button class="submit-btn" onclick="exportBackup()">📥 Download / Copy Backup (.json)</button>
     </div>
   </div>
 
   <div class="card">
-    <h3>📲 Restore Backup (2 Easy Ways)</h3>
-    
-    <label style="font-size:13px; color:var(--accent); font-weight:bold; display:block; margin-top:6px;">Option 1: Paste Backup Text (From Notes / WhatsApp)</label>
-    <textarea id="pasteBackupInput" class="form-input" style="height:100px; font-family:monospace; font-size:12px;" placeholder='Paste your copied backup text here (starting with { "pin": ... })'></textarea>
+    <h3>📲 Restore Backup</h3>
+    <label style="font-size:13px; color:var(--accent); font-weight:bold; display:block; margin-top:6px;">Option 1: Paste Backup Text</label>
+    <textarea id="pasteBackupInput" class="form-input" style="height:100px; font-family:monospace; font-size:12px;" placeholder='Paste copied backup text here'></textarea>
     
     <label style="font-size:13px; color:var(--text-muted); display:block; margin-top:12px;">Option 2: Upload Backup File (.json):</label>
     <input type="file" id="importFile" accept=".json,application/json,text/plain" class="form-input" onchange="importBackup(event)">
@@ -489,7 +488,6 @@
 </div>
 
 <script>
-  // Database Initialization
   let db = JSON.parse(localStorage.getItem("probashiEssentialDB")) || {
     pin: "1234",
     cash: 0,
@@ -510,7 +508,6 @@
   let activeSpendContext = { type: "cash", bankIndex: -1 };
   let activeSettleIndex = -1;
 
-  // PIN Lock Logic
   let enteredPin = "";
   if (db.pin && db.pin.length === 4) {
     document.getElementById("pinLockScreen").style.display = "flex";
@@ -554,7 +551,7 @@
       localStorage.setItem("probashiEssentialDB", JSON.stringify(db));
       renderAll();
     } catch (e) {
-      alert("⚠️ Storage limit reached! Please export backup.");
+      alert("⚠️ Storage limit reached!");
     }
   }
 
@@ -570,20 +567,20 @@
     document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // Show Full Details Modal
+  // FIXED: Reliable Full Details Popup Modal Handler
   function showSearchItemDetail(title, htmlContent) {
     document.getElementById("modalTitle").innerText = title;
     document.getElementById("modalBody").innerHTML = htmlContent;
     document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Dedicated Tab Search Implementation
+  // Universal Search Tab Logic
   function handleTabSearch(query) {
     let q = query.trim().toLowerCase();
     let resultsBox = document.getElementById("tabSearchResults");
 
     if (!q) {
-      resultsBox.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">Type something to search across all your records...</p>`;
+      resultsBox.innerHTML = `<p style="font-size:13px; color:var(--text-muted);">Type something to search across all records...</p>`;
       return;
     }
 
@@ -597,26 +594,18 @@
 
     if (matchedLoans.length > 0) {
       hasResults = true;
-      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Lent & Borrow Records</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Loans</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
-        let detailHtml = `
-          <p><b>Person Name:</b> ${l.person}</p>
-          <p><b>Type:</b> ${isPabo ? '🟢 Lent to someone (Kar kache Pabo)' : '🔴 Borrowed from someone (Kar kache Dibo)'}</p>
-          <p><b>Amount:</b> €${l.amt.toFixed(2)}</p>
-          <p><b>Note / Reason:</b> ${l.note || 'No note added'}</p>
-          <p style="font-size:11px; color:var(--text-muted);">Record ID: ${l.id}</p>
-        `.replace(/"/g, '&quot;');
-
+        let detailHtml = `<p><b>Person:</b> ${l.person}</p><p><b>Type:</b> ${isPabo ? 'Lent (Pabo)' : 'Borrowed (Dibo)'}</p><p><b>Amount:</b> €${l.amt.toFixed(2)}</p><p><b>Note:</b> ${l.note || 'None'}</p>`;
+        
         html += `
-          <div class="item-row" onclick="showSearchItemDetail('🤝 Loan Record: ${l.person}', '${detailHtml}')">
+          <div class="item-row" onclick='showSearchItemDetail("🤝 Loan: ${l.person}", ${JSON.stringify(detailHtml)})'>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>👤 ${l.person}</strong>
-              <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size:15px;">€${l.amt.toFixed(2)}</span>
+              <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold;">€${l.amt.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">
-              ${isPabo ? '🟢 Pabo (Lent)' : '🔴 Dibo (Borrowed)'} ${l.note ? ' • ' + l.note : ''} <span style="color:var(--accent); float:right;">👆 Tap for full info</span>
-            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${isPabo ? '🟢 Pabo' : '🔴 Dibo'} <span style="color:var(--accent); float:right;">👆 Tap for full info</span></div>
           </div>`;
       });
     }
@@ -625,22 +614,15 @@
       hasResults = true;
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💳 Bank Cards</div>`;
       matchedBanks.forEach(b => {
-        let detailHtml = `
-          <p><b>Bank / Card Name:</b> ${b.name}</p>
-          <p><b>Card Number / Last 4 Digits:</b> ${b.card || 'Not provided'}</p>
-          <p><b>Current Balance:</b> €${b.bal.toFixed(2)}</p>
-        `.replace(/"/g, '&quot;');
-
+        let detailHtml = `<p><b>Bank:</b> ${b.name}</p><p><b>Card:</b> ${b.card || 'None'}</p><p><b>Balance:</b> €${b.bal.toFixed(2)}</p>`;
+        
         html += `
-          <div class="item-row" onclick="showSearchItemDetail('💳 Bank Card: ${b.name}', '${detailHtml}')">
+          <div class="item-row" onclick='showSearchItemDetail("💳 Bank: ${b.name}", ${JSON.stringify(detailHtml)})'>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <strong>💳 ${b.name}</strong>
-                <div style="font-size:11px; color:var(--text-muted);">${b.card || 'No Card No.'}</div>
-              </div>
-              <span style="color:var(--success); font-weight:bold; font-size:15px;">€${b.bal.toFixed(2)}</span>
+              <strong>💳 ${b.name}</strong>
+              <span style="color:var(--success); font-weight:bold;">€${b.bal.toFixed(2)}</span>
             </div>
-            <div style="font-size:10px; color:var(--accent); margin-top:3px;">👆 Tap for full details</div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.card || ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -649,21 +631,15 @@
       hasResults = true;
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💸 Transactions</div>`;
       matchedExpenses.forEach(e => {
-        let detailHtml = `
-          <p><b>Where / What:</b> ${e.where}</p>
-          <p><b>Amount Spent:</b> €${e.amount.toFixed(2)}</p>
-          <p><b>Exact Date:</b> ${e.date}</p>
-          <p><b>Payment Source:</b> ${e.sourceType === 'cash' ? '💵 Cash in Hand' : '💳 Bank: ' + e.sourceName}</p>
-          <p style="font-size:11px; color:var(--text-muted);">Transaction ID: ${e.id}</p>
-        `.replace(/"/g, '&quot;');
-
+        let detailHtml = `<p><b>Where:</b> ${e.where}</p><p><b>Amount:</b> €${e.amount.toFixed(2)}</p><p><b>Date:</b> ${e.date}</p><p><b>Source:</b> ${e.sourceName}</p>`;
+        
         html += `
-          <div class="item-row" onclick="showSearchItemDetail('🧾 Transaction: ${e.where}', '${detailHtml}')">
+          <div class="item-row" onclick='showSearchItemDetail("🧾 Expense: ${e.where}", ${JSON.stringify(detailHtml)})'>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${e.where}</strong>
               <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} • Via: <b>${e.sourceName}</b> <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -673,20 +649,16 @@
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">📄 Documents</div>`;
       matchedDocs.forEach((d, dIdx) => {
         let st = getExpiryStatus(d.exp);
-        let detailHtml = `
-          <p><b>Document Name:</b> ${d.name}</p>
-          <p><b>Expiry Date:</b> ${d.exp}</p>
-          <p><b>Status:</b> ${st.text}</p>
-          ${d.fileData ? `<button class="submit-btn success" style="margin-top:10px;" onclick="viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '<p style="color:var(--text-muted);">No file attached.</p>'}
-        `.replace(/"/g, '&quot;');
-
+        let detailHtml = `<p><b>Document:</b> ${d.name}</p><p><b>Expiry:</b> ${d.exp}</p><p><b>Status:</b> ${st.text}</p>` + 
+          (d.fileData ? `<button class="submit-btn success" style="margin-top:10px;" onclick="viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '');
+        
         html += `
-          <div class="item-row" onclick="showSearchItemDetail('📄 Document: ${d.name}', '${detailHtml}')">
+          <div class="item-row" onclick='showSearchItemDetail("📄 Document: ${d.name}", ${JSON.stringify(detailHtml)})'>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${d.name}</strong>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry Date: ${d.exp} <span style="color:var(--accent); float:right;">👆 Tap for file/info</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry: ${d.exp} <span style="color:var(--accent); float:right;">👆 Tap for file/info</span></div>
           </div>`;
       });
     }
@@ -769,7 +741,7 @@
     let idx = db.expenses.findIndex(e => e.id === id);
     if (idx === -1) return;
     let exp = db.expenses[idx];
-    if (confirm(`Delete this €${exp.amount.toFixed(2)} expense (${exp.where})?\n\nTip: Balance will be refunded.`)) {
+    if (confirm(`Delete this €${exp.amount.toFixed(2)} expense (${exp.where})?`)) {
       if (exp.sourceType === "cash") db.cash += exp.amount;
       else {
         let bIdx = db.banks.findIndex(b => b.name.toLowerCase() === exp.sourceName.toLowerCase());
@@ -803,17 +775,17 @@
 
     if (loan.type === "pabo") {
       titleEl.innerText = `🟢 Receive Money from ${loan.person}`;
-      infoEl.innerHTML = `Total Due: <b>€${loan.amt.toFixed(2)}</b>. When ${loan.person} returns this money, where should it go?`;
+      infoEl.innerHTML = `Total Due: <b>€${loan.amt.toFixed(2)}</b>. Where should it go?`;
     } else {
-      titleEl.innerText = `🔴 Pay / Clear Debt to ${loan.person}`;
-      infoEl.innerHTML = `Total Owed: <b>€${loan.amt.toFixed(2)}</b>. When you pay ${loan.person}, where will this money come from?`;
+      titleEl.innerText = `🔴 Pay Debt to ${loan.person}`;
+      infoEl.innerHTML = `Total Owed: <b>€${loan.amt.toFixed(2)}</b>. Where will this money come from?`;
     }
 
     document.getElementById("settleAmt").value = loan.amt;
     let destSelect = document.getElementById("settleDestination");
     let opts = `<option value="cash">💵 Cash in Hand</option>`;
     db.banks.forEach((b, i) => {
-      opts += `<option value="bank_${i}">💳 ${b.name} (${b.card || 'Card'}) - €${b.bal.toFixed(2)}</option>`;
+      opts += `<option value="bank_${i}">💳 ${b.name} - €${b.bal.toFixed(2)}</option>`;
     });
     destSelect.innerHTML = opts;
     document.getElementById("settleModal").style.display = "flex";
@@ -825,7 +797,6 @@
     let dest = document.getElementById("settleDestination").value;
     if (isNaN(settleAmt) || settleAmt <= 0) return alert("⚠️ Enter valid amount.");
 
-    let destName = "Cash in Hand";
     if (dest === "cash") {
       if (loan.type === "pabo") db.cash += settleAmt;
       else db.cash = Math.max(0, db.cash - settleAmt);
@@ -833,7 +804,6 @@
       let bIdx = parseInt(dest.split("_")[1]);
       let bank = db.banks[bIdx];
       if (bank) {
-        destName = bank.name;
         if (loan.type === "pabo") bank.bal += settleAmt;
         else bank.bal = Math.max(0, bank.bal - settleAmt);
       }
@@ -841,10 +811,10 @@
 
     if (settleAmt >= loan.amt) {
       db.loans.splice(activeSettleIndex, 1);
-      alert(`✅ Fully settled with ${loan.person}! Balance updated (${destName}).`);
+      alert(`✅ Fully settled with ${loan.person}!`);
     } else {
       loan.amt -= settleAmt;
-      alert(`✅ Partially settled €${settleAmt.toFixed(2)} with ${loan.person}! Remaining: €${loan.amt.toFixed(2)}. Balance updated.`);
+      alert(`✅ Partially settled €${settleAmt.toFixed(2)}!`);
     }
 
     document.getElementById("settleModal").style.display = "none";
@@ -852,7 +822,7 @@
   }
 
   function deleteLoan(index) {
-    if (confirm("Delete this record without adjusting main balance?")) { db.loans.splice(index, 1); saveDB(); }
+    if (confirm("Delete this record?")) { db.loans.splice(index, 1); saveDB(); }
   }
 
   function findExistingBankIndex(name, card) {
@@ -868,19 +838,16 @@
     let card = document.getElementById("cardLast4").value.trim();
     let notice = document.getElementById("bankDetectNotice");
     let btn = document.getElementById("bankSubmitBtn");
-    let balInput = document.getElementById("bankBal");
 
     let idx = findExistingBankIndex(name, card);
     if (idx !== -1) {
       let existing = db.banks[idx];
       notice.style.display = "block";
-      notice.innerHTML = `✅ <b>${existing.name}</b> (${existing.card || 'No No.'}) detected! Current Balance: <b>€${existing.bal.toFixed(2)}</b>. New amount will be <b>added (+)</b>.`;
+      notice.innerHTML = `✅ <b>${existing.name}</b> detected! Balance: €${existing.bal.toFixed(2)}. Amount will be <b>added (+)</b>.`;
       btn.innerText = `+ Add Amount to ${existing.name}`;
-      balInput.placeholder = `Amount to Add to €${existing.bal.toFixed(2)} (€)`;
     } else {
       notice.style.display = "none";
       btn.innerText = "+ Add New Card";
-      balInput.placeholder = "Initial Balance (€)";
     }
   }
 
@@ -893,15 +860,11 @@
     if (editingBankIndex >= 0) {
       db.banks[editingBankIndex] = { name, card, bal: amt };
       editingBankIndex = -1;
-      document.getElementById("bankSubmitBtn").innerText = "+ Add New Card";
-      alert(`✅ Updated ${name} balance to €${amt.toFixed(2)}!`);
     } else {
       let existingIndex = findExistingBankIndex(name, card);
       if (existingIndex !== -1) {
-        let prevBal = db.banks[existingIndex].bal;
-        db.banks[existingIndex].bal = prevBal + amt;
+        db.banks[existingIndex].bal += amt;
         if (card) db.banks[existingIndex].card = card;
-        alert(`✅ Added €${amt.toFixed(2)} to ${db.banks[existingIndex].name}!\nNew Balance: €${db.banks[existingIndex].bal.toFixed(2)}`);
       } else {
         db.banks.push({ name, card, bal: amt });
       }
@@ -912,13 +875,12 @@
     document.getElementById("bankBal").value = "";
     document.getElementById("bankDetectNotice").style.display = "none";
     document.getElementById("bankSubmitBtn").innerText = "+ Add New Card";
-    document.getElementById("bankBal").placeholder = "Initial Balance (€)";
     saveDB();
   }
 
   function quickDepositBank(index) {
     let bank = db.banks[index];
-    let val = prompt(`How much Euro (€) did you add/deposit to ${bank.name}?`);
+    let val = prompt(`How much Euro (€) did you deposit to ${bank.name}?`);
     if (val !== null && !isNaN(parseFloat(val))) { bank.bal += parseFloat(val); saveDB(); }
   }
 
@@ -930,13 +892,12 @@
     editingBankIndex = index;
     document.getElementById("bankDetectNotice").style.display = "none";
     document.getElementById("bankSubmitBtn").innerText = `💾 Save Exact Balance for ${b.name}`;
-    document.getElementById("bankBal").placeholder = "Exact New Balance (€)";
     document.getElementById("bankName").focus();
   }
 
   function deleteBank(index) {
     if (confirm("Delete this bank card?")) {
-      if (editingBankIndex === index) { editingBankIndex = -1; document.getElementById("bankSubmitBtn").innerText = "+ Add New Card"; }
+      if (editingBankIndex === index) editingBankIndex = -1;
       db.banks.splice(index, 1);
       saveDB();
     }
@@ -946,13 +907,12 @@
     let title = document.getElementById("goalTitle").value.trim();
     let target = parseFloat(document.getElementById("goalTarget").value);
     let saved = parseFloat(document.getElementById("goalSaved").value) || 0;
-    if (!title || isNaN(target) || target <= 0) return alert("⚠️ Enter Goal Title and Target Amount.");
+    if (!title || isNaN(target) || target <= 0) return alert("⚠️ Enter Goal Title and Target.");
 
     let existingIdx = db.goals.findIndex(g => g.title.toLowerCase() === title.toLowerCase());
     if (existingIdx !== -1) {
       db.goals[existingIdx].target = target;
       db.goals[existingIdx].saved += saved;
-      alert(`✅ Added €${saved.toFixed(2)} to existing goal "${title}"!`);
     } else {
       db.goals.push({ title, target, saved });
     }
@@ -964,23 +924,23 @@
   }
 
   function addMoneyToGoal(index) {
-    let addAmt = prompt(`How much € do you want to add to "${db.goals[index].title}"?`);
+    let addAmt = prompt(`How much € do you want to add?`);
     if (addAmt !== null && !isNaN(parseFloat(addAmt))) { db.goals[index].saved += parseFloat(addAmt); saveDB(); }
   }
 
   function deleteGoal(index) {
-    if (confirm("Delete this goal?")) { db.goals.splice(index, 1); saveDB(); }
+    if (confirm("Delete goal?")) { db.goals.splice(index, 1); saveDB(); }
   }
 
   function saveDoc() {
     let name = document.getElementById("docName").value.trim();
     let exp = document.getElementById("docExpiry").value;
     let fileInput = document.getElementById("docFile");
-    if (!name || !exp) return alert("⚠️ Please enter Document Name and Expiry Date.");
+    if (!name || !exp) return alert("⚠️ Enter Document Name and Expiry Date.");
 
     if (fileInput.files && fileInput.files[0]) {
       let file = fileInput.files[0];
-      if (file.size > 2.5 * 1024 * 1024) return alert("⚠️ File is too large! Please upload under 2.5 MB.");
+      if (file.size > 2.5 * 1024 * 1024) return alert("⚠️ File too large (Max 2.5MB).");
       let reader = new FileReader();
       reader.onload = function(e) { upsertDoc(name, exp, e.target.result, file.type); };
       reader.readAsDataURL(file);
@@ -994,18 +954,13 @@
     if (existingIdx !== -1) {
       db.docs[existingIdx].exp = exp;
       if (fileData) { db.docs[existingIdx].fileData = fileData; db.docs[existingIdx].fileType = fileType; }
-      alert(`✅ Updated document "${name}"!`);
     } else {
       db.docs.push({ name, exp, fileData, fileType });
     }
-    resetDocForm();
-    saveDB();
-  }
-
-  function resetDocForm() {
     document.getElementById("docName").value = "";
     document.getElementById("docExpiry").value = "";
     document.getElementById("docFile").value = "";
+    saveDB();
   }
 
   function viewDoc(index) {
@@ -1023,7 +978,7 @@
   }
 
   function deleteDoc(index) {
-    if (confirm("Delete this document?")) { db.docs.splice(index, 1); saveDB(); }
+    if (confirm("Delete document?")) { db.docs.splice(index, 1); saveDB(); }
   }
 
   function getExpiryStatus(expDateStr) {
@@ -1031,9 +986,9 @@
     today.setHours(0, 0, 0, 0);
     let exp = new Date(expDateStr);
     let diffDays = Math.ceil((exp - today) / (1000 * 60 * 60 * 24));
-    if (diffDays < 0) return { text: `Expired (${Math.abs(diffDays)} days ago)`, cls: "badge-exp", urgent: true, diff: diffDays };
-    else if (diffDays <= 45) return { text: `Expires in ${diffDays} days!`, cls: "badge-warn", urgent: true, diff: diffDays };
-    else return { text: `Valid (${diffDays} days left)`, cls: "badge-ok", urgent: false, diff: diffDays };
+    if (diffDays < 0) return { text: `Expired (${Math.abs(diffDays)}d ago)`, cls: "badge-exp", urgent: true, diff: diffDays };
+    else if (diffDays <= 45) return { text: `Expires in ${diffDays}d!`, cls: "badge-warn", urgent: true, diff: diffDays };
+    else return { text: `Valid (${diffDays}d left)`, cls: "badge-ok", urgent: false, diff: diffDays };
   }
 
   function saveAppt() {
@@ -1041,7 +996,7 @@
     let date = document.getElementById("apptDate").value;
     let time = document.getElementById("apptTime").value;
     let location = document.getElementById("apptLocation").value.trim();
-    if (!title || !date) return alert("⚠️ Enter Appointment Purpose and Date.");
+    if (!title || !date) return alert("⚠️ Enter Purpose and Date.");
 
     db.appts.push({ title, date, time, location });
     db.appts.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -1053,7 +1008,7 @@
   }
 
   function deleteAppt(index) {
-    if (confirm("Remove this appointment?")) { db.appts.splice(index, 1); saveDB(); }
+    if (confirm("Remove appointment?")) { db.appts.splice(index, 1); saveDB(); }
   }
 
   function saveLawyer() {
@@ -1064,7 +1019,7 @@
       note: document.getElementById("lawyerNote").value.trim()
     };
     saveDB();
-    alert("✅ Lawyer details saved!");
+    alert("✅ Saved!");
   }
 
   function exportBackup() {
@@ -1072,15 +1027,11 @@
     let isIOSStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
 
     if (isIOSStandalone) {
-      let modalTitle = document.getElementById("modalTitle");
-      let modalBody = document.getElementById("modalBody");
-      modalTitle.innerText = "☁️ Copy Backup Text";
-      modalBody.innerHTML = `
-        <p style="font-size:12px; color:var(--text-muted); margin-top:0;">
-          Nicher button-e click kore copy korun, ebong Apple Notes-e paste kore save rakhun.
-        </p>
+      document.getElementById("modalTitle").innerText = "☁️ Copy Backup Text";
+      document.getElementById("modalBody").innerHTML = `
+        <p style="font-size:12px; color:var(--text-muted);">Copy this text and save in Apple Notes:</p>
         <textarea id="exportTextArea" class="form-input" style="height:150px; font-family:monospace; font-size:11px;" readonly>${dataStr}</textarea>
-        <button class="submit-btn" style="margin-top:10px;" onclick="copyExportText()">📋 Copy All Backup Text</button>
+        <button class="submit-btn" style="margin-top:10px;" onclick="copyExportText()">📋 Copy Text</button>
       `;
       document.getElementById("previewModal").style.display = "flex";
     } else {
@@ -1097,27 +1048,20 @@
   function copyExportText() {
     let copyArea = document.getElementById("exportTextArea");
     copyArea.select();
-    navigator.clipboard.writeText(copyArea.value).then(() => {
-      alert("✅ Copied! Ekhon Apple Notes-e paste kore save rakhun.");
-    });
+    navigator.clipboard.writeText(copyArea.value).then(() => alert("✅ Copied!"));
   }
 
   function importBackupFromText() {
     let rawText = document.getElementById("pasteBackupInput").value.trim();
-    if (!rawText) return alert("⚠️ Please paste your copied backup text first.");
+    if (!rawText) return alert("⚠️ Paste backup text first.");
     try {
-      let cleanedText = rawText.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
-      let parsed = JSON.parse(cleanedText);
+      let parsed = JSON.parse(rawText);
       if (parsed && typeof parsed === "object") {
         db = parsed;
-        if (typeof db.cash !== "number") db.cash = 0;
-        if (!Array.isArray(db.expenses)) db.expenses = [];
-        if (!Array.isArray(db.loans)) db.loans = [];
         saveDB();
-        document.getElementById("pasteBackupInput").value = "";
-        alert("✅ Backup restored successfully!");
+        alert("✅ Restored successfully!");
       }
-    } catch (err) { alert("❌ Invalid JSON text!"); }
+    } catch (err) { alert("❌ Invalid JSON text."); }
   }
 
   function importBackup(event) {
@@ -1127,24 +1071,14 @@
     reader.onload = function(e) {
       try {
         let parsed = JSON.parse(e.target.result);
-        if (parsed && typeof parsed === "object") {
-          db = parsed;
-          if (typeof db.cash !== "number") db.cash = 0;
-          if (!Array.isArray(db.expenses)) db.expenses = [];
-          if (!Array.isArray(db.loans)) db.loans = [];
-          saveDB();
-          alert("✅ Backup restored successfully!");
-        }
-      } catch (err) { alert("❌ Invalid backup file."); }
+        if (parsed && typeof parsed === "object") { db = parsed; saveDB(); alert("✅ Restored!"); }
+      } catch (err) { alert("❌ Invalid file."); }
     };
     reader.readAsText(file);
   }
 
   function resetAll() {
-    if (confirm("⚠️ Are you sure? This will delete ALL data!")) {
-      localStorage.removeItem("probashiEssentialDB");
-      location.reload();
-    }
+    if (confirm("⚠️ Delete ALL data?")) { localStorage.removeItem("probashiEssentialDB"); location.reload(); }
   }
 
   function clearSummaryDateFilter() {
@@ -1161,18 +1095,13 @@
     if (selectedDate) {
       filtered = db.expenses.filter(e => e.date === selectedDate);
       document.getElementById("summaryHeading").innerText = `📅 Expense on ${selectedDate}`;
-      document.getElementById("summarySubtext").innerText = `Showing expenses for ${selectedDate}.`;
-      document.getElementById("sumTotalLabel").innerText = `Total Spent on ${selectedDate}`;
-      document.getElementById("breakdownHeading").innerText = `📍 Where You Spent on ${selectedDate}`;
+      document.getElementById("sumTotalLabel").innerText = `Total Spent`;
       document.getElementById("resetDateFilterBtn").style.display = "inline-block";
       document.getElementById("dateDetailsCard").style.display = "block";
-      document.getElementById("dateDetailsHeading").innerText = `🧾 Transactions on ${selectedDate}`;
     } else {
       filtered = db.expenses.filter(e => e.date && e.date.startsWith(runningMonth));
       document.getElementById("summaryHeading").innerText = `📊 ${monthLabel} Summary`;
-      document.getElementById("summarySubtext").innerText = `Running month summary (Banks + Cash).`;
-      document.getElementById("sumTotalLabel").innerText = `Total Spent in ${monthLabel}`;
-      document.getElementById("breakdownHeading").innerText = `📍 Where You Spent in ${monthLabel}`;
+      document.getElementById("sumTotalLabel").innerText = `Total Spent`;
       document.getElementById("resetDateFilterBtn").style.display = "none";
       document.getElementById("dateDetailsCard").style.display = "none";
     }
@@ -1196,38 +1125,9 @@
     let catHTML = "";
     sortedCats.forEach(([cat, amt]) => {
       let pct = totalPeriod > 0 ? (amt / totalPeriod) * 100 : 0;
-      catHTML += `
-        <div style="margin-bottom:12px;">
-          <div style="display:flex; justify-content:space-between; font-size:13px;">
-            <strong>${cat}</strong>
-            <span><b style="color:var(--danger);">€${amt.toFixed(2)}</b> (${pct.toFixed(0)}%)</span>
-          </div>
-          <div class="progress-bar"><div class="progress-bar-inner spend" style="width:${pct}%"></div></div>
-        </div>`;
+      catHTML += `<div style="margin-bottom:12px;"><div style="display:flex; justify-content:space-between; font-size:13px;"><strong>${cat}</strong><span><b style="color:var(--danger);">€${amt.toFixed(2)}</b></span></div><div class="progress-bar"><div class="progress-bar-inner spend" style="width:${pct}%"></div></div></div>`;
     });
-    document.getElementById("sumCategoryBreakdown").innerHTML = catHTML || `<p style="font-size:13px; color:var(--text-muted);">No expenses recorded.</p>`;
-
-    if (selectedDate) {
-      let histHTML = "";
-      filtered.forEach(e => {
-        histHTML += `
-          <div class="item-row">
-            <div class="item-header">
-              <div>
-                <strong>${e.where}</strong>
-                <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
-                  <span class="badge badge-src">${e.sourceType === 'cash' ? '💵 ' : '💳 '}${e.sourceName}</span>
-                </div>
-              </div>
-              <div style="text-align:right; display:flex; align-items:center; gap:8px;">
-                <strong style="color:var(--danger); font-size:15px;">-€${e.amount.toFixed(2)}</strong>
-                <button class="small-btn danger" onclick="deleteExpense(${e.id})">🗑️</button>
-              </div>
-            </div>
-          </div>`;
-      });
-      document.getElementById("sumDateHistory").innerHTML = histHTML || `<p style="font-size:13px; color:var(--text-muted);">No transactions found.</p>`;
-    }
+    document.getElementById("sumCategoryBreakdown").innerHTML = catHTML || `<p style="font-size:13px; color:var(--text-muted);">No expenses.</p>`;
   }
 
   function renderAll() {
@@ -1242,25 +1142,23 @@
         <div class="bank-card">
           <div class="bank-card-header">
             <span class="bank-name">${b.name}</span>
-            <div style="display:flex; gap:5px; flex-wrap:wrap;">
-              <button class="small-btn success" onclick="quickDepositBank(${i})">+ Add €</button>
-              <button class="small-btn danger" onclick="openSpendModal('bank', ${i})">- Spend €</button>
-              <button class="small-btn" onclick="editBankCard(${i})">✏️</button>
-              <button class="small-btn danger" onclick="deleteBank(${i})">🗑️</button>
-            </div>
           </div>
           <div class="card-num">${b.card || "No Card Number"}</div>
           <div class="card-bal">€${b.bal.toFixed(2)}</div>
+          <div style="display:flex; gap:5px; margin-top:10px;">
+            <button class="small-btn success" style="flex:1;" onclick="quickDepositBank(${i})">+ Add</button>
+            <button class="small-btn danger" style="flex:1;" onclick="openSpendModal('bank', ${i})">- Spend</button>
+            <button class="small-btn" onclick="editBankCard(${i})">✏️</button>
+            <button class="small-btn danger" onclick="deleteBank(${i})">🗑️</button>
+          </div>
         </div>`;
     });
-    document.getElementById("bankList").innerHTML = bankHTML || `<p style="font-size:13px; color:var(--text-muted);">No bank cards added yet.</p>`;
+    document.getElementById("bankList").innerHTML = bankHTML || `<p style="font-size:13px; color:var(--text-muted);">No cards added.</p>`;
     document.getElementById("dashTotalBank").innerText = `€${totalBank.toFixed(2)}`;
     document.getElementById("dashGrandTotal").innerText = `€${(totalBank + db.cash).toFixed(2)}`;
 
     let nowMonth = new Date().toISOString().slice(0, 7);
-    let thisMonthSpent = db.expenses
-      .filter(e => e.date && e.date.startsWith(nowMonth))
-      .reduce((acc, cur) => acc + cur.amount, 0);
+    let thisMonthSpent = db.expenses.filter(e => e.date && e.date.startsWith(nowMonth)).reduce((a, c) => a + c.amount, 0);
     document.getElementById("dashMonthSpent").innerText = `€${thisMonthSpent.toFixed(2)}`;
 
     renderExpenseSummary();
@@ -1273,20 +1171,17 @@
           <div class="item-header">
             <div>
               <strong>👤 ${l.person}</strong>
-              <div style="font-size:13px; margin:4px 0;">
-                <span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Kar kache Pabo (Lent)' : '🔴 Kar kache Dibo (Borrowed)'}</span>
-              </div>
+              <div style="font-size:13px; margin:4px 0;"><span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Pabo' : '🔴 Dibo'}</span></div>
               <div style="font-size:16px; font-weight:bold; color:${isPabo ? 'var(--success)' : 'var(--danger)'};">€${l.amt.toFixed(2)}</div>
-              ${l.note ? `<div style="font-size:12px; color:var(--text-muted); margin-top:2px;">📝 ${l.note}</div>` : ""}
             </div>
             <div style="display:flex; flex-direction:column; gap:5px;">
-              <button class="small-btn success" onclick="openSettleModal(${i})">${isPabo ? '📥 Received' : '📤 Paid / Return'}</button>
-              <button class="small-btn danger" onclick="deleteLoan(${i})">🗑️ Delete</button>
+              <button class="small-btn success" onclick="openSettleModal(${i})">Settle</button>
+              <button class="small-btn danger" onclick="deleteLoan(${i})">Delete</button>
             </div>
           </div>
         </div>`;
     });
-    document.getElementById("loanList").innerHTML = loanHTML || `<p style="font-size:13px; color:var(--text-muted);">No active lent or borrow records.</p>`;
+    document.getElementById("loanList").innerHTML = loanHTML || `<p style="font-size:13px; color:var(--text-muted);">No records.</p>`;
 
     let totalPiggy = 0;
     let goalHTML = "";
@@ -1298,30 +1193,30 @@
           <div class="item-header">
             <div>
               <strong>🎯 ${g.title}</strong>
-              <div style="font-size:13px; color:var(--text-muted); margin-top:3px;">Saved: <b style="color:var(--success);">€${g.saved.toFixed(2)}</b> / €${g.target.toFixed(2)} (${pct.toFixed(0)}%)</div>
+              <div style="font-size:13px; color:var(--text-muted);">Saved: €${g.saved.toFixed(2)} / €${g.target.toFixed(2)}</div>
             </div>
             <div>
-              <button class="small-btn success" onclick="addMoneyToGoal(${i})">+ Add €</button>
+              <button class="small-btn success" onclick="addMoneyToGoal(${i})">+ Add</button>
               <button class="small-btn danger" onclick="deleteGoal(${i})">🗑️</button>
             </div>
           </div>
           <div class="progress-bar"><div class="progress-bar-inner" style="width:${pct}%"></div></div>
         </div>`;
     });
-    document.getElementById("goalList").innerHTML = goalHTML || `<p style="font-size:13px; color:var(--text-muted);">No dream goals set yet.</p>`;
+    document.getElementById("goalList").innerHTML = goalHTML || `<p style="font-size:13px; color:var(--text-muted);">No goals.</p>`;
     document.getElementById("dashTotalPiggy").innerText = `€${totalPiggy.toFixed(2)}`;
 
     let docHTML = "", dashDocHTML = "", alertHTML = "";
     db.docs.forEach((d, i) => {
       let st = getExpiryStatus(d.exp);
-      if (st.urgent) alertHTML += `<div class="alert-banner ${st.diff >= 0 ? 'warning' : ''}">⚠️ <b>${d.name}</b>: ${st.text} (Exp: ${d.exp})</div>`;
+      if (st.urgent) alertHTML += `<div class="alert-banner ${st.diff >= 0 ? 'warning' : ''}">⚠️ <b>${d.name}</b>: ${st.text}</div>`;
       dashDocHTML += `<div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);"><span>${d.name}</span><span class="badge ${st.cls}">${st.text}</span></div>`;
       docHTML += `
         <div class="item-row">
           <div class="item-header">
             <div>
               <strong>${d.name}</strong>
-              <div style="font-size:12px; color:var(--text-muted); margin:4px 0;">Expiry: ${d.exp}</div>
+              <div style="font-size:12px; color:var(--text-muted);">Expiry: ${d.exp}</div>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
             <div style="display:flex; gap:5px;">
@@ -1332,43 +1227,21 @@
         </div>`;
     });
     document.getElementById("expiryAlertsArea").innerHTML = alertHTML;
-    document.getElementById("docList").innerHTML = docHTML || `<p style="font-size:13px; color:var(--text-muted);">No documents uploaded.</p>`;
-    document.getElementById("dashDocStatus").innerHTML = dashDocHTML || "No documents added yet.";
+    document.getElementById("docList").innerHTML = docHTML || `<p style="font-size:13px; color:var(--text-muted);">No documents.</p>`;
+    document.getElementById("dashDocStatus").innerHTML = dashDocHTML || "No documents.";
 
     let apptHTML = "", dashApptHTML = "";
     db.appts.forEach((a, i) => {
-      apptHTML += `
-        <div class="item-row">
-          <div class="item-header">
-            <div>
-              <strong>📌 ${a.title}</strong>
-              <div style="font-size:13px; color:var(--accent); margin-top:3px;">🗓️ ${a.date} ${a.time ? 'at ' + a.time : ''}</div>
-              ${a.location ? `<div style="font-size:12px; color:var(--text-muted); margin-top:2px;">📍 ${a.location}</div>` : ""}
-            </div>
-            <button class="small-btn danger" onclick="deleteAppt(${i})">🗑️</button>
-          </div>
-        </div>`;
-      if (i < 3) dashApptHTML += `<div style="padding:6px 0; border-bottom:1px solid var(--border);"><b>${a.title}</b> — <span style="color:var(--accent);">${a.date} ${a.time || ''}</span></div>`;
+      apptHTML += `<div class="item-row"><div class="item-header"><div><strong>📌 ${a.title}</strong><div style="font-size:13px; color:var(--accent);">${a.date}</div></div><button class="small-btn danger" onclick="deleteAppt(${i})">🗑️</button></div></div>`;
+      if (i < 3) dashApptHTML += `<div style="padding:6px 0; border-bottom:1px solid var(--border);"><b>${a.title}</b> — <span style="color:var(--accent);">${a.date}</span></div>`;
     });
-    document.getElementById("apptList").innerHTML = apptHTML || `<p style="font-size:13px; color:var(--text-muted);">No appointments scheduled.</p>`;
-    document.getElementById("dashApptList").innerHTML = dashApptHTML || "No upcoming appointments.";
+    document.getElementById("apptList").innerHTML = apptHTML || `<p style="font-size:13px; color:var(--text-muted);">No appointments.</p>`;
+    document.getElementById("dashApptList").innerHTML = dashApptHTML || "No appointments.";
 
     document.getElementById("lawyerName").value = db.lawyer.name || "";
     document.getElementById("lawyerPhone").value = db.lawyer.phone || "";
     document.getElementById("lawyerAddress").value = db.lawyer.address || "";
     document.getElementById("lawyerNote").value = db.lawyer.note || "";
-
-    if (db.lawyer.name || db.lawyer.phone) {
-      document.getElementById("lawyerDisplay").innerHTML = `
-        <div class="item-row">
-          <strong>👨‍⚖️ ${db.lawyer.name || 'Advocate'}</strong>
-          ${db.lawyer.address ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📍 ${db.lawyer.address}</div>` : ""}
-          ${db.lawyer.note ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📝 ${db.lawyer.note}</div>` : ""}
-          ${db.lawyer.phone ? `<button class="submit-btn" style="background:var(--success); color:#000; margin-top:10px;" onclick="window.location.href='tel:${db.lawyer.phone}'">📞 Call Lawyer (${db.lawyer.phone})</button>` : ""}
-        </div>`;
-    } else {
-      document.getElementById("lawyerDisplay").innerHTML = "";
-    }
   }
 
   renderAll();
