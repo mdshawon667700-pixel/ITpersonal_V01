@@ -3,117 +3,174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ProbashiMate Italy - Essential</title>
+<title>ProbashiMate Italy - Pro Dashboard</title>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'><rect width='1' height='2' fill='%23009246'/><rect x='1' width='1' height='2' fill='%23FFFFFF'/><rect x='2' width='1' height='2' fill='%23CE2B37'/></svg>">
 <style>
   :root {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
+    --bg-color: #0b0f19;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-solid: #1e293b;
     --text-color: #f8fafc;
     --text-muted: #94a3b8;
-    --accent: #d4af37;
-    --accent-hover: #b4941f;
-    --border: #334155;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --success: #22c55e;
+    --accent: #f59e0b;
+    --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --border: rgba(255, 255, 255, 0.08);
+    --danger: #ff453a;
+    --warning: #ff9f0a;
+    --success: #32d74b;
+    --info: #0a84ff;
+    --glass-blur: blur(20px);
+    --apple-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
   }
   [data-theme="light"] {
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --text-color: #0f172a;
-    --text-muted: #64748b;
+    --bg-color: #f2f2f7;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-solid: #ffffff;
+    --text-color: #1c1c1e;
+    --text-muted: #8e8e93;
     --accent: #b8860b;
-    --accent-hover: #996515;
-    --border: #e2e8f0;
-    --danger: #dc2626;
-    --warning: #d97706;
-    --success: #16a34a;
+    --accent-gradient: linear-gradient(135deg, #d4af37 0%, #aa771c 100%);
+    --border: rgba(0, 0, 0, 0.06);
+    --danger: #ff3b30;
+    --warning: #ff9500;
+    --success: #34c759;
+    --info: #007aff;
+    --apple-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 50px; }
-  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  h1 { font-size: 20px; color: var(--accent); margin: 0; display: flex; align-items: center; gap: 8px; }
-  h3 { margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 6px; }
-  .theme-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 60px; -webkit-font-smoothing: antialiased; }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-inline: 4px; }
+  h1 { font-size: 20px; font-weight: 700; color: var(--text-color); margin: 0; display: flex; align-items: center; gap: 8px; letter-spacing: -0.3px; }
+  h3 { margin-top: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; color: var(--text-color); letter-spacing: -0.2px; }
+  .theme-btn { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); color: var(--text-color); padding: 7px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; box-shadow: var(--apple-shadow); transition: transform 0.2s; }
+  .theme-btn:active { transform: scale(0.95); }
 
-  .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-bottom: 15px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
+  .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; margin-bottom: 16px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
   .tabs::-webkit-scrollbar { display: none; }
-  .tab { padding: 9px 12px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; text-align: center; border-radius: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; transition: all 0.2s; }
-  .tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 700; }
+  .tab { padding: 8px 14px; background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; text-align: center; border-radius: 18px; font-size: 13px; font-weight: 500; white-space: nowrap; transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .tab.active { background: var(--text-color); color: var(--bg-color); border-color: transparent; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
   .content { display: none; }
-  .content.active { display: block; }
+  .content.active { display: block; animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-  .form-input { padding: 10px; margin: 6px 0; width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; }
+  .card { background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 20px; padding: 18px; margin-bottom: 14px; box-shadow: var(--apple-shadow); transition: transform 0.2s; }
+  .form-input { padding: 12px 14px; margin: 6px 0; width: 100%; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .form-input:focus { border-color: var(--info); box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.15); }
   
-  /* Bottom Action Container & Professional App-icon Style Buttons */
-  .btn-container { display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 12px; }
-  .app-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.2s; text-align: center; }
+  .custom-date-wrapper { position: relative; margin: 6px 0; }
+  .custom-date-wrapper input[type="date"], .custom-date-wrapper input[type="month"], .custom-date-wrapper input[type="time"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .custom-date-wrapper input::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  [data-theme="light"] .custom-date-wrapper input::-webkit-calendar-picker-indicator {
+    filter: invert(0.2);
+  }
+
+  .btn-container { display: flex; gap: 8px; margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .app-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 10px 8px; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); text-align: center; }
   .app-btn span.icon { font-size: 18px; }
-  .app-btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
-  .app-btn.success { background: rgba(34, 197, 94, 0.15); color: var(--success); border-color: var(--success); }
-  .app-btn.danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); border-color: var(--danger); }
-  .app-btn:active { transform: scale(0.96); }
+  .app-btn.primary { background: var(--text-color); color: var(--bg-color); border-color: transparent; }
+  .app-btn.success { background: rgba(50, 215, 75, 0.12); color: var(--success); border-color: rgba(50, 215, 75, 0.2); }
+  .app-btn.danger { background: rgba(255, 69, 58, 0.12); color: var(--danger); border-color: rgba(255, 69, 58, 0.2); }
+  .app-btn:active { transform: scale(0.96); opacity: 0.85; }
 
-  .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-  .summary-box { background: var(--card-bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
-  .summary-box.full { grid-column: span 2; border-color: var(--accent); }
-  .summary-box span { font-size: 12px; color: var(--text-muted); display: block; }
-  .summary-box strong { font-size: 18px; color: var(--accent); }
+  /* Apple Style Dual Top Grid Cards */
+  .top-stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .top-stat-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 20px; padding: 14px; box-shadow: var(--apple-shadow); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+  .top-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .top-stat-card.eur-card::before { background: var(--info); }
+  .top-stat-card.bdt-card::before { background: var(--success); }
+  .top-stat-title { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; line-height: 1.2; }
+  .top-stat-value { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
 
-  /* Cash Box UI */
-  .cash-card { background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border: 1px solid var(--success); border-radius: 12px; padding: 15px; color: #f8fafc; }
-  .cash-amount { font-size: 24px; font-weight: bold; color: #4ade80; margin-top: 4px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+  .summary-box { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); padding: 14px; border-radius: 16px; box-shadow: var(--apple-shadow); }
+  .summary-box.full { grid-column: span 2; border-color: var(--border); background: linear-gradient(135deg, var(--card-bg) 0%, rgba(245,158,11,0.06) 100%); }
+  .summary-box span { font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: 500; }
+  .summary-box strong { font-size: 18px; color: var(--text-color); font-weight: 700; letter-spacing: -0.3px; }
 
-  /* Bank Card UI */
-  .bank-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--accent); border-radius: 12px; padding: 15px; margin-top: 10px; position: relative; color: #f8fafc; }
+  .chart-box { margin-top: 10px; }
+  .chart-row { margin-bottom: 12px; }
+  .chart-label-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; font-weight: 500; }
+  .bar-track { width: 100%; height: 12px; background: var(--bg-color); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+  .bar-fill { height: 100%; border-radius: 6px; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .bar-last { background: #636366; }
+  .bar-curr { background: var(--danger); }
+  .bar-save { background: var(--success); }
+
+  .trend-pill { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; letter-spacing: -0.2px; }
+  .trend-up { background: rgba(255, 69, 58, 0.15); color: var(--danger); }
+  .trend-down { background: rgba(50, 215, 75, 0.15); color: var(--success); }
+  .trend-neutral { background: rgba(142, 142, 147, 0.15); color: var(--text-muted); }
+
+  .cash-card { background: linear-gradient(135deg, #103b29 0%, #0b0f19 100%); border: 1px solid rgba(50, 215, 75, 0.3); border-radius: 18px; padding: 16px; color: #f8fafc; box-shadow: var(--apple-shadow); }
+  .cash-amount { font-size: 24px; font-weight: bold; color: var(--success); margin-top: 4px; letter-spacing: -0.5px; }
+  .bank-card { background: linear-gradient(135deg, #1e293b 0%, #0b0f19 100%); border: 1px solid var(--border); border-radius: 18px; padding: 16px; margin-top: 12px; position: relative; color: #f8fafc; box-shadow: var(--apple-shadow); }
+  .bdt-card { background: linear-gradient(135deg, #0f3822 0%, #0b0f19 100%); border: 1px solid rgba(50, 215, 75, 0.3); border-radius: 18px; padding: 16px; margin-top: 12px; color: #f8fafc; box-shadow: var(--apple-shadow); }
   .bank-card-header { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-  .bank-name { font-weight: bold; font-size: 16px; color: var(--accent); }
-  .card-num { font-family: monospace; font-size: 14px; letter-spacing: 2px; color: #cbd5e1; margin: 6px 0; }
-  .card-bal { font-size: 22px; font-weight: bold; color: var(--success); }
+  .bank-name { font-weight: 700; font-size: 16px; color: var(--text-color); letter-spacing: -0.2px; }
+  .bdt-name { font-weight: 700; font-size: 16px; color: var(--success); letter-spacing: -0.2px; }
+  .card-num { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; letter-spacing: 2px; color: var(--text-muted); margin: 6px 0; }
+  .card-bal { font-size: 22px; font-weight: 700; color: var(--success); letter-spacing: -0.4px; }
 
-  .detect-notice { background: rgba(34, 197, 94, 0.15); border: 1px solid var(--success); color: var(--success); padding: 8px 10px; border-radius: 8px; font-size: 12px; margin: 4px 0; display: none; }
+  .detect-notice { background: rgba(50, 215, 75, 0.12); border: 1px solid rgba(50, 215, 75, 0.3); color: var(--success); padding: 8px 12px; border-radius: 10px; font-size: 12px; margin: 4px 0; display: none; font-weight: 500; }
 
-  /* Progress Bar */
-  .progress-bar { width: 100%; background: var(--border); border-radius: 6px; overflow: hidden; margin-top: 6px; height: 10px; }
-  .progress-bar-inner { height: 100%; background: var(--success); width: 0%; transition: width 0.3s; }
+  .progress-bar { width: 100%; background: var(--bg-color); border-radius: 6px; overflow: hidden; margin-top: 6px; height: 10px; border: 1px solid var(--border); }
+  .progress-bar-inner { height: 100%; background: var(--success); width: 0%; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
   .progress-bar-inner.spend { background: var(--danger); }
 
-  /* Alerts & Badges */
-  .alert-banner { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); color: var(--danger); padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 13px; }
-  .alert-banner.warning { background: rgba(245, 158, 11, 0.15); border-color: var(--warning); color: var(--warning); }
-  .badge { padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; display: inline-block; }
-  .badge-ok { background: rgba(34, 197, 94, 0.2); color: var(--success); }
-  .badge-warn { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-  .badge-exp { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-  .badge-pabo { background: rgba(34, 197, 94, 0.2); color: var(--success); }
-  .badge-dibo { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+  .alert-banner { background: rgba(255, 69, 58, 0.12); border: 1px solid rgba(255, 69, 58, 0.3); color: var(--danger); padding: 12px 14px; border-radius: 14px; margin-bottom: 14px; font-size: 13px; font-weight: 500; box-shadow: var(--apple-shadow); }
+  .alert-banner.warning { background: rgba(255, 159, 10, 0.12); border-color: rgba(255, 159, 10, 0.3); color: var(--warning); }
+  
+  .badge { padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; display: inline-block; letter-spacing: -0.2px; }
+  .badge-ok { background: rgba(50, 215, 75, 0.15); color: var(--success); }
+  .badge-warn { background: rgba(255, 159, 10, 0.15); color: var(--warning); }
+  .badge-exp { background: rgba(255, 69, 58, 0.15); color: var(--danger); }
+  .badge-pabo { background: rgba(50, 215, 75, 0.15); color: var(--success); }
+  .badge-dibo { background: rgba(255, 69, 58, 0.15); color: var(--danger); }
+  .badge-src { background: rgba(10, 132, 255, 0.15); color: var(--info); }
 
-  .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; }
-  .item-row:active { border-color: var(--accent); background: var(--card-bg); }
+  .item-row { border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; margin-top: 8px; background: var(--card-solid); cursor: pointer; transition: transform 0.15s, border-color 0.15s; }
+  .item-row:active { transform: scale(0.98); border-color: var(--info); }
   .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
 
-  /* Quick Tag Chips */
   .chip-group { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
-  .chip { padding: 5px 10px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-muted); font-size: 12px; cursor: pointer; }
-  .chip:hover, .chip:active { border-color: var(--accent); color: var(--accent); }
+  .chip { padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-muted); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .chip:hover, .chip:active { border-color: var(--info); color: var(--info); background: rgba(10, 132, 255, 0.08); }
 
-  /* Modal Popup */
-  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-  .modal-content { background: var(--card-bg); border: 1px solid var(--border); padding: 18px; border-radius: 12px; max-width: 480px; width: 100%; max-height: 85vh; overflow: auto; }
-  .modal-content img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
-  .modal-content iframe { width: 100%; height: 60vh; border: none; margin-top: 10px; border-radius: 8px; }
+  .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .filter-pill { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: var(--card-solid); color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .filter-pill.active { background: var(--text-color); color: var(--bg-color); border-color: transparent; }
 
-  /* PIN Lock Screen */
-  #pinLockScreen { position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
-  .pin-dots { display: flex; gap: 12px; margin-bottom: 20px; }
-  .pin-dot { width: 16px; height: 16px; border: 2px solid var(--accent); border-radius: 50%; }
-  .pin-dot.filled { background: var(--accent); }
-  .pin-pad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; }
-  .pin-key { height: 70px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); font-size: 22px; font-weight: bold; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; user-select: none; }
-  .pin-key:active { background: var(--accent); color: #000; }
+  /* Modal Popup Apple Sheet Style */
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
+  .modal-content { background: var(--card-solid); border: 1px solid var(--border); padding: 22px; border-radius: 24px; max-width: 480px; width: 100%; max-height: 85vh; overflow: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  @keyframes scaleUp { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-content img { max-width: 100%; border-radius: 12px; margin-top: 10px; }
+  .modal-content iframe { width: 100%; height: 60vh; border: none; margin-top: 10px; border-radius: 12px; }
+
+  /* PIN Lock Screen Apple Style */
+  #pinLockScreen { position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(30px); }
+  .pin-dots { display: flex; gap: 14px; margin-bottom: 24px; }
+  .pin-dot { width: 14px; height: 14px; border: 2px solid var(--text-muted); border-radius: 50%; transition: all 0.2s; }
+  .pin-dot.filled { background: var(--text-color); border-color: var(--text-color); transform: scale(1.1); }
+  .pin-pad { display: grid; grid-template-columns: repeat(3, 75px); gap: 16px; }
+  .pin-key { height: 75px; background: var(--card-solid); border: 1px solid var(--border); color: var(--text-color); font-size: 24px; font-weight: 600; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; user-select: none; box-shadow: var(--apple-shadow); transition: transform 0.1s, background 0.2s; }
+  .pin-key:active { background: var(--text-color); color: var(--bg-color); transform: scale(0.92); }
 </style>
 </head>
 <body>
@@ -121,7 +178,7 @@
 <!-- PIN Lock Screen -->
 <div id="pinLockScreen" style="display:none;">
   <h2>🔒 Enter Security PIN</h2>
-  <p style="color:var(--text-muted); font-size:13px;">Default PIN is 1234</p>
+  <p style="color:var(--text-muted); font-size:13px; margin-bottom:20px;">Default PIN is 1234</p>
   <div class="pin-dots">
     <div class="pin-dot" id="d1"></div>
     <div class="pin-dot" id="d2"></div>
@@ -139,16 +196,16 @@
     <div class="pin-key" onclick="pressPin('8')">8</div>
     <div class="pin-key" onclick="pressPin('9')">9</div>
     <div class="pin-key" onclick="pressPin('0')">0</div>
-    <div class="pin-key" onclick="clearPin()" style="font-size:14px;">C</div>
+    <div class="pin-key" onclick="clearPin()" style="font-size:15px;">C</div>
   </div>
 </div>
 
 <!-- Details & File Preview Modal -->
 <div id="previewModal" class="modal" onclick="closeModal('previewModal', event)">
   <div class="modal-content" style="text-align:center;" onclick="event.stopPropagation()">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-      <strong id="modalTitle">Full Details</strong>
-      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('previewModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <strong id="modalTitle" style="font-size:16px;">Full Details</strong>
+      <button class="app-btn danger" style="padding:6px 12px; flex:none; border-radius:12px;" onclick="document.getElementById('previewModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
     <div id="modalBody" style="text-align:left;"></div>
   </div>
@@ -157,28 +214,30 @@
 <!-- Spend / Expense Modal -->
 <div id="spendModal" class="modal" onclick="closeModal('spendModal', event)">
   <div class="modal-content" onclick="event.stopPropagation()">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <strong id="spendModalTitle" style="color:var(--accent); font-size:16px;">💸 Record Expense</strong>
-      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('spendModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <strong id="spendModalTitle" style="color:var(--text-color); font-size:18px;">💸 Record Expense</strong>
+      <button class="app-btn danger" style="padding:6px 12px; flex:none; border-radius:12px;" onclick="document.getElementById('spendModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
-    <p id="spendSourceInfo" style="font-size:12px; color:var(--text-muted); margin-top:0;"></p>
+    <p id="spendSourceInfo" style="font-size:13px; color:var(--text-muted); margin-top:0;"></p>
     
-    <label style="font-size:12px; color:var(--text-muted);">Amount Spent (€):</label>
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Amount (<span id="spendCurrencyLabel">€</span>):</label>
     <input type="number" step="0.01" id="spendAmt" class="form-input" placeholder="e.g. 25.50">
     
-    <label style="font-size:12px; color:var(--text-muted);">Where / What did you spend on?</label>
-    <input type="text" id="spendWhere" class="form-input" placeholder="e.g. Supermercato, Rent, Coffee">
-    <div class="chip-group">
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Where / What did you spend on?</label>
+    <input type="text" id="spendWhere" class="form-input" placeholder="e.g. Supermercato, Family, Gift">
+    <div class="chip-group" id="spendChipsContainer">
       <span class="chip" onclick="setSpendTag('🛒 Supermercato')">🛒 Supermercato</span>
       <span class="chip" onclick="setSpendTag('🏠 Room Rent')">🏠 Room Rent</span>
       <span class="chip" onclick="setSpendTag('🍽️ Food / Coffee')">🍽️ Food / Coffee</span>
       <span class="chip" onclick="setSpendTag('🚌 Transport')">🚌 Transport</span>
       <span class="chip" onclick="setSpendTag('📱 Mobile / WiFi')">📱 Mobile</span>
-      <span class="chip" onclick="setSpendTag('🇧🇩 Remittance')">🇧🇩 Remittance</span>
+      <span class="chip" onclick="setSpendTag('🇧🇩 Family Support')">🇧🇩 Family Support</span>
     </div>
 
-    <label style="font-size:12px; color:var(--text-muted);">Date:</label>
-    <input type="date" id="spendDate" class="form-input">
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Date:</label>
+    <div class="custom-date-wrapper">
+      <input type="date" id="spendDate">
+    </div>
 
     <div class="btn-container">
       <button class="app-btn success" onclick="confirmSpend()"><span class="icon">✅</span>Confirm</button>
@@ -189,16 +248,16 @@
 <!-- Settle Loan Modal -->
 <div id="settleModal" class="modal" onclick="closeModal('settleModal', event)">
   <div class="modal-content" onclick="event.stopPropagation()">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <strong id="settleModalTitle" style="color:var(--accent); font-size:16px;">🤝 Settle / Receive Money</strong>
-      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('settleModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <strong id="settleModalTitle" style="color:var(--text-color); font-size:18px;">🤝 Settle / Receive Money</strong>
+      <button class="app-btn danger" style="padding:6px 12px; flex:none; border-radius:12px;" onclick="document.getElementById('settleModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
     <p id="settleInfo" style="font-size:13px; color:var(--text-muted); margin-top:0;"></p>
 
-    <label style="font-size:12px; color:var(--text-muted);">Amount (€):</label>
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Amount (€):</label>
     <input type="number" step="0.01" id="settleAmt" class="form-input" placeholder="e.g. 50">
 
-    <label style="font-size:12px; color:var(--text-muted);">Destination / Source:</label>
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted);">Destination / Source:</label>
     <select id="settleDestination" class="form-input">
       <option value="cash">💵 Cash in Hand</option>
     </select>
@@ -210,47 +269,93 @@
 </div>
 
 <header>
-  <h1>🇮🇹 ProbashiMate <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">Essential</span></h1>
+  <h1>🇮🇹 ProbashiMate <span style="font-size:11px; background:var(--info); color:#fff; padding:3px 8px; border-radius:6px; font-weight:700;">PRO</span></h1>
   <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
 </header>
 
 <!-- Navigation Tabs -->
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('home', this)">🏠 Home</div>
+  <div class="tab active" onclick="switchTab('home', this)">🏠 Dashboard</div>
   <div class="tab" onclick="switchTab('search', this)">🔍 Search</div>
+  <div class="tab" onclick="switchTab('summary', this)">📊 Summary</div>
   <div class="tab" onclick="switchTab('banks', this)">💳 Wallet</div>
   <div class="tab" onclick="switchTab('loans', this)">🤝 Lent & Borrow</div>
-  <div class="tab" onclick="switchTab('summary', this)">📊 Summary</div>
   <div class="tab" onclick="switchTab('docs', this)">📄 My Docs</div>
   <div class="tab" onclick="switchTab('appts', this)">📅 Appts</div>
   <div class="tab" onclick="switchTab('contacts', this)">⚖️ Lawyer</div>
   <div class="tab" onclick="switchTab('backup', this)">☁️ Backup</div>
 </div>
 
-<!-- 1. HOME / DASHBOARD -->
+<!-- 1. HOME / VISUAL ANALYTICS DASHBOARD -->
 <div class="content active" id="homeContent">
   <div id="expiryAlertsArea"></div>
 
-  <div class="summary-grid">
-    <div class="summary-box full">
-      <span>Total Available Balance (Banks + Cash)</span>
-      <strong id="dashGrandTotal" style="font-size:22px; color:var(--success);">€0.00</strong>
+  <!-- Apple Style Dual Side-by-Side Top Balance Cards -->
+  <div class="top-stats-row">
+    <div class="top-stat-card eur-card">
+      <div>
+        <div class="top-stat-title">Net Available (€)</div>
+        <div class="top-stat-value" id="dashGrandTotal" style="color:var(--info);">€0.00</div>
+      </div>
+      <div style="font-size:10px; color:var(--text-muted); margin-top:8px;">Banks + Cash</div>
     </div>
+    <div class="top-stat-card bdt-card">
+      <div>
+        <div class="top-stat-title">Bangladesh (BDT)</div>
+        <div class="top-stat-value" id="dashTotalBdt" style="color:var(--success);">৳0.00</div>
+      </div>
+      <div style="font-size:10px; color:var(--text-muted); margin-top:8px;">Total BD Wallets</div>
+    </div>
+  </div>
+
+  <div class="summary-grid">
     <div class="summary-box">
-      <span>💳 Total Bank Balance</span>
+      <span>💳 Bank Balance</span>
       <strong id="dashTotalBank">€0.00</strong>
     </div>
     <div class="summary-box">
       <span>💵 Cash in Hand</span>
-      <strong id="dashTotalCash" style="color:#4ade80;">€0.00</strong>
+      <strong id="dashTotalCash" style="color:var(--success);">€0.00</strong>
     </div>
-    <div class="summary-box">
-      <span>💸 This Month Spent</span>
-      <strong id="dashMonthSpent" style="color:var(--danger);">€0.00</strong>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <h3 style="margin:0;">📈 Monthly Expense Comparison (EUR)</h3>
+      <span id="expenseTrendBadge" class="trend-pill trend-neutral">0% vs Last Month</span>
     </div>
-    <div class="summary-box">
-      <span>🐷 Piggy Bank Saved</span>
-      <strong id="dashTotalPiggy">€0.00</strong>
+    <p id="expenseInsightText" style="font-size:12px; color:var(--text-muted); margin-top:0;">Comparing this month's spending against last month.</p>
+    
+    <div class="chart-box">
+      <div class="chart-row">
+        <div class="chart-label-row">
+          <span id="currMonthLabel" style="font-weight:600;">This Month</span>
+          <strong id="currMonthAmt" style="color:var(--danger);">€0.00</strong>
+        </div>
+        <div class="bar-track">
+          <div id="currMonthBar" class="bar-fill bar-curr" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="chart-row" style="margin-bottom:0;">
+        <div class="chart-label-row">
+          <span id="lastMonthLabel" style="color:var(--text-muted);">Last Month</span>
+          <strong id="lastMonthAmt" style="color:var(--text-muted);">€0.00</strong>
+        </div>
+        <div class="bar-track">
+          <div id="lastMonthBar" class="bar-fill bar-last" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <h3 style="margin:0;">🐷 Savings & Goals Progress</h3>
+      <strong id="dashTotalPiggy" style="color:var(--success); font-size:15px;">€0.00</strong>
+    </div>
+    <div id="dashSavingsVisual">
+      <p style="font-size:12px; color:var(--text-muted); margin:0;">No savings goals set yet. Add goals in Wallet.</p>
     </div>
   </div>
 
@@ -260,12 +365,12 @@
   </div>
 
   <div class="card">
-    <h3>⚠️ Document Status Summary</h3>
+    <h3>⚠️ Document Expiry Status</h3>
     <div id="dashDocStatus" style="font-size:13px; color:var(--text-muted);">No documents uploaded yet.</div>
   </div>
 </div>
 
-<!-- 2. SEARCH TAB -->
+<!-- 2. SEARCH -->
 <div class="content" id="searchContent">
   <div class="card">
     <h3>🔍 Universal Search</h3>
@@ -275,7 +380,79 @@
   </div>
 </div>
 
-<!-- 3. WALLET (CASH + BANKS) & PIGGY BANK -->
+<!-- 3. ADVANCED SUMMARY HUB -->
+<div class="content" id="summaryContent">
+  <div class="card">
+    <h3 style="margin-bottom:10px;">📊 Advanced Financial Report Hub</h3>
+    
+    <div class="filter-bar">
+      <button class="filter-pill active" id="modeMonthBtn" onclick="setSummaryMode('month')">🗓️ Month-Wise</button>
+      <button class="filter-pill" id="modeDateBtn" onclick="setSummaryMode('date')">📅 Date-Wise</button>
+      <button class="filter-pill" id="modeAllBtn" onclick="setSummaryMode('all')">♾️ All-Time</button>
+    </div>
+
+    <div class="filter-bar" style="margin-top:8px;">
+      <button class="filter-pill active" id="currEurBtn" onclick="setSummaryCurrency('EUR')">🇪🇺 EUR Expenses</button>
+      <button class="filter-pill" id="currBdtBtn" onclick="setSummaryCurrency('BDT')">🇧🇩 BDT Expenses</button>
+    </div>
+
+    <div id="monthPickerBox" style="margin-bottom:12px;">
+      <label style="font-size:11px; color:var(--text-muted);">Select Month:</label>
+      <div class="custom-date-wrapper" style="margin-top:4px;">
+        <input type="month" id="summaryMonthPicker" onchange="renderAdvancedSummary()">
+      </div>
+    </div>
+
+    <div id="datePickerBox" style="display:none; margin-bottom:12px;">
+      <label style="font-size:11px; color:var(--text-muted);">Select Exact Date:</label>
+      <div class="custom-date-wrapper" style="margin-top:4px;">
+        <input type="date" id="summaryDatePicker" onchange="renderAdvancedSummary()">
+      </div>
+    </div>
+
+    <div class="summary-grid" style="margin-bottom:0;" id="eurSummaryCards">
+      <div class="summary-box full" style="border-color:var(--danger);">
+        <span id="sumTotalLabel">Total Spent</span>
+        <strong id="sumPeriodTotal" style="font-size:24px; color:var(--danger);">€0.00</strong>
+      </div>
+      <div class="summary-box">
+        <span>💳 Bank / Card Spent</span>
+        <strong id="sumPeriodBank" style="color:var(--info);">€0.00</strong>
+      </div>
+      <div class="summary-box">
+        <span>💵 Cash Spent</span>
+        <strong id="sumPeriodCash" style="color:var(--success);">€0.00</strong>
+      </div>
+      <div class="summary-box">
+        <span>🟢 Active Pabo (Lent)</span>
+        <strong id="sumTotalPabo" style="color:var(--success);">€0.00</strong>
+      </div>
+      <div class="summary-box">
+        <span>🔴 Active Dibo (Debt)</span>
+        <strong id="sumTotalDibo" style="color:var(--danger);">€0.00</strong>
+      </div>
+    </div>
+
+    <div class="summary-grid" style="margin-bottom:0; display:none;" id="bdtSummaryCards">
+      <div class="summary-box full" style="border-color:var(--success); background:linear-gradient(135deg, var(--card-bg) 0%, rgba(50,215,75,0.08) 100%);">
+        <span id="sumBdtTotalLabel">Total BDT Spent</span>
+        <strong id="sumBdtPeriodTotal" style="font-size:24px; color:var(--success);">৳0.00</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 id="breakdownHeading">📍 Category Breakdown</h3>
+    <div id="sumCategoryBreakdown"></div>
+  </div>
+
+  <div class="card">
+    <h3 id="historyHeading">🧾 Transaction History</h3>
+    <div id="sumTransactionList"></div>
+  </div>
+</div>
+
+<!-- 4. WALLET -->
 <div class="content" id="banksContent">
   <div class="card">
     <h3>💵 Cash in Hand (Pocket / Home Euro)</h3>
@@ -293,7 +470,7 @@
   </div>
 
   <div class="card">
-    <h3>💳 My Bank Cards & Balances</h3>
+    <h3>💳 My Bank Cards & Balances (EUR)</h3>
     <input type="text" id="bankName" class="form-input" placeholder="Bank Name (e.g. PostePay, UniCredit)" oninput="checkExistingBank()">
     <input type="text" id="cardLast4" maxlength="19" class="form-input" placeholder="Card Number / Last 4 Digits" oninput="checkExistingBank()">
     <div id="bankDetectNotice" class="detect-notice"></div>
@@ -303,6 +480,19 @@
       <button class="app-btn primary" id="bankSubmitBtn" onclick="saveBank()"><span class="icon">💾</span>Add Card</button>
     </div>
     <div id="bankList"></div>
+  </div>
+
+  <div class="card" style="border-color:rgba(50,215,75,0.3);">
+    <h3 style="color:var(--success);">🇧🇩 Bangladesh Accounts & Wallets (BDT)</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">Manage separate assets in Bangladesh (bKash, Nagad, BD Bank accounts).</p>
+    <input type="text" id="bdtName" class="form-input" placeholder="Account Name (e.g. bKash Personal, EBL BD)">
+    <input type="text" id="bdtNumber" class="form-input" placeholder="Account Number / Phone (Optional)">
+    <input type="number" step="0.01" id="bdtBal" class="form-input" placeholder="Amount (৳ BDT)">
+    
+    <div class="btn-container">
+      <button class="app-btn success" onclick="saveBdtAccount()"><span class="icon">💾</span>Add BDT Account</button>
+    </div>
+    <div id="bdtList"></div>
   </div>
 
   <div class="card">
@@ -318,7 +508,7 @@
   </div>
 </div>
 
-<!-- 4. LENT & BORROW -->
+<!-- 5. LENT & BORROW -->
 <div class="content" id="loansContent">
   <div class="card">
     <h3>🤝 Add Lent / Borrow Record</h3>
@@ -339,44 +529,11 @@
     <h3>📋 Active Lent & Borrow List</h3>
     <div id="loanList"></div>
   </div>
-</div>
 
-<!-- 5. EXPENSE SUMMARY -->
-<div class="content" id="summaryContent">
-  <div class="card">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
-      <h3 style="margin:0;" id="summaryHeading">📊 Running Month Summary</h3>
-      <div style="display:flex; align-items:center; gap:6px;">
-        <input type="date" id="summaryDatePicker" class="form-input" style="width:auto; margin:0; padding:6px 10px;" onchange="renderExpenseSummary()">
-        <button id="resetDateFilterBtn" class="app-btn primary" style="display:none; padding:6px 10px; flex:none;" onclick="clearSummaryDateFilter()">This Month</button>
-      </div>
-    </div>
-    <p id="summarySubtext" style="font-size:12px; color:var(--text-muted); margin-top:0;">Showing running month summary (Banks + Cash).</p>
-
-    <div class="summary-grid" style="margin-bottom:0;">
-      <div class="summary-box full" style="border-color:var(--danger);">
-        <span id="sumTotalLabel">Total Spent (Running Month)</span>
-        <strong id="sumPeriodTotal" style="font-size:22px; color:var(--danger);">€0.00</strong>
-      </div>
-      <div class="summary-box">
-        <span>💳 Spent via Banks/Cards</span>
-        <strong id="sumPeriodBank">€0.00</strong>
-      </div>
-      <div class="summary-box">
-        <span>💵 Spent via Cash</span>
-        <strong id="sumPeriodCash" style="color:#4ade80;">€0.00</strong>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3 id="breakdownHeading">📍 Where You Spent</h3>
-    <div id="sumCategoryBreakdown"></div>
-  </div>
-
-  <div class="card" id="dateDetailsCard" style="display:none;">
-    <h3 id="dateDetailsHeading">🧾 Transactions on Selected Date</h3>
-    <div id="sumDateHistory"></div>
+  <div class="card" style="border-color:rgba(50,215,75,0.3);">
+    <h3 style="color:var(--success);">✅ Settled History (Archive)</h3>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">Tap any settled record to view complete entry date, settled date, and history.</p>
+    <div id="settledLoanList"></div>
   </div>
 </div>
 
@@ -385,9 +542,13 @@
   <div class="card">
     <h3>📄 Upload & Track Documents</h3>
     <input type="text" id="docName" class="form-input" placeholder="Document Name (e.g. Permesso, Passport)">
-    <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Expiry Date:</label>
-    <input type="date" id="docExpiry" class="form-input">
-    <label style="font-size:12px; color:var(--text-muted); display:block; margin-top:6px;">Upload Photo / PDF (Optional):</label>
+    
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-top:6px;">Expiry Date:</label>
+    <div class="custom-date-wrapper">
+      <input type="date" id="docExpiry">
+    </div>
+
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-top:6px;">Upload Photo / PDF (Optional):</label>
     <input type="file" id="docFile" accept="image/*,application/pdf" class="form-input">
     
     <div class="btn-container">
@@ -404,11 +565,20 @@
 <!-- 7. APPOINTMENTS -->
 <div class="content" id="apptsContent">
   <div class="card">
-    <h3>📅 Add New Appointment</h3>
-    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura, Dottore)">
-    <input type="date" id="apptDate" class="form-input">
-    <input type="time" id="apptTime" class="form-input">
-    <input type="text" id="apptLocation" class="form-input" placeholder="Location (Optional)">
+    <h3>📅 Schedule New Appointment</h3>
+    <input type="text" id="apptTitle" class="form-input" placeholder="Purpose (e.g. Questura, Dottore, Prefettura)">
+    
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-top:6px;">Appointment Date:</label>
+    <div class="custom-date-wrapper">
+      <input type="date" id="apptDate">
+    </div>
+
+    <label style="font-size:12px; font-weight:600; color:var(--text-muted); display:block; margin-top:6px;">Appointment Time:</label>
+    <div class="custom-date-wrapper">
+      <input type="time" id="apptTime">
+    </div>
+
+    <input type="text" id="apptLocation" class="form-input" placeholder="Location / Address (Optional)" style="margin-top:6px;">
     
     <div class="btn-container">
       <button class="app-btn primary" onclick="saveAppt()"><span class="icon">📅</span>Save Appointment</button>
@@ -440,8 +610,8 @@
     <h3>🚨 Italy Emergency Contacts</h3>
     <div class="btn-container" style="border-top:none; padding-top:0; flex-direction:column;">
       <button class="app-btn danger" style="width:100%; flex:none; padding:12px;" onclick="window.location.href='tel:112'"><span class="icon">🚓</span>Carabinieri / Emergency (112)</button>
-      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(234,88,12,0.15); color:#ea580c; border-color:#ea580c;" onclick="window.location.href='tel:118'"><span class="icon">🚑</span>Ambulance / Pronto Soccorso (118)</button>
-      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(185,28,28,0.15); color:#b91c1c; border-color:#b91c1c;" onclick="window.location.href='tel:115'"><span class="icon">🚒</span>Fire Brigade (115)</button>
+      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(255,159,10,0.12); color:var(--warning); border-color:rgba(255,159,10,0.3);" onclick="window.location.href='tel:118'"><span class="icon">🚑</span>Ambulance / Pronto Soccorso (118)</button>
+      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(255,69,58,0.12); color:var(--danger); border-color:rgba(255,69,58,0.3);" onclick="window.location.href='tel:115'"><span class="icon">🚒</span>Fire Brigade (115)</button>
     </div>
   </div>
 </div>
@@ -466,10 +636,10 @@
 
   <div class="card">
     <h3>📲 Restore Backup</h3>
-    <label style="font-size:13px; color:var(--accent); font-weight:bold; display:block; margin-top:6px;">Option 1: Paste Backup Text</label>
+    <label style="font-size:13px; font-weight:600; color:var(--text-color); display:block; margin-top:6px;">Option 1: Paste Backup Text</label>
     <textarea id="pasteBackupInput" class="form-input" style="height:100px; font-family:monospace; font-size:12px;" placeholder='Paste copied backup text here'></textarea>
     
-    <label style="font-size:13px; color:var(--text-muted); display:block; margin-top:12px;">Option 2: Upload Backup File (.json):</label>
+    <label style="font-size:13px; font-weight:600; color:var(--text-muted); display:block; margin-top:12px;">Option 2: Upload Backup File (.json):</label>
     <input type="file" id="importFile" accept=".json,application/json,text/plain" class="form-input" onchange="importBackup(event)">
     
     <div class="btn-container">
@@ -484,6 +654,7 @@
     pin: "1234",
     cash: 0,
     banks: [],
+    bdtAccounts: [],
     expenses: [],
     loans: [],
     goals: [],
@@ -496,13 +667,21 @@
   if (!Array.isArray(db.expenses)) db.expenses = [];
   if (!Array.isArray(db.loans)) db.loans = [];
   if (!Array.isArray(db.banks)) db.banks = [];
+  if (!Array.isArray(db.bdtAccounts)) db.bdtAccounts = [];
   if (!Array.isArray(db.goals)) db.goals = [];
   if (!Array.isArray(db.docs)) db.docs = [];
   if (!Array.isArray(db.appts)) db.appts = [];
 
   let editingBankIndex = -1;
-  let activeSpendContext = { type: "cash", bankIndex: -1 };
+  let activeSpendContext = { type: "cash", index: -1 };
   let activeSettleIndex = -1;
+  let summaryFilterMode = "month";
+  let summaryCurrency = "EUR";
+
+  document.getElementById("summaryMonthPicker").value = new Date().toISOString().slice(0, 7);
+  document.getElementById("summaryDatePicker").value = new Date().toISOString().slice(0, 10);
+  document.getElementById("apptDate").value = new Date().toISOString().slice(0, 10);
+  document.getElementById("apptTime").value = "10:00";
 
   let enteredPin = "";
   if (db.pin && db.pin.length === 4) {
@@ -569,7 +748,6 @@
     document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Universal Search Tab Logic with Entry Dates
   function handleTabSearch(query) {
     let q = query.trim().toLowerCase();
     let resultsBox = document.getElementById("tabSearchResults");
@@ -581,6 +759,7 @@
 
     let matchedLoans = db.loans.filter(l => l.person.toLowerCase().includes(q) || (l.note && l.note.toLowerCase().includes(q)));
     let matchedBanks = db.banks.filter(b => b.name.toLowerCase().includes(q) || (b.card && b.card.toLowerCase().includes(q)));
+    let matchedBdt = db.bdtAccounts.filter(b => b.name.toLowerCase().includes(q) || (b.number && b.number.toLowerCase().includes(q)));
     let matchedExpenses = db.expenses.filter(e => e.where.toLowerCase().includes(q) || e.sourceName.toLowerCase().includes(q) || (e.date && e.date.includes(q)));
     let matchedDocs = db.docs.filter(d => d.name.toLowerCase().includes(q));
 
@@ -589,11 +768,13 @@
 
     if (matchedLoans.length > 0) {
       hasResults = true;
-      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Loans</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--info); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Loans</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
+        let isSettled = l.status === "settled";
         let entryDateStr = l.entryDate ? `<p><b>Entry Date:</b> ${l.entryDate}</p>` : '';
-        let detailHtml = `<p><b>Person:</b> ${l.person}</p><p><b>Type:</b> ${isPabo ? 'Lent (Pabo)' : 'Borrowed (Dibo)'}</p><p><b>Amount:</b> €${l.amt.toFixed(2)}</p>${entryDateStr}<p><b>Note:</b> ${l.note || 'None'}</p>`;
+        let settledDateStr = l.settledDate ? `<p><b>Settled Date:</b> ${l.settledDate}</p>` : '';
+        let detailHtml = `<p><b>Person:</b> ${l.person}</p><p><b>Type:</b> ${isPabo ? 'Lent (Pabo)' : 'Borrowed (Dibo)'}</p><p><b>Amount:</b> €${l.amt.toFixed(2)}</p><p><b>Status:</b> ${isSettled ? '✅ Settled' : 'Active'}</p>${entryDateStr}${settledDateStr}<p><b>Note:</b> ${l.note || 'None'}</p>`;
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("🤝 Loan: ${l.person}", ${JSON.stringify(detailHtml)})'>
@@ -601,14 +782,14 @@
               <strong>👤 ${l.person}</strong>
               <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold;">€${l.amt.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${isPabo ? '🟢 Pabo' : '🔴 Dibo'} ${l.entryDate ? '• Entered: ' + l.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${isPabo ? '🟢 Pabo' : '🔴 Dibo'} • ${isSettled ? 'Settled' : 'Active'} <span style="color:var(--info); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
 
     if (matchedBanks.length > 0) {
       hasResults = true;
-      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💳 Bank Cards</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--info); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💳 Bank Cards (EUR)</div>`;
       matchedBanks.forEach(b => {
         let entryDateStr = b.entryDate ? `<p><b>Entry Date:</b> ${b.entryDate}</p>` : '';
         let detailHtml = `<p><b>Bank:</b> ${b.name}</p><p><b>Card:</b> ${b.card || 'None'}</p><p><b>Balance:</b> €${b.bal.toFixed(2)}</p>${entryDateStr}`;
@@ -619,32 +800,51 @@
               <strong>💳 ${b.name}</strong>
               <span style="color:var(--success); font-weight:bold;">€${b.bal.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.card || ''} ${b.entryDate ? '• Entered: ' + b.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.card || ''} ${b.entryDate ? '• Entered: ' + b.entryDate : ''} <span style="color:var(--info); float:right;">👆 Tap</span></div>
+          </div>`;
+      });
+    }
+
+    if (matchedBdt.length > 0) {
+      hasResults = true;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--success); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🇧🇩 BDT Accounts</div>`;
+      matchedBdt.forEach(b => {
+        let entryDateStr = b.entryDate ? `<p><b>Entry Date:</b> ${b.entryDate}</p>` : '';
+        let detailHtml = `<p><b>Account:</b> ${b.name}</p><p><b>Number:</b> ${b.number || 'None'}</p><p><b>Balance:</b> ৳${b.bal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p>${entryDateStr}`;
+        
+        html += `
+          <div class="item-row" onclick='showSearchItemDetail("🇧🇩 BDT: ${b.name}", ${JSON.stringify(detailHtml)})'>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>🇧🇩 ${b.name}</strong>
+              <span style="color:var(--success); font-weight:bold;">৳${b.bal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.number || ''} <span style="color:var(--info); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
 
     if (matchedExpenses.length > 0) {
       hasResults = true;
-      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💸 Transactions</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--info); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💸 Transactions</div>`;
       matchedExpenses.forEach(e => {
         let entryDateStr = e.entryDate ? `<p><b>Entry Date:</b> ${e.entryDate}</p>` : '';
-        let detailHtml = `<p><b>Where:</b> ${e.where}</p><p><b>Amount:</b> €${e.amount.toFixed(2)}</p><p><b>Expense Date:</b> ${e.date}</p>${entryDateStr}<p><b>Source:</b> ${e.sourceName}</p>`;
+        let currSymbol = e.currency === 'BDT' ? '৳' : '€';
+        let detailHtml = `<p><b>Where:</b> ${e.where}</p><p><b>Amount:</b> ${currSymbol}${e.amount.toLocaleString('en-IN', {minimumFractionDigits: 2})}</p><p><b>Date:</b> ${e.date}</p>${entryDateStr}<p><b>Source:</b> ${e.sourceName}</p>`;
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("🧾 Expense: ${e.where}", ${JSON.stringify(detailHtml)})'>
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <strong>${e.where}</strong>
-              <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
+              <span style="color:var(--danger); font-weight:bold;">-${currSymbol}${e.amount.toLocaleString('en-IN', {minimumFractionDigits: 2})}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 Expense: ${e.date} ${e.entryDate ? '• Entered: ' + e.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} • ${e.sourceName} <span style="color:var(--info); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
 
     if (matchedDocs.length > 0) {
       hasResults = true;
-      html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">📄 Documents</div>`;
+      html += `<div style="font-size:12px; font-weight:700; color:var(--info); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">📄 Documents</div>`;
       matchedDocs.forEach((d, dIdx) => {
         let st = getExpiryStatus(d.exp);
         let entryDateStr = d.entryDate ? `<p><b>Entry Date:</b> ${d.entryDate}</p>` : '';
@@ -657,7 +857,7 @@
               <strong>${d.name}</strong>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry: ${d.exp} ${d.entryDate ? '• Entered: ' + d.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry: ${d.exp} <span style="color:var(--info); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -689,18 +889,45 @@
     }
   }
 
-  function openSpendModal(type, bankIndex) {
-    activeSpendContext = { type, bankIndex };
+  function openSpendModal(type, index) {
+    activeSpendContext = { type, index };
     let titleEl = document.getElementById("spendModalTitle");
     let infoEl = document.getElementById("spendSourceInfo");
+    let currLabelEl = document.getElementById("spendCurrencyLabel");
+    let chipsContainer = document.getElementById("spendChipsContainer");
 
     if (type === "cash") {
+      currLabelEl.innerText = "€";
       titleEl.innerText = "💵 Spend from Cash in Hand";
       infoEl.innerHTML = `Available Cash: <b style="color:var(--success);">€${db.cash.toFixed(2)}</b>`;
-    } else {
-      let b = db.banks[bankIndex];
+      chipsContainer.innerHTML = `
+        <span class="chip" onclick="setSpendTag('🛒 Supermercato')">🛒 Supermercato</span>
+        <span class="chip" onclick="setSpendTag('🏠 Room Rent')">🏠 Room Rent</span>
+        <span class="chip" onclick="setSpendTag('🍽️ Food / Coffee')">🍽️ Food / Coffee</span>
+        <span class="chip" onclick="setSpendTag('🚌 Transport')">🚌 Transport</span>
+        <span class="chip" onclick="setSpendTag('📱 Mobile / WiFi')">📱 Mobile</span>
+        <span class="chip" onclick="setSpendTag('🇧🇩 Family Support')">🇧🇩 Family Support</span>`;
+    } else if (type === "bank") {
+      currLabelEl.innerText = "€";
+      let b = db.banks[index];
       titleEl.innerText = `💳 Spend from ${b.name}`;
       infoEl.innerHTML = `Card: ${b.card || 'No No.'} | Available: <b style="color:var(--success);">€${b.bal.toFixed(2)}</b>`;
+      chipsContainer.innerHTML = `
+        <span class="chip" onclick="setSpendTag('🛒 Supermercato')">🛒 Supermercato</span>
+        <span class="chip" onclick="setSpendTag('🏠 Room Rent')">🏠 Room Rent</span>
+        <span class="chip" onclick="setSpendTag('🍽️ Food / Coffee')">🍽️ Food / Coffee</span>
+        <span class="chip" onclick="setSpendTag('🚌 Transport')">🚌 Transport</span>
+        <span class="chip" onclick="setSpendTag('📱 Online Shopping')">📱 Online Shopping</span>`;
+    } else if (type === "bdt") {
+      currLabelEl.innerText = "৳";
+      let bdtAcc = db.bdtAccounts[index];
+      titleEl.innerText = `🇧🇩 Spend from ${bdtAcc.name}`;
+      infoEl.innerHTML = `Account: ${bdtAcc.number || 'BDT'} | Available: <b style="color:var(--success);">৳${bdtAcc.bal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</b>`;
+      chipsContainer.innerHTML = `
+        <span class="chip" onclick="setSpendTag('🏠 BD Family Expense')">🏠 BD Family Expense</span>
+        <span class="chip" onclick="setSpendTag('💡 BD Bill Payment')">💡 BD Bill Payment</span>
+        <span class="chip" onclick="setSpendTag('💊 Medical / Health')">💊 Medical / Health</span>
+        <span class="chip" onclick="setSpendTag('🎁 Gift / Donation')">🎁 Gift / Donation</span>`;
     }
 
     document.getElementById("spendAmt").value = "";
@@ -717,22 +944,30 @@
     let date = document.getElementById("spendDate").value || new Date().toISOString().slice(0, 10);
     let entryDate = new Date().toISOString().slice(0, 10);
 
-    if (isNaN(amt) || amt <= 0) return alert("⚠️ Please enter a valid amount (€).");
+    if (isNaN(amt) || amt <= 0) return alert("⚠️ Please enter a valid amount.");
 
     let sourceName = "Cash in Hand";
     let sourceType = "cash";
+    let currency = "EUR";
 
     if (activeSpendContext.type === "cash") {
       db.cash = Math.max(0, db.cash - amt);
-    } else {
-      let b = db.banks[activeSpendContext.bankIndex];
+    } else if (activeSpendContext.type === "bank") {
+      let b = db.banks[activeSpendContext.index];
       if (!b) return;
       b.bal = Math.max(0, b.bal - amt);
       sourceName = b.name;
       sourceType = "bank";
+    } else if (activeSpendContext.type === "bdt") {
+      let bdtAcc = db.bdtAccounts[activeSpendContext.index];
+      if (!bdtAcc) return;
+      bdtAcc.bal = Math.max(0, bdtAcc.bal - amt);
+      sourceName = bdtAcc.name;
+      sourceType = "bdt";
+      currency = "BDT";
     }
 
-    db.expenses.push({ id: Date.now(), amount: amt, where, date, entryDate, sourceType, sourceName });
+    db.expenses.push({ id: Date.now(), amount: amt, currency, where, date, entryDate, sourceType, sourceName });
     db.expenses.sort((a, b) => new Date(b.date) - new Date(a.date) || b.id - a.id);
     document.getElementById("spendModal").style.display = "none";
     saveDB();
@@ -742,11 +977,15 @@
     let idx = db.expenses.findIndex(e => e.id === id);
     if (idx === -1) return;
     let exp = db.expenses[idx];
-    if (confirm(`Delete this €${exp.amount.toFixed(2)} expense (${exp.where})?`)) {
+    let currSymbol = exp.currency === 'BDT' ? '৳' : '€';
+    if (confirm(`Delete this ${currSymbol}${exp.amount.toLocaleString('en-IN', {minimumFractionDigits: 2})} expense (${exp.where})?`)) {
       if (exp.sourceType === "cash") db.cash += exp.amount;
-      else {
+      else if (exp.sourceType === "bank") {
         let bIdx = db.banks.findIndex(b => b.name.toLowerCase() === exp.sourceName.toLowerCase());
         if (bIdx !== -1) db.banks[bIdx].bal += exp.amount;
+      } else if (exp.sourceType === "bdt") {
+        let bIdx = db.bdtAccounts.findIndex(b => b.name.toLowerCase() === exp.sourceName.toLowerCase());
+        if (bIdx !== -1) db.bdtAccounts[bIdx].bal += exp.amount;
       }
       db.expenses.splice(idx, 1);
       saveDB();
@@ -762,7 +1001,7 @@
 
     if (!person || isNaN(amt) || amt <= 0) return alert("⚠️ Enter Person Name and Amount.");
 
-    db.loans.push({ id: Date.now(), type, person, amt, note, entryDate });
+    db.loans.push({ id: Date.now(), type, person, amt, originalAmt: amt, note, entryDate, status: "active", history: [{ date: entryDate, action: "Created", amt }] });
     document.getElementById("loanPerson").value = "";
     document.getElementById("loanAmt").value = "";
     document.getElementById("loanNote").value = "";
@@ -790,6 +1029,9 @@
     db.banks.forEach((b, i) => {
       opts += `<option value="bank_${i}">💳 ${b.name} - €${b.bal.toFixed(2)}</option>`;
     });
+    db.bdtAccounts.forEach((b, i) => {
+      opts += `<option value="bdt_${i}">🇧🇩 ${b.name} - ৳${b.bal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</option>`;
+    });
     destSelect.innerHTML = opts;
     document.getElementById("settleModal").style.display = "flex";
   }
@@ -798,6 +1040,8 @@
     let loan = db.loans[activeSettleIndex];
     let settleAmt = parseFloat(document.getElementById("settleAmt").value);
     let dest = document.getElementById("settleDestination").value;
+    let currentDate = new Date().toISOString().slice(0, 10);
+
     if (isNaN(settleAmt) || settleAmt <= 0) return alert("⚠️ Enter valid amount.");
 
     if (dest === "cash") {
@@ -810,22 +1054,64 @@
         if (loan.type === "pabo") bank.bal += settleAmt;
         else bank.bal = Math.max(0, bank.bal - settleAmt);
       }
+    } else if (dest.startsWith("bdt_")) {
+      let bIdx = parseInt(dest.split("_")[1]);
+      let bdtAcc = db.bdtAccounts[bIdx];
+      if (bdtAcc) {
+        if (loan.type === "pabo") bdtAcc.bal += settleAmt;
+        else bdtAcc.bal = Math.max(0, bdtAcc.bal - settleAmt);
+      }
     }
 
+    if (!loan.history) loan.history = [];
+
     if (settleAmt >= loan.amt) {
-      db.loans.splice(activeSettleIndex, 1);
-      alert(`✅ Fully settled with ${loan.person}!`);
+      loan.amt = 0;
+      loan.status = "settled";
+      loan.settledDate = currentDate;
+      loan.history.push({ date: currentDate, action: `Fully Settled`, amt: settleAmt });
+      alert(`✅ Fully settled with ${loan.person}! Moved to Settled Archive.`);
     } else {
       loan.amt -= settleAmt;
-      alert(`✅ Partially settled €${settleAmt.toFixed(2)}!`);
+      loan.history.push({ date: currentDate, action: `Partial Payment`, amt: settleAmt });
+      alert(`✅ Partially settled €${settleAmt.toFixed(2)}! Remaining: €${loan.amt.toFixed(2)}`);
     }
 
     document.getElementById("settleModal").style.display = "none";
     saveDB();
   }
 
+  function viewLoanDetail(index) {
+    let l = db.loans[index];
+    let isPabo = l.type === "pabo";
+    let isSettled = l.status === "settled";
+
+    let historyHtml = "";
+    if (l.history && l.history.length > 0) {
+      l.history.forEach(h => {
+        historyHtml += `<li style="margin-bottom:4px;"><b>${h.date}:</b> ${h.action} (€${h.amt.toFixed(2)})</li>`;
+      });
+    } else {
+      historyHtml = `<li>Created on ${l.entryDate || 'N/A'}</li>`;
+    }
+
+    let detailHtml = `
+      <p><b>Person:</b> ${l.person}</p>
+      <p><b>Type:</b> ${isPabo ? '🟢 Lent (Kar kache Pabo)' : '🔴 Borrowed (Kar kache Dibo)'}</p>
+      <p><b>Original Amount:</b> €${(l.originalAmt || l.amt).toFixed(2)}</p>
+      <p><b>Current Status:</b> <span class="badge ${isSettled ? 'badge-ok' : 'badge-warn'}">${isSettled ? 'Settled' : 'Active'}</span></p>
+      <p><b>Entry Date:</b> ${l.entryDate || 'N/A'}</p>
+      ${l.settledDate ? `<p><b>Settled Date:</b> ${l.settledDate}</p>` : ''}
+      <p><b>Note:</b> ${l.note || 'None'}</p>
+      <hr style="border-color:var(--border); margin:10px 0;">
+      <p style="font-size:12px; font-weight:bold; color:var(--info);">📜 Transaction Timeline:</p>
+      <ul style="font-size:12px; color:var(--text-muted); padding-left:18px; margin:4px 0 0;">${historyHtml}</ul>
+    `;
+    showSearchItemDetail(`🤝 Loan Record: ${l.person}`, detailHtml);
+  }
+
   function deleteLoan(index) {
-    if (confirm("Delete this record?")) { db.loans.splice(index, 1); saveDB(); }
+    if (confirm("Delete this record permanently?")) { db.loans.splice(index, 1); saveDB(); }
   }
 
   function findExistingBankIndex(name, card) {
@@ -908,6 +1194,39 @@
       db.banks.splice(index, 1);
       saveDB();
     }
+  }
+
+  function saveBdtAccount() {
+    let name = document.getElementById("bdtName").value.trim();
+    let number = document.getElementById("bdtNumber").value.trim();
+    let amt = parseFloat(document.getElementById("bdtBal").value);
+    let entryDate = new Date().toISOString().slice(0, 10);
+
+    if (!name || isNaN(amt)) return alert("⚠️ Enter Account Name and Amount in BDT.");
+
+    let existingIndex = db.bdtAccounts.findIndex(b => b.name.toLowerCase() === name.toLowerCase());
+    if (existingIndex !== -1) {
+      db.bdtAccounts[existingIndex].bal += amt;
+      if (number) db.bdtAccounts[existingIndex].number = number;
+    } else {
+      db.bdtAccounts.push({ name, number, bal: amt, entryDate });
+    }
+
+    document.getElementById("bdtName").value = "";
+    document.getElementById("bdtNumber").value = "";
+    document.getElementById("bdtBal").value = "";
+    saveDB();
+    alert("✅ BDT Account saved successfully!");
+  }
+
+  function quickDepositBdt(index) {
+    let acc = db.bdtAccounts[index];
+    let val = prompt(`How much BDT (৳) did you add to ${acc.name}?`);
+    if (val !== null && !isNaN(parseFloat(val))) { acc.bal += parseFloat(val); saveDB(); }
+  }
+
+  function deleteBdtAccount(index) {
+    if (confirm("Delete this BDT account?")) { db.bdtAccounts.splice(index, 1); saveDB(); }
   }
 
   function saveGoal() {
@@ -1002,6 +1321,19 @@
     else return { text: `Valid (${diffDays}d left)`, cls: "badge-ok", urgent: false, diff: diffDays };
   }
 
+  function getApptStatus(apptDateStr) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let appt = new Date(apptDateStr);
+    appt.setHours(0, 0, 0, 0);
+    let diffDays = Math.ceil((appt - today) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return { text: `Passed (${Math.abs(diffDays)}d ago)`, cls: "badge-exp" };
+    else if (diffDays === 0) return { text: `🔥 Today!`, cls: "badge-warn" };
+    else if (diffDays === 1) return { text: `⚡ Tomorrow`, cls: "badge-warn" };
+    else return { text: `In ${diffDays} days`, cls: "badge-ok" };
+  }
+
   function saveAppt() {
     let title = document.getElementById("apptTitle").value.trim();
     let date = document.getElementById("apptDate").value;
@@ -1014,10 +1346,11 @@
     db.appts.push({ title, date, time, location, entryDate });
     db.appts.sort((a, b) => new Date(a.date) - new Date(b.date));
     document.getElementById("apptTitle").value = "";
-    document.getElementById("apptDate").value = "";
-    document.getElementById("apptTime").value = "";
+    document.getElementById("apptDate").value = new Date().toISOString().slice(0, 10);
+    document.getElementById("apptTime").value = "10:00";
     document.getElementById("apptLocation").value = "";
     saveDB();
+    alert("✅ Appointment Scheduled!");
   }
 
   function deleteAppt(index) {
@@ -1095,53 +1428,224 @@
     if (confirm("⚠️ Delete ALL data?")) { localStorage.removeItem("probashiEssentialDB"); location.reload(); }
   }
 
-  function clearSummaryDateFilter() {
-    document.getElementById("summaryDatePicker").value = "";
-    renderExpenseSummary();
+  function setSummaryMode(mode) {
+    summaryFilterMode = mode;
+    document.getElementById("modeMonthBtn").classList.toggle("active", mode === "month");
+    document.getElementById("modeDateBtn").classList.toggle("active", mode === "date");
+    document.getElementById("modeAllBtn").classList.toggle("active", mode === "all");
+
+    document.getElementById("monthPickerBox").style.display = mode === "month" ? "block" : "none";
+    document.getElementById("datePickerBox").style.display = mode === "date" ? "block" : "none";
+    renderAdvancedSummary();
   }
 
-  function renderExpenseSummary() {
-    let selectedDate = document.getElementById("summaryDatePicker").value;
-    let runningMonth = new Date().toISOString().slice(0, 7);
-    let monthLabel = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  function setSummaryCurrency(curr) {
+    summaryCurrency = curr;
+    document.getElementById("currEurBtn").classList.toggle("active", curr === "EUR");
+    document.getElementById("currBdtBtn").classList.toggle("active", curr === "BDT");
+    
+    document.getElementById("eurSummaryCards").style.display = curr === "EUR" ? "grid" : "none";
+    document.getElementById("bdtSummaryCards").style.display = curr === "BDT" ? "grid" : "none";
+    renderAdvancedSummary();
+  }
 
+  function renderAdvancedSummary() {
     let filtered = [];
-    if (selectedDate) {
-      filtered = db.expenses.filter(e => e.date === selectedDate);
-      document.getElementById("summaryHeading").innerText = `📅 Expense on ${selectedDate}`;
-      document.getElementById("sumTotalLabel").innerText = `Total Spent`;
-      document.getElementById("resetDateFilterBtn").style.display = "inline-flex";
-      document.getElementById("dateDetailsCard").style.display = "block";
+    let labelText = "";
+    let currencyExpenses = db.expenses.filter(e => summaryCurrency === 'BDT' ? e.currency === 'BDT' : (!e.currency || e.currency === 'EUR'));
+
+    if (summaryFilterMode === "month") {
+      let selMonth = document.getElementById("summaryMonthPicker").value || new Date().toISOString().slice(0, 7);
+      filtered = currencyExpenses.filter(e => e.date && e.date.startsWith(selMonth));
+      labelText = `Total Spent (${selMonth})`;
+    } else if (summaryFilterMode === "date") {
+      let selDate = document.getElementById("summaryDatePicker").value || new Date().toISOString().slice(0, 10);
+      filtered = currencyExpenses.filter(e => e.date === selDate);
+      labelText = `Total Spent (${selDate})`;
     } else {
-      filtered = db.expenses.filter(e => e.date && e.date.startsWith(runningMonth));
-      document.getElementById("summaryHeading").innerText = `📊 ${monthLabel} Summary`;
-      document.getElementById("sumTotalLabel").innerText = `Total Spent`;
-      document.getElementById("resetDateFilterBtn").style.display = "none";
-      document.getElementById("dateDetailsCard").style.display = "none";
+      filtered = currencyExpenses;
+      labelText = `Total Spent (All-Time)`;
     }
 
-    let totalPeriod = 0, totalBankSpent = 0, totalCashSpent = 0;
-    let categoryMap = {};
+    if (summaryCurrency === 'EUR') {
+      document.getElementById("sumTotalLabel").innerText = labelText;
+      let totalPeriod = 0, totalBankSpent = 0, totalCashSpent = 0;
+      let categoryMap = {};
 
-    filtered.forEach(e => {
-      totalPeriod += e.amount;
-      if (e.sourceType === "cash") totalCashSpent += e.amount;
-      else totalBankSpent += e.amount;
-      let key = e.where.trim();
-      categoryMap[key] = (categoryMap[key] || 0) + e.amount;
+      filtered.forEach(e => {
+        totalPeriod += e.amount;
+        if (e.sourceType === "cash") totalCashSpent += e.amount;
+        else totalBankSpent += e.amount;
+        let key = e.where.trim();
+        categoryMap[key] = (categoryMap[key] || 0) + e.amount;
+      });
+
+      document.getElementById("sumPeriodTotal").innerText = `€${totalPeriod.toFixed(2)}`;
+      document.getElementById("sumPeriodBank").innerText = `€${totalBankSpent.toFixed(2)}`;
+      document.getElementById("sumPeriodCash").innerText = `€${totalCashSpent.toFixed(2)}`;
+
+      let totalPabo = db.loans.filter(l => l.type === "pabo" && l.status !== "settled").reduce((acc, c) => acc + c.amt, 0);
+      let totalDibo = db.loans.filter(l => l.type === "dibo" && l.status !== "settled").reduce((acc, c) => acc + c.amt, 0);
+      document.getElementById("sumTotalPabo").innerText = `€${totalPabo.toFixed(2)}`;
+      document.getElementById("sumTotalDibo").innerText = `€${totalDibo.toFixed(2)}`;
+
+      let sortedCats = Object.entries(categoryMap).sort((a, b) => b[1] - a[1]);
+      let catHTML = "";
+      sortedCats.forEach(([cat, amt]) => {
+        let pct = totalPeriod > 0 ? (amt / totalPeriod) * 100 : 0;
+        catHTML += `
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; font-size:13px;">
+              <strong>${cat}</strong>
+              <span><b style="color:var(--danger);">€${amt.toFixed(2)}</b> (${pct.toFixed(0)}%)</span>
+            </div>
+            <div class="progress-bar"><div class="progress-bar-inner spend" style="width:${pct}%"></div></div>
+          </div>`;
+      });
+      document.getElementById("sumCategoryBreakdown").innerHTML = catHTML || `<p style="font-size:13px; color:var(--text-muted);">No EUR expenses found for this selection.</p>`;
+
+      let histHTML = "";
+      filtered.forEach(e => {
+        let entryStr = e.entryDate ? ` • Entered: ${e.entryDate}` : '';
+        histHTML += `
+          <div class="item-row">
+            <div class="item-header">
+              <div>
+                <strong>${e.where}</strong>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+                  📅 ${e.date} • <span class="badge badge-src">${e.sourceType === 'cash' ? '💵 ' : '💳 '}${e.sourceName}</span> ${entryStr}
+                </div>
+              </div>
+              <div style="text-align:right; display:flex; align-items:center; gap:8px;">
+                <strong style="color:var(--danger); font-size:14px;">-€${e.amount.toFixed(2)}</strong>
+                <button class="app-btn danger" style="padding:4px 8px; flex:none;" onclick="deleteExpense(${e.id})"><span class="icon" style="font-size:12px;">🗑️</span></button>
+              </div>
+            </div>
+          </div>`;
+      });
+      document.getElementById("sumTransactionList").innerHTML = histHTML || `<p style="font-size:13px; color:var(--text-muted);">No EUR transactions recorded in this period.</p>`;
+
+    } else {
+      document.getElementById("sumBdtTotalLabel").innerText = `Total BDT Spent (${labelText})`;
+      let totalBdtPeriod = 0;
+      let categoryMap = {};
+
+      filtered.forEach(e => {
+        totalBdtPeriod += e.amount;
+        let key = e.where.trim();
+        categoryMap[key] = (categoryMap[key] || 0) + e.amount;
+      });
+
+      document.getElementById("sumBdtPeriodTotal").innerText = `৳${totalBdtPeriod.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+      let sortedCats = Object.entries(categoryMap).sort((a, b) => b[1] - a[1]);
+      let catHTML = "";
+      sortedCats.forEach(([cat, amt]) => {
+        let pct = totalBdtPeriod > 0 ? (amt / totalBdtPeriod) * 100 : 0;
+        catHTML += `
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; font-size:13px;">
+              <strong>${cat}</strong>
+              <span><b style="color:var(--danger);">৳${amt.toLocaleString('en-IN', {minimumFractionDigits: 2})}</b> (${pct.toFixed(0)}%)</span>
+            </div>
+            <div class="progress-bar"><div class="progress-bar-inner spend" style="width:${pct}%"></div></div>
+          </div>`;
+      });
+      document.getElementById("sumCategoryBreakdown").innerHTML = catHTML || `<p style="font-size:13px; color:var(--text-muted);">No BDT expenses found for this selection.</p>`;
+
+      let histHTML = "";
+      filtered.forEach(e => {
+        let entryStr = e.entryDate ? ` • Entered: ${e.entryDate}` : '';
+        histHTML += `
+          <div class="item-row">
+            <div class="item-header">
+              <div>
+                <strong>${e.where}</strong>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+                  📅 ${e.date} • <span class="badge badge-src">🇧🇩 ${e.sourceName}</span> ${entryStr}
+                </div>
+              </div>
+              <div style="text-align:right; display:flex; align-items:center; gap:8px;">
+                <strong style="color:var(--danger); font-size:14px;">-৳${e.amount.toLocaleString('en-IN', {minimumFractionDigits: 2})}</strong>
+                <button class="app-btn danger" style="padding:4px 8px; flex:none;" onclick="deleteExpense(${e.id})"><span class="icon" style="font-size:12px;">🗑️</span></button>
+              </div>
+            </div>
+          </div>`;
+      });
+      document.getElementById("sumTransactionList").innerHTML = histHTML || `<p style="font-size:13px; color:var(--text-muted);">No BDT transactions recorded in this period.</p>`;
+    }
+  }
+
+  function renderDashboardAnalytics() {
+    let now = new Date();
+    let currMonthStr = now.toISOString().slice(0, 7);
+    let currMonthName = now.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+
+    let lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    let lastMonthStr = lastMonthDate.toISOString().slice(0, 7);
+    let lastMonthName = lastMonthDate.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+
+    let eurExpenses = db.expenses.filter(e => !e.currency || e.currency === 'EUR');
+    let currSpent = eurExpenses.filter(e => e.date && e.date.startsWith(currMonthStr)).reduce((a, c) => a + c.amount, 0);
+    let lastSpent = eurExpenses.filter(e => e.date && e.date.startsWith(lastMonthStr)).reduce((a, c) => a + c.amount, 0);
+
+    document.getElementById("currMonthLabel").innerText = `This Month (${currMonthName})`;
+    document.getElementById("currMonthAmt").innerText = `€${currSpent.toFixed(2)}`;
+    document.getElementById("lastMonthLabel").innerText = `Last Month (${lastMonthName})`;
+    document.getElementById("lastMonthAmt").innerText = `€${lastSpent.toFixed(2)}`;
+
+    let maxVal = Math.max(currSpent, lastSpent, 1);
+    document.getElementById("currMonthBar").style.width = `${(currSpent / maxVal) * 100}%`;
+    document.getElementById("lastMonthBar").style.width = `${(lastSpent / maxVal) * 100}%`;
+
+    let trendBadge = document.getElementById("expenseTrendBadge");
+    let insightText = document.getElementById("expenseInsightText");
+
+    if (lastSpent === 0 && currSpent === 0) {
+      trendBadge.className = "trend-pill trend-neutral";
+      trendBadge.innerText = "0% Change";
+      insightText.innerText = "No spending recorded in last month or this month yet.";
+    } else if (lastSpent === 0 && currSpent > 0) {
+      trendBadge.className = "trend-pill trend-up";
+      trendBadge.innerText = "▲ +100% vs Last Month";
+      insightText.innerText = `You spent €${currSpent.toFixed(2)} this month (no spending recorded last month).`;
+    } else {
+      let diff = currSpent - lastSpent;
+      let pct = ((diff / lastSpent) * 100).toFixed(1);
+      if (diff > 0) {
+        trendBadge.className = "trend-pill trend-up";
+        trendBadge.innerText = `▲ +${pct}% Higher`;
+        insightText.innerHTML = `You spent <b style="color:var(--danger);">€${diff.toFixed(2)} (${pct}%) more</b> than ${lastMonthName}.`;
+      } else if (diff < 0) {
+        let absPct = Math.abs(pct);
+        trendBadge.className = "trend-pill trend-down";
+        trendBadge.innerText = `▼ -${absPct}% Lower`;
+        insightText.innerHTML = `Great! You spent <b style="color:var(--success);">€${Math.abs(diff).toFixed(2)} (${absPct}%) less</b> than ${lastMonthName}.`;
+      } else {
+        trendBadge.className = "trend-pill trend-neutral";
+        trendBadge.innerText = "0% Same";
+        insightText.innerText = `Spending is identical to ${lastMonthName}.`;
+      }
+    }
+
+    let totalPiggy = 0;
+    let savingsHTML = "";
+    db.goals.forEach(g => {
+      totalPiggy += g.saved;
+      let pct = Math.min(100, (g.saved / g.target) * 100);
+      savingsHTML += `
+        <div class="chart-row">
+          <div class="chart-label-row">
+            <strong>🎯 ${g.title}</strong>
+            <span><b style="color:var(--success);">€${g.saved.toFixed(2)}</b> / €${g.target.toFixed(2)} (${pct.toFixed(0)}%)</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill bar-save" style="width:${pct}%"></div>
+          </div>
+        </div>`;
     });
-
-    document.getElementById("sumPeriodTotal").innerText = `€${totalPeriod.toFixed(2)}`;
-    document.getElementById("sumPeriodBank").innerText = `€${totalBankSpent.toFixed(2)}`;
-    document.getElementById("sumPeriodCash").innerText = `€${totalCashSpent.toFixed(2)}`;
-
-    let sortedCats = Object.entries(categoryMap).sort((a, b) => b[1] - a[1]);
-    let catHTML = "";
-    sortedCats.forEach(([cat, amt]) => {
-      let pct = totalPeriod > 0 ? (amt / totalPeriod) * 100 : 0;
-      catHTML += `<div style="margin-bottom:12px;"><div style="display:flex; justify-content:space-between; font-size:13px;"><strong>${cat}</strong><span><b style="color:var(--danger);">€${amt.toFixed(2)}</b></span></div><div class="progress-bar"><div class="progress-bar-inner spend" style="width:${pct}%"></div></div></div>`;
-    });
-    document.getElementById("sumCategoryBreakdown").innerHTML = catHTML || `<p style="font-size:13px; color:var(--text-muted);">No expenses.</p>`;
+    document.getElementById("dashTotalPiggy").innerText = `€${totalPiggy.toFixed(2)}`;
+    document.getElementById("dashSavingsVisual").innerHTML = savingsHTML || `<p style="font-size:12px; color:var(--text-muted); margin:0;">No savings goals set yet. Add goals in Wallet.</p>`;
   }
 
   function renderAll() {
@@ -1149,17 +1653,41 @@
     document.getElementById("dashTotalCash").innerText = `€${db.cash.toFixed(2)}`;
 
     let totalBank = 0;
+    db.banks.forEach(b => { totalBank += b.bal; });
+    document.getElementById("dashTotalBank").innerText = `€${totalBank.toFixed(2)}`;
+    document.getElementById("dashGrandTotal").innerText = `€${(totalBank + db.cash).toFixed(2)}`;
+
+    let totalBdt = 0;
+    db.bdtAccounts.forEach(b => { totalBdt += b.bal; });
+    document.getElementById("dashTotalBdt").innerText = `৳${totalBdt.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+    renderDashboardAnalytics();
+    renderAdvancedSummary();
+
+    let dashDocHTML = "", alertHTML = "";
+    db.docs.forEach((d) => {
+      let st = getExpiryStatus(d.exp);
+      if (st.urgent) alertHTML += `<div class="alert-banner ${st.diff >= 0 ? 'warning' : ''}">⚠️ <b>${d.name}</b>: ${st.text}</div>`;
+      dashDocHTML += `<div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);"><span>${d.name}</span><span class="badge ${st.cls}">${st.text}</span></div>`;
+    });
+    document.getElementById("expiryAlertsArea").innerHTML = alertHTML;
+    document.getElementById("dashDocStatus").innerHTML = dashDocHTML || "No documents uploaded yet.";
+
+    let dashApptHTML = "";
+    db.appts.forEach((a, i) => {
+      let ast = getApptStatus(a.date);
+      if (i < 3) dashApptHTML += `<div style="padding:6px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;"><div><b>${a.title}</b><div style="font-size:12px; color:var(--info);">🗓️ ${a.date} ${a.time ? 'at ' + a.time : ''}</div></div><span class="badge ${ast.cls}">${ast.text}</span></div>`;
+    });
+    document.getElementById("dashApptList").innerHTML = dashApptHTML || "No upcoming appointments.";
+
     let bankHTML = "";
     db.banks.forEach((b, i) => {
-      totalBank += b.bal;
       bankHTML += `
         <div class="bank-card">
-          <div class="bank-card-header">
-            <span class="bank-name">${b.name}</span>
-          </div>
+          <div class="bank-card-header"><span class="bank-name">${b.name}</span></div>
           <div class="card-num">${b.card || "No Card Number"}</div>
           <div class="card-bal">€${b.bal.toFixed(2)}</div>
-          ${b.entryDate ? `<div style="font-size:11px; color:#94a3b8; margin-top:4px;">Entered: ${b.entryDate}</div>` : ""}
+          ${b.entryDate ? `<div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Entered: ${b.entryDate}</div>` : ""}
           <div class="btn-container" style="margin-top:10px;">
             <button class="app-btn success" onclick="quickDepositBank(${i})"><span class="icon">➕</span>Add</button>
             <button class="app-btn danger" onclick="openSpendModal('bank', ${i})"><span class="icon">💸</span>Spend</button>
@@ -1168,42 +1696,73 @@
           </div>
         </div>`;
     });
-    document.getElementById("bankList").innerHTML = bankHTML || `<p style="font-size:13px; color:var(--text-muted);">No cards added.</p>`;
-    document.getElementById("dashTotalBank").innerText = `€${totalBank.toFixed(2)}`;
-    document.getElementById("dashGrandTotal").innerText = `€${(totalBank + db.cash).toFixed(2)}`;
+    document.getElementById("bankList").innerHTML = bankHTML || `<p style="font-size:13px; color:var(--text-muted);">No EUR cards added.</p>`;
 
-    let nowMonth = new Date().toISOString().slice(0, 7);
-    let thisMonthSpent = db.expenses.filter(e => e.date && e.date.startsWith(nowMonth)).reduce((a, c) => a + c.amount, 0);
-    document.getElementById("dashMonthSpent").innerText = `€${thisMonthSpent.toFixed(2)}`;
-
-    renderExpenseSummary();
-
-    let loanHTML = "";
-    db.loans.forEach((l, i) => {
-      let isPabo = l.type === "pabo";
-      loanHTML += `
-        <div class="item-row">
-          <div class="item-header" style="flex-direction:column; gap:6px;">
-            <div style="display:flex; justify-content:space-between; width:100%;">
-              <strong>👤 ${l.person}</strong>
-              <strong style="font-size:15px; color:${isPabo ? 'var(--success)' : 'var(--danger)'};">€${l.amt.toFixed(2)}</strong>
-            </div>
-            <div style="font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; width:100%;">
-              <span><span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Pabo' : '🔴 Dibo'}</span> ${l.entryDate ? '• Entered: ' + l.entryDate : ''}</span>
-            </div>
-            <div class="btn-container" style="width:100%; margin-top:6px;">
-              <button class="app-btn success" onclick="openSettleModal(${i})"><span class="icon">🤝</span>Settle</button>
-              <button class="app-btn danger" onclick="deleteLoan(${i})"><span class="icon">🗑️</span>Delete</button>
-            </div>
+    let bdtHTML = "";
+    db.bdtAccounts.forEach((b, i) => {
+      bdtHTML += `
+        <div class="bdt-card">
+          <div class="bank-card-header"><span class="bdt-name">🇧🇩 ${b.name}</span></div>
+          <div class="card-num">${b.number || "No Account / Phone"}</div>
+          <div class="card-bal" style="color:var(--success);">৳${b.bal.toLocaleString('en-IN', {minimumFractionDigits: 2})}</div>
+          ${b.entryDate ? `<div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Entered: ${b.entryDate}</div>` : ""}
+          <div class="btn-container" style="margin-top:10px;">
+            <button class="app-btn success" onclick="quickDepositBdt(${i})"><span class="icon">➕</span>Add ৳</button>
+            <button class="app-btn danger" onclick="openSpendModal('bdt', ${i})"><span class="icon">💸</span>Spend ৳</button>
+            <button class="app-btn danger" onclick="deleteBdtAccount(${i})"><span class="icon">🗑️</span>Del</button>
           </div>
         </div>`;
     });
-    document.getElementById("loanList").innerHTML = loanHTML || `<p style="font-size:13px; color:var(--text-muted);">No records.</p>`;
+    document.getElementById("bdtList").innerHTML = bdtHTML || `<p style="font-size:13px; color:var(--text-muted);">No BDT accounts added.</p>`;
 
-    let totalPiggy = 0;
+    let loanHTML = "";
+    let settledLoanHTML = "";
+
+    db.loans.forEach((l, i) => {
+      let isPabo = l.type === "pabo";
+      let isSettled = l.status === "settled";
+
+      if (isSettled) {
+        settledLoanHTML += `
+          <div class="item-row" onclick="viewLoanDetail(${i})">
+            <div class="item-header">
+              <div>
+                <strong>👤 ${l.person}</strong>
+                <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">
+                  📅 Settled: ${l.settledDate || 'N/A'} • <span style="color:var(--info);">👆 Tap for Details</span>
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <strong style="font-size:14px; color:var(--success);">€${(l.originalAmt || l.amt).toFixed(2)}</strong>
+                <div><span class="badge badge-ok">Settled</span></div>
+              </div>
+            </div>
+          </div>`;
+      } else {
+        loanHTML += `
+          <div class="item-row">
+            <div class="item-header" style="flex-direction:column; gap:6px;">
+              <div style="display:flex; justify-content:space-between; width:100%;">
+                <strong onclick="viewLoanDetail(${i})" style="cursor:pointer;">👤 ${l.person} <span style="font-size:11px; color:var(--info);">ℹ️</span></strong>
+                <strong style="font-size:15px; color:${isPabo ? 'var(--success)' : 'var(--danger)'};">€${l.amt.toFixed(2)}</strong>
+              </div>
+              <div style="font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; width:100%;">
+                <span><span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Pabo' : '🔴 Dibo'}</span> ${l.entryDate ? '• Entered: ' + l.entryDate : ''}</span>
+              </div>
+              <div class="btn-container" style="width:100%; margin-top:6px;">
+                <button class="app-btn success" onclick="openSettleModal(${i})"><span class="icon">🤝</span>Settle</button>
+                <button class="app-btn danger" onclick="deleteLoan(${i})"><span class="icon">🗑️</span>Delete</button>
+              </div>
+            </div>
+          </div>`;
+      }
+    });
+
+    document.getElementById("loanList").innerHTML = loanHTML || `<p style="font-size:13px; color:var(--text-muted);">No active records.</p>`;
+    document.getElementById("settledLoanList").innerHTML = settledLoanHTML || `<p style="font-size:13px; color:var(--text-muted);">No settled records yet.</p>`;
+
     let goalHTML = "";
     db.goals.forEach((g, i) => {
-      totalPiggy += g.saved;
       let pct = Math.min(100, (g.saved / g.target) * 100);
       goalHTML += `
         <div class="item-row">
@@ -1221,13 +1780,10 @@
         </div>`;
     });
     document.getElementById("goalList").innerHTML = goalHTML || `<p style="font-size:13px; color:var(--text-muted);">No goals.</p>`;
-    document.getElementById("dashTotalPiggy").innerText = `€${totalPiggy.toFixed(2)}`;
 
-    let docHTML = "", dashDocHTML = "", alertHTML = "";
+    let docHTML = "";
     db.docs.forEach((d, i) => {
       let st = getExpiryStatus(d.exp);
-      if (st.urgent) alertHTML += `<div class="alert-banner ${st.diff >= 0 ? 'warning' : ''}">⚠️ <b>${d.name}</b>: ${st.text}</div>`;
-      dashDocHTML += `<div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);"><span>${d.name}</span><span class="badge ${st.cls}">${st.text}</span></div>`;
       docHTML += `
         <div class="item-row">
           <div class="item-header" style="flex-direction:column; gap:6px;">
@@ -1243,25 +1799,27 @@
           </div>
         </div>`;
     });
-    document.getElementById("expiryAlertsArea").innerHTML = alertHTML;
     document.getElementById("docList").innerHTML = docHTML || `<p style="font-size:13px; color:var(--text-muted);">No documents.</p>`;
-    document.getElementById("dashDocStatus").innerHTML = dashDocHTML || "No documents.";
 
-    let apptHTML = "", dashApptHTML = "";
+    let apptHTML = "";
     db.appts.forEach((a, i) => {
+      let ast = getApptStatus(a.date);
       apptHTML += `
         <div class="item-row">
           <div class="item-header" style="flex-direction:column; gap:6px;">
-            <div><strong>📌 ${a.title}</strong><div style="font-size:13px; color:var(--accent);">🗓️ ${a.date} ${a.time ? 'at ' + a.time : ''}</div></div>
+            <div style="display:flex; justify-content:space-between; width:100%;">
+              <strong>📌 ${a.title}</strong>
+              <span class="badge ${ast.cls}">${ast.text}</span>
+            </div>
+            <div style="font-size:13px; color:var(--info);">🗓️ Date: ${a.date} ${a.time ? '• ⏰ Time: ' + a.time : ''}</div>
+            ${a.location ? `<div style="font-size:12px; color:var(--text-muted);">📍 Location: ${a.location}</div>` : ''}
             <div class="btn-container" style="width:100%; margin-top:6px;">
               <button class="app-btn danger" onclick="deleteAppt(${i})"><span class="icon">🗑️</span>Delete Appt</button>
             </div>
           </div>
         </div>`;
-      if (i < 3) dashApptHTML += `<div style="padding:6px 0; border-bottom:1px solid var(--border);"><b>${a.title}</b> — <span style="color:var(--accent);">${a.date}</span></div>`;
     });
-    document.getElementById("apptList").innerHTML = apptHTML || `<p style="font-size:13px; color:var(--text-muted);">No appointments.</p>`;
-    document.getElementById("dashApptList").innerHTML = dashApptHTML || "No appointments.";
+    document.getElementById("apptList").innerHTML = apptHTML || `<p style="font-size:13px; color:var(--text-muted);">No appointments scheduled.</p>`;
 
     document.getElementById("lawyerName").value = db.lawyer.name || "";
     document.getElementById("lawyerPhone").value = db.lawyer.phone || "";
