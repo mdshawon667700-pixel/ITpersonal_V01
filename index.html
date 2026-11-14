@@ -48,12 +48,14 @@
   .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
   .form-input { padding: 10px; margin: 6px 0; width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; }
   
-  /* Buttons strictly placed at the bottom of cards */
-  .btn-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 12px; }
-  .submit-btn, .reset-btn { width: 100%; padding: 11px; border-radius: 8px; cursor: pointer; border: none; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
-  .submit-btn { background: var(--accent); color: #000; }
-  .submit-btn:hover { opacity: 0.9; }
-  .reset-btn { background: var(--danger); color: white; }
+  /* Bottom Action Container & Professional App-icon Style Buttons */
+  .btn-container { display: flex; gap: 8px; margin-top: 15px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .app-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.2s; text-align: center; }
+  .app-btn span.icon { font-size: 18px; }
+  .app-btn.primary { background: var(--accent); color: #000; border-color: var(--accent); }
+  .app-btn.success { background: rgba(34, 197, 94, 0.15); color: var(--success); border-color: var(--success); }
+  .app-btn.danger { background: rgba(239, 68, 68, 0.15); color: var(--danger); border-color: var(--danger); }
+  .app-btn:active { transform: scale(0.96); }
 
   .summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
   .summary-box { background: var(--card-bg); border: 1px solid var(--border); padding: 12px; border-radius: 10px; }
@@ -62,7 +64,7 @@
   .summary-box strong { font-size: 18px; color: var(--accent); }
 
   /* Cash Box UI */
-  .cash-card { background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border: 1px solid var(--success); border-radius: 12px; padding: 15px; color: #f8fafc; display: flex; justify-content: space-between; align-items: center; }
+  .cash-card { background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border: 1px solid var(--success); border-radius: 12px; padding: 15px; color: #f8fafc; }
   .cash-amount { font-size: 24px; font-weight: bold; color: #4ade80; margin-top: 4px; }
 
   /* Bank Card UI */
@@ -86,17 +88,12 @@
   .badge-ok { background: rgba(34, 197, 94, 0.2); color: var(--success); }
   .badge-warn { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
   .badge-exp { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-  .badge-src { background: rgba(212, 175, 55, 0.18); color: var(--accent); }
   .badge-pabo { background: rgba(34, 197, 94, 0.2); color: var(--success); }
   .badge-dibo { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
 
   .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); cursor: pointer; }
   .item-row:active { border-color: var(--accent); background: var(--card-bg); }
   .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-  .small-btn { padding: 6px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 12px; font-weight: 600; }
-  .small-btn.danger { border-color: var(--danger); color: var(--danger); }
-  .small-btn.success { border-color: var(--success); color: var(--success); }
-  .small-btn.accent { border-color: var(--accent); color: var(--accent); }
 
   /* Quick Tag Chips */
   .chip-group { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 10px; }
@@ -151,7 +148,7 @@
   <div class="modal-content" style="text-align:center;" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
       <strong id="modalTitle">Full Details</strong>
-      <button class="small-btn danger" onclick="document.getElementById('previewModal').style.display='none'">Close ✖</button>
+      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('previewModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
     <div id="modalBody" style="text-align:left;"></div>
   </div>
@@ -162,7 +159,7 @@
   <div class="modal-content" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <strong id="spendModalTitle" style="color:var(--accent); font-size:16px;">💸 Record Expense</strong>
-      <button class="small-btn danger" onclick="document.getElementById('spendModal').style.display='none'">✖</button>
+      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('spendModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
     <p id="spendSourceInfo" style="font-size:12px; color:var(--text-muted); margin-top:0;"></p>
     
@@ -170,22 +167,21 @@
     <input type="number" step="0.01" id="spendAmt" class="form-input" placeholder="e.g. 25.50">
     
     <label style="font-size:12px; color:var(--text-muted);">Where / What did you spend on?</label>
-    <input type="text" id="spendWhere" class="form-input" placeholder="e.g. Supermercato, Rent, Coffee, Mobile, Ticket">
+    <input type="text" id="spendWhere" class="form-input" placeholder="e.g. Supermercato, Rent, Coffee">
     <div class="chip-group">
       <span class="chip" onclick="setSpendTag('🛒 Supermercato')">🛒 Supermercato</span>
       <span class="chip" onclick="setSpendTag('🏠 Room Rent')">🏠 Room Rent</span>
       <span class="chip" onclick="setSpendTag('🍽️ Food / Coffee')">🍽️ Food / Coffee</span>
-      <span class="chip" onclick="setSpendTag('🚌 Transport / Ticket')">🚌 Transport</span>
-      <span class="chip" onclick="setSpendTag('📱 Mobile / WiFi')">📱 Mobile / WiFi</span>
-      <span class="chip" onclick="setSpendTag('🇧🇩 Remittance / BD')">🇧🇩 Remittance</span>
-      <span class="chip" onclick="setSpendTag('🛍️ Shopping')">🛍️ Shopping</span>
+      <span class="chip" onclick="setSpendTag('🚌 Transport')">🚌 Transport</span>
+      <span class="chip" onclick="setSpendTag('📱 Mobile / WiFi')">📱 Mobile</span>
+      <span class="chip" onclick="setSpendTag('🇧🇩 Remittance')">🇧🇩 Remittance</span>
     </div>
 
     <label style="font-size:12px; color:var(--text-muted);">Date:</label>
     <input type="date" id="spendDate" class="form-input">
 
     <div class="btn-container">
-      <button class="submit-btn" style="background:var(--danger); color:#fff;" onclick="confirmSpend()">✅ Confirm & Deduct Balance</button>
+      <button class="app-btn success" onclick="confirmSpend()"><span class="icon">✅</span>Confirm</button>
     </div>
   </div>
 </div>
@@ -195,20 +191,20 @@
   <div class="modal-content" onclick="event.stopPropagation()">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <strong id="settleModalTitle" style="color:var(--accent); font-size:16px;">🤝 Settle / Receive Money</strong>
-      <button class="small-btn danger" onclick="document.getElementById('settleModal').style.display='none'">✖</button>
+      <button class="app-btn danger" style="padding:4px 10px; flex:none;" onclick="document.getElementById('settleModal').style.display='none'"><span class="icon" style="font-size:14px;">✖</span>Close</button>
     </div>
     <p id="settleInfo" style="font-size:13px; color:var(--text-muted); margin-top:0;"></p>
 
     <label style="font-size:12px; color:var(--text-muted);">Amount (€):</label>
     <input type="number" step="0.01" id="settleAmt" class="form-input" placeholder="e.g. 50">
 
-    <label style="font-size:12px; color:var(--text-muted);">Where should this money go / come from?</label>
+    <label style="font-size:12px; color:var(--text-muted);">Destination / Source:</label>
     <select id="settleDestination" class="form-input">
       <option value="cash">💵 Cash in Hand</option>
     </select>
 
     <div class="btn-container">
-      <button class="submit-btn" style="background:var(--success); color:#000;" onclick="confirmSettle()">✅ Confirm & Update Balance</button>
+      <button class="app-btn success" onclick="confirmSettle()"><span class="icon">✅</span>Update Balance</button>
     </div>
   </div>
 </div>
@@ -273,7 +269,7 @@
 <div class="content" id="searchContent">
   <div class="card">
     <h3>🔍 Universal Search</h3>
-    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">Search by person name, bank card, transaction, or document. Tap any result to view full info and attached files.</p>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">Search by person name, bank card, transaction, or document. Tap any result to view full info, entry date, and attached files.</p>
     <input type="text" id="tabSearchInput" class="form-input" placeholder="Type name, card, store, doc name..." oninput="handleTabSearch(this.value)">
     <div id="tabSearchResults" style="margin-top:12px;"></div>
   </div>
@@ -288,38 +284,35 @@
         <span style="font-size:12px; color:#a7f3d0;">Available Physical Cash</span>
         <div class="cash-amount" id="cashDisplay">€0.00</div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:6px;">
-        <button class="small-btn success" onclick="adjustCash('set')">✏️ Set Cash</button>
-        <div style="display:flex; gap:5px;">
-          <button class="small-btn success" onclick="adjustCash('add')">+ Add</button>
-          <button class="small-btn danger" onclick="openSpendModal('cash', -1)">- Spend €</button>
-        </div>
-      </div>
+    </div>
+    <div class="btn-container">
+      <button class="app-btn primary" onclick="adjustCash('set')"><span class="icon">✏️</span>Set Cash</button>
+      <button class="app-btn success" onclick="adjustCash('add')"><span class="icon">➕</span>Add Cash</button>
+      <button class="app-btn danger" onclick="openSpendModal('cash', -1)"><span class="icon">💸</span>Spend</button>
     </div>
   </div>
 
   <div class="card">
     <h3>💳 My Bank Cards & Balances</h3>
-    <p style="font-size:12px; color:var(--text-muted); margin-top:0;">If a bank/card already exists, typing its name or number will auto-detect it and <b>add (+)</b> the new amount to your previous balance.</p>
-    <input type="text" id="bankName" class="form-input" placeholder="Bank / Card Name (e.g. PostePay, UniCredit)" oninput="checkExistingBank()">
-    <input type="text" id="cardLast4" maxlength="19" class="form-input" placeholder="Card Number or Last 4 Digits (e.g. **** 4521)" oninput="checkExistingBank()">
+    <input type="text" id="bankName" class="form-input" placeholder="Bank Name (e.g. PostePay, UniCredit)" oninput="checkExistingBank()">
+    <input type="text" id="cardLast4" maxlength="19" class="form-input" placeholder="Card Number / Last 4 Digits" oninput="checkExistingBank()">
     <div id="bankDetectNotice" class="detect-notice"></div>
-    <input type="number" step="0.01" id="bankBal" class="form-input" placeholder="Amount to Add / Initial Balance (€)">
+    <input type="number" step="0.01" id="bankBal" class="form-input" placeholder="Amount (€)">
     
     <div class="btn-container">
-      <button class="submit-btn" id="bankSubmitBtn" onclick="saveBank()">+ Add New Card</button>
+      <button class="app-btn primary" id="bankSubmitBtn" onclick="saveBank()"><span class="icon">💾</span>Add Card</button>
     </div>
     <div id="bankList"></div>
   </div>
 
   <div class="card">
     <h3>🐷 Piggy Bank (Dream Goals)</h3>
-    <input type="text" id="goalTitle" class="form-input" placeholder="Dream Goal (e.g. Bari kora, New Phone, Family)">
+    <input type="text" id="goalTitle" class="form-input" placeholder="Dream Goal (e.g. New Phone, Savings)">
     <input type="number" step="0.01" id="goalTarget" class="form-input" placeholder="Target Amount (€)">
     <input type="number" step="0.01" id="goalSaved" class="form-input" placeholder="Already Saved (€)">
     
     <div class="btn-container">
-      <button class="submit-btn" onclick="saveGoal()">+ Create / Update Dream Goal</button>
+      <button class="app-btn primary" onclick="saveGoal()"><span class="icon">🎯</span>Save Goal</button>
     </div>
     <div id="goalList"></div>
   </div>
@@ -331,14 +324,14 @@
     <h3>🤝 Add Lent / Borrow Record</h3>
     <select id="loanType" class="form-input">
       <option value="pabo">🟢 Lent to someone (Kar kache Pabo)</option>
-      <option value="dibo">🔴 Borrowed from someone (Kar kache Dibo / Denar)</option>
+      <option value="dibo">🔴 Borrowed from someone (Kar kache Dibo)</option>
     </select>
     <input type="text" id="loanPerson" class="form-input" placeholder="Person Name (e.g. Rahim Bhai)">
     <input type="number" step="0.01" id="loanAmt" class="form-input" placeholder="Total Amount (€)">
     <input type="text" id="loanNote" class="form-input" placeholder="Note / Reason (Optional)">
     
     <div class="btn-container">
-      <button class="submit-btn" onclick="saveLoan()">+ Save Record</button>
+      <button class="app-btn primary" onclick="saveLoan()"><span class="icon">💾</span>Save Record</button>
     </div>
   </div>
 
@@ -355,7 +348,7 @@
       <h3 style="margin:0;" id="summaryHeading">📊 Running Month Summary</h3>
       <div style="display:flex; align-items:center; gap:6px;">
         <input type="date" id="summaryDatePicker" class="form-input" style="width:auto; margin:0; padding:6px 10px;" onchange="renderExpenseSummary()">
-        <button id="resetDateFilterBtn" class="small-btn accent" style="display:none; padding:7px 10px;" onclick="clearSummaryDateFilter()">This Month</button>
+        <button id="resetDateFilterBtn" class="app-btn primary" style="display:none; padding:6px 10px; flex:none;" onclick="clearSummaryDateFilter()">This Month</button>
       </div>
     </div>
     <p id="summarySubtext" style="font-size:12px; color:var(--text-muted); margin-top:0;">Showing running month summary (Banks + Cash).</p>
@@ -377,7 +370,7 @@
   </div>
 
   <div class="card">
-    <h3 id="breakdownHeading">📍 Where You Spent (Running Month)</h3>
+    <h3 id="breakdownHeading">📍 Where You Spent</h3>
     <div id="sumCategoryBreakdown"></div>
   </div>
 
@@ -398,7 +391,7 @@
     <input type="file" id="docFile" accept="image/*,application/pdf" class="form-input">
     
     <div class="btn-container">
-      <button class="submit-btn" onclick="saveDoc()">💾 Save Document</button>
+      <button class="app-btn primary" onclick="saveDoc()"><span class="icon">💾</span>Save Document</button>
     </div>
   </div>
 
@@ -418,7 +411,7 @@
     <input type="text" id="apptLocation" class="form-input" placeholder="Location (Optional)">
     
     <div class="btn-container">
-      <button class="submit-btn" onclick="saveAppt()">+ Save Appointment</button>
+      <button class="app-btn primary" onclick="saveAppt()"><span class="icon">📅</span>Save Appointment</button>
     </div>
   </div>
 
@@ -438,18 +431,17 @@
     <input type="text" id="lawyerNote" class="form-input" placeholder="Case Note">
     
     <div class="btn-container">
-      <button class="submit-btn" onclick="saveLawyer()">💾 Save Lawyer Info</button>
+      <button class="app-btn primary" onclick="saveLawyer()"><span class="icon">💾</span>Save Lawyer Info</button>
     </div>
     <div id="lawyerDisplay" style="margin-top:12px;"></div>
   </div>
 
   <div class="card">
     <h3>🚨 Italy Emergency Contacts</h3>
-    <div class="btn-container" style="border-top:none; padding-top:0;">
-      <button class="submit-btn" style="background:#dc2626; color:#fff;" onclick="window.location.href='tel:112'">🚓 Carabinieri / Emergency (112)</button>
-      <button class="submit-btn" style="background:#ea580c; color:#fff;" onclick="window.location.href='tel:118'">🚑 Ambulance / Pronto Soccorso (118)</button>
-      <button class="submit-btn" style="background:#b91c1c; color:#fff;" onclick="window.location.href='tel:115'">🚒 Fire Brigade / Vigili del Fuoco (115)</button>
-      <button class="submit-btn" style="background:#1d4ed8; color:#fff;" onclick="window.location.href='tel:113'">👮 Polizia di Stato (113)</button>
+    <div class="btn-container" style="border-top:none; padding-top:0; flex-direction:column;">
+      <button class="app-btn danger" style="width:100%; flex:none; padding:12px;" onclick="window.location.href='tel:112'"><span class="icon">🚓</span>Carabinieri / Emergency (112)</button>
+      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(234,88,12,0.15); color:#ea580c; border-color:#ea580c;" onclick="window.location.href='tel:118'"><span class="icon">🚑</span>Ambulance / Pronto Soccorso (118)</button>
+      <button class="app-btn danger" style="width:100%; flex:none; padding:12px; background:rgba(185,28,28,0.15); color:#b91c1c; border-color:#b91c1c;" onclick="window.location.href='tel:115'"><span class="icon">🚒</span>Fire Brigade (115)</button>
     </div>
   </div>
 </div>
@@ -460,7 +452,7 @@
     <h3>🔒 App Security PIN</h3>
     <input type="password" maxlength="4" id="newPinInput" class="form-input" placeholder="Set New 4-Digit PIN">
     <div class="btn-container">
-      <button class="submit-btn" onclick="updatePin()">Update PIN</button>
+      <button class="app-btn primary" onclick="updatePin()"><span class="icon">🔒</span>Update PIN</button>
     </div>
   </div>
 
@@ -468,7 +460,7 @@
     <h3>☁️ Export Backup</h3>
     <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download backup file or copy text for Notes/WhatsApp.</p>
     <div class="btn-container" style="border-top:none; padding-top:0;">
-      <button class="submit-btn" onclick="exportBackup()">📥 Download / Copy Backup (.json)</button>
+      <button class="app-btn primary" onclick="exportBackup()"><span class="icon">📥</span>Download / Copy Backup</button>
     </div>
   </div>
 
@@ -481,8 +473,8 @@
     <input type="file" id="importFile" accept=".json,application/json,text/plain" class="form-input" onchange="importBackup(event)">
     
     <div class="btn-container">
-      <button class="submit-btn" style="background:var(--success); color:#000;" onclick="importBackupFromText()">✅ Restore from Pasted Text</button>
-      <button class="reset-btn" onclick="resetAll()">⚠️ Reset All App Data</button>
+      <button class="app-btn success" onclick="importBackupFromText()"><span class="icon">✅</span>Restore Text</button>
+      <button class="app-btn danger" onclick="resetAll()"><span class="icon">⚠️</span>Reset All</button>
     </div>
   </div>
 </div>
@@ -503,6 +495,10 @@
   if (typeof db.cash !== "number") db.cash = 0;
   if (!Array.isArray(db.expenses)) db.expenses = [];
   if (!Array.isArray(db.loans)) db.loans = [];
+  if (!Array.isArray(db.banks)) db.banks = [];
+  if (!Array.isArray(db.goals)) db.goals = [];
+  if (!Array.isArray(db.docs)) db.docs = [];
+  if (!Array.isArray(db.appts)) db.appts = [];
 
   let editingBankIndex = -1;
   let activeSpendContext = { type: "cash", bankIndex: -1 };
@@ -567,14 +563,13 @@
     document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // FIXED: Reliable Full Details Popup Modal Handler
   function showSearchItemDetail(title, htmlContent) {
     document.getElementById("modalTitle").innerText = title;
     document.getElementById("modalBody").innerHTML = htmlContent;
     document.getElementById("previewModal").style.display = "flex";
   }
 
-  // Universal Search Tab Logic
+  // Universal Search Tab Logic with Entry Dates
   function handleTabSearch(query) {
     let q = query.trim().toLowerCase();
     let resultsBox = document.getElementById("tabSearchResults");
@@ -597,7 +592,8 @@
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:10px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">🤝 Loans</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
-        let detailHtml = `<p><b>Person:</b> ${l.person}</p><p><b>Type:</b> ${isPabo ? 'Lent (Pabo)' : 'Borrowed (Dibo)'}</p><p><b>Amount:</b> €${l.amt.toFixed(2)}</p><p><b>Note:</b> ${l.note || 'None'}</p>`;
+        let entryDateStr = l.entryDate ? `<p><b>Entry Date:</b> ${l.entryDate}</p>` : '';
+        let detailHtml = `<p><b>Person:</b> ${l.person}</p><p><b>Type:</b> ${isPabo ? 'Lent (Pabo)' : 'Borrowed (Dibo)'}</p><p><b>Amount:</b> €${l.amt.toFixed(2)}</p>${entryDateStr}<p><b>Note:</b> ${l.note || 'None'}</p>`;
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("🤝 Loan: ${l.person}", ${JSON.stringify(detailHtml)})'>
@@ -605,7 +601,7 @@
               <strong>👤 ${l.person}</strong>
               <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold;">€${l.amt.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${isPabo ? '🟢 Pabo' : '🔴 Dibo'} <span style="color:var(--accent); float:right;">👆 Tap for full info</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${isPabo ? '🟢 Pabo' : '🔴 Dibo'} ${l.entryDate ? '• Entered: ' + l.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -614,7 +610,8 @@
       hasResults = true;
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💳 Bank Cards</div>`;
       matchedBanks.forEach(b => {
-        let detailHtml = `<p><b>Bank:</b> ${b.name}</p><p><b>Card:</b> ${b.card || 'None'}</p><p><b>Balance:</b> €${b.bal.toFixed(2)}</p>`;
+        let entryDateStr = b.entryDate ? `<p><b>Entry Date:</b> ${b.entryDate}</p>` : '';
+        let detailHtml = `<p><b>Bank:</b> ${b.name}</p><p><b>Card:</b> ${b.card || 'None'}</p><p><b>Balance:</b> €${b.bal.toFixed(2)}</p>${entryDateStr}`;
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("💳 Bank: ${b.name}", ${JSON.stringify(detailHtml)})'>
@@ -622,7 +619,7 @@
               <strong>💳 ${b.name}</strong>
               <span style="color:var(--success); font-weight:bold;">€${b.bal.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.card || ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:3px;">${b.card || ''} ${b.entryDate ? '• Entered: ' + b.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -631,7 +628,8 @@
       hasResults = true;
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">💸 Transactions</div>`;
       matchedExpenses.forEach(e => {
-        let detailHtml = `<p><b>Where:</b> ${e.where}</p><p><b>Amount:</b> €${e.amount.toFixed(2)}</p><p><b>Date:</b> ${e.date}</p><p><b>Source:</b> ${e.sourceName}</p>`;
+        let entryDateStr = e.entryDate ? `<p><b>Entry Date:</b> ${e.entryDate}</p>` : '';
+        let detailHtml = `<p><b>Where:</b> ${e.where}</p><p><b>Amount:</b> €${e.amount.toFixed(2)}</p><p><b>Expense Date:</b> ${e.date}</p>${entryDateStr}<p><b>Source:</b> ${e.sourceName}</p>`;
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("🧾 Expense: ${e.where}", ${JSON.stringify(detailHtml)})'>
@@ -639,7 +637,7 @@
               <strong>${e.where}</strong>
               <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 Expense: ${e.date} ${e.entryDate ? '• Entered: ' + e.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -649,8 +647,9 @@
       html += `<div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin:14px 0 6px; border-bottom:1px solid var(--border); padding-bottom:4px;">📄 Documents</div>`;
       matchedDocs.forEach((d, dIdx) => {
         let st = getExpiryStatus(d.exp);
-        let detailHtml = `<p><b>Document:</b> ${d.name}</p><p><b>Expiry:</b> ${d.exp}</p><p><b>Status:</b> ${st.text}</p>` + 
-          (d.fileData ? `<button class="submit-btn success" style="margin-top:10px;" onclick="viewDocByObj(${dIdx})">👁️ View Attached File / Photo</button>` : '');
+        let entryDateStr = d.entryDate ? `<p><b>Entry Date:</b> ${d.entryDate}</p>` : '';
+        let detailHtml = `<p><b>Document:</b> ${d.name}</p><p><b>Expiry:</b> ${d.exp}</p><p><b>Status:</b> ${st.text}</p>${entryDateStr}` + 
+          (d.fileData ? `<button class="app-btn success" style="margin-top:10px; width:100%;" onclick="viewDocByObj(${dIdx})"><span class="icon">👁️</span>View Attached File</button>` : '');
         
         html += `
           <div class="item-row" onclick='showSearchItemDetail("📄 Document: ${d.name}", ${JSON.stringify(detailHtml)})'>
@@ -658,7 +657,7 @@
               <strong>${d.name}</strong>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry: ${d.exp} <span style="color:var(--accent); float:right;">👆 Tap for file/info</span></div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">Expiry: ${d.exp} ${d.entryDate ? '• Entered: ' + d.entryDate : ''} <span style="color:var(--accent); float:right;">👆 Tap</span></div>
           </div>`;
       });
     }
@@ -716,6 +715,8 @@
     let amt = parseFloat(document.getElementById("spendAmt").value);
     let where = document.getElementById("spendWhere").value.trim() || "General Expense";
     let date = document.getElementById("spendDate").value || new Date().toISOString().slice(0, 10);
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (isNaN(amt) || amt <= 0) return alert("⚠️ Please enter a valid amount (€).");
 
     let sourceName = "Cash in Hand";
@@ -731,7 +732,7 @@
       sourceType = "bank";
     }
 
-    db.expenses.push({ id: Date.now(), amount: amt, where, date, sourceType, sourceName });
+    db.expenses.push({ id: Date.now(), amount: amt, where, date, entryDate, sourceType, sourceName });
     db.expenses.sort((a, b) => new Date(b.date) - new Date(a.date) || b.id - a.id);
     document.getElementById("spendModal").style.display = "none";
     saveDB();
@@ -757,9 +758,11 @@
     let person = document.getElementById("loanPerson").value.trim();
     let amt = parseFloat(document.getElementById("loanAmt").value);
     let note = document.getElementById("loanNote").value.trim();
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (!person || isNaN(amt) || amt <= 0) return alert("⚠️ Enter Person Name and Amount.");
 
-    db.loans.push({ id: Date.now(), type, person, amt, note });
+    db.loans.push({ id: Date.now(), type, person, amt, note, entryDate });
     document.getElementById("loanPerson").value = "";
     document.getElementById("loanAmt").value = "";
     document.getElementById("loanNote").value = "";
@@ -844,10 +847,10 @@
       let existing = db.banks[idx];
       notice.style.display = "block";
       notice.innerHTML = `✅ <b>${existing.name}</b> detected! Balance: €${existing.bal.toFixed(2)}. Amount will be <b>added (+)</b>.`;
-      btn.innerText = `+ Add Amount to ${existing.name}`;
+      btn.innerHTML = `<span class="icon">➕</span>Add to ${existing.name}`;
     } else {
       notice.style.display = "none";
-      btn.innerText = "+ Add New Card";
+      btn.innerHTML = `<span class="icon">💾</span>Add Card`;
     }
   }
 
@@ -855,10 +858,14 @@
     let name = document.getElementById("bankName").value.trim();
     let card = document.getElementById("cardLast4").value.trim();
     let amt = parseFloat(document.getElementById("bankBal").value);
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (!name || isNaN(amt)) return alert("⚠️ Enter Bank Name and Amount.");
 
     if (editingBankIndex >= 0) {
-      db.banks[editingBankIndex] = { name, card, bal: amt };
+      db.banks[editingBankIndex].name = name;
+      db.banks[editingBankIndex].card = card;
+      db.banks[editingBankIndex].bal = amt;
       editingBankIndex = -1;
     } else {
       let existingIndex = findExistingBankIndex(name, card);
@@ -866,7 +873,7 @@
         db.banks[existingIndex].bal += amt;
         if (card) db.banks[existingIndex].card = card;
       } else {
-        db.banks.push({ name, card, bal: amt });
+        db.banks.push({ name, card, bal: amt, entryDate });
       }
     }
 
@@ -874,7 +881,7 @@
     document.getElementById("cardLast4").value = "";
     document.getElementById("bankBal").value = "";
     document.getElementById("bankDetectNotice").style.display = "none";
-    document.getElementById("bankSubmitBtn").innerText = "+ Add New Card";
+    document.getElementById("bankSubmitBtn").innerHTML = `<span class="icon">💾</span>Add Card`;
     saveDB();
   }
 
@@ -891,7 +898,7 @@
     document.getElementById("bankBal").value = b.bal;
     editingBankIndex = index;
     document.getElementById("bankDetectNotice").style.display = "none";
-    document.getElementById("bankSubmitBtn").innerText = `💾 Save Exact Balance for ${b.name}`;
+    document.getElementById("bankSubmitBtn").innerHTML = `<span class="icon">💾</span>Save Balance`;
     document.getElementById("bankName").focus();
   }
 
@@ -907,6 +914,8 @@
     let title = document.getElementById("goalTitle").value.trim();
     let target = parseFloat(document.getElementById("goalTarget").value);
     let saved = parseFloat(document.getElementById("goalSaved").value) || 0;
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (!title || isNaN(target) || target <= 0) return alert("⚠️ Enter Goal Title and Target.");
 
     let existingIdx = db.goals.findIndex(g => g.title.toLowerCase() === title.toLowerCase());
@@ -914,7 +923,7 @@
       db.goals[existingIdx].target = target;
       db.goals[existingIdx].saved += saved;
     } else {
-      db.goals.push({ title, target, saved });
+      db.goals.push({ title, target, saved, entryDate });
     }
 
     document.getElementById("goalTitle").value = "";
@@ -936,26 +945,28 @@
     let name = document.getElementById("docName").value.trim();
     let exp = document.getElementById("docExpiry").value;
     let fileInput = document.getElementById("docFile");
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (!name || !exp) return alert("⚠️ Enter Document Name and Expiry Date.");
 
     if (fileInput.files && fileInput.files[0]) {
       let file = fileInput.files[0];
       if (file.size > 2.5 * 1024 * 1024) return alert("⚠️ File too large (Max 2.5MB).");
       let reader = new FileReader();
-      reader.onload = function(e) { upsertDoc(name, exp, e.target.result, file.type); };
+      reader.onload = function(e) { upsertDoc(name, exp, e.target.result, file.type, entryDate); };
       reader.readAsDataURL(file);
     } else {
-      upsertDoc(name, exp, null, null);
+      upsertDoc(name, exp, null, null, entryDate);
     }
   }
 
-  function upsertDoc(name, exp, fileData, fileType) {
+  function upsertDoc(name, exp, fileData, fileType, entryDate) {
     let existingIdx = db.docs.findIndex(d => d.name.toLowerCase() === name.toLowerCase());
     if (existingIdx !== -1) {
       db.docs[existingIdx].exp = exp;
       if (fileData) { db.docs[existingIdx].fileData = fileData; db.docs[existingIdx].fileType = fileType; }
     } else {
-      db.docs.push({ name, exp, fileData, fileType });
+      db.docs.push({ name, exp, fileData, fileType, entryDate });
     }
     document.getElementById("docName").value = "";
     document.getElementById("docExpiry").value = "";
@@ -996,9 +1007,11 @@
     let date = document.getElementById("apptDate").value;
     let time = document.getElementById("apptTime").value;
     let location = document.getElementById("apptLocation").value.trim();
+    let entryDate = new Date().toISOString().slice(0, 10);
+
     if (!title || !date) return alert("⚠️ Enter Purpose and Date.");
 
-    db.appts.push({ title, date, time, location });
+    db.appts.push({ title, date, time, location, entryDate });
     db.appts.sort((a, b) => new Date(a.date) - new Date(b.date));
     document.getElementById("apptTitle").value = "";
     document.getElementById("apptDate").value = "";
@@ -1016,7 +1029,8 @@
       name: document.getElementById("lawyerName").value.trim(),
       phone: document.getElementById("lawyerPhone").value.trim(),
       address: document.getElementById("lawyerAddress").value.trim(),
-      note: document.getElementById("lawyerNote").value.trim()
+      note: document.getElementById("lawyerNote").value.trim(),
+      entryDate: new Date().toISOString().slice(0, 10)
     };
     saveDB();
     alert("✅ Saved!");
@@ -1031,7 +1045,7 @@
       document.getElementById("modalBody").innerHTML = `
         <p style="font-size:12px; color:var(--text-muted);">Copy this text and save in Apple Notes:</p>
         <textarea id="exportTextArea" class="form-input" style="height:150px; font-family:monospace; font-size:11px;" readonly>${dataStr}</textarea>
-        <button class="submit-btn" style="margin-top:10px;" onclick="copyExportText()">📋 Copy Text</button>
+        <button class="app-btn primary" style="width:100%; margin-top:10px;" onclick="copyExportText()"><span class="icon">📋</span>Copy Text</button>
       `;
       document.getElementById("previewModal").style.display = "flex";
     } else {
@@ -1096,7 +1110,7 @@
       filtered = db.expenses.filter(e => e.date === selectedDate);
       document.getElementById("summaryHeading").innerText = `📅 Expense on ${selectedDate}`;
       document.getElementById("sumTotalLabel").innerText = `Total Spent`;
-      document.getElementById("resetDateFilterBtn").style.display = "inline-block";
+      document.getElementById("resetDateFilterBtn").style.display = "inline-flex";
       document.getElementById("dateDetailsCard").style.display = "block";
     } else {
       filtered = db.expenses.filter(e => e.date && e.date.startsWith(runningMonth));
@@ -1145,11 +1159,12 @@
           </div>
           <div class="card-num">${b.card || "No Card Number"}</div>
           <div class="card-bal">€${b.bal.toFixed(2)}</div>
-          <div style="display:flex; gap:5px; margin-top:10px;">
-            <button class="small-btn success" style="flex:1;" onclick="quickDepositBank(${i})">+ Add</button>
-            <button class="small-btn danger" style="flex:1;" onclick="openSpendModal('bank', ${i})">- Spend</button>
-            <button class="small-btn" onclick="editBankCard(${i})">✏️</button>
-            <button class="small-btn danger" onclick="deleteBank(${i})">🗑️</button>
+          ${b.entryDate ? `<div style="font-size:11px; color:#94a3b8; margin-top:4px;">Entered: ${b.entryDate}</div>` : ""}
+          <div class="btn-container" style="margin-top:10px;">
+            <button class="app-btn success" onclick="quickDepositBank(${i})"><span class="icon">➕</span>Add</button>
+            <button class="app-btn danger" onclick="openSpendModal('bank', ${i})"><span class="icon">💸</span>Spend</button>
+            <button class="app-btn primary" onclick="editBankCard(${i})"><span class="icon">✏️</span>Edit</button>
+            <button class="app-btn danger" onclick="deleteBank(${i})"><span class="icon">🗑️</span>Del</button>
           </div>
         </div>`;
     });
@@ -1168,15 +1183,17 @@
       let isPabo = l.type === "pabo";
       loanHTML += `
         <div class="item-row">
-          <div class="item-header">
-            <div>
+          <div class="item-header" style="flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between; width:100%;">
               <strong>👤 ${l.person}</strong>
-              <div style="font-size:13px; margin:4px 0;"><span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Pabo' : '🔴 Dibo'}</span></div>
-              <div style="font-size:16px; font-weight:bold; color:${isPabo ? 'var(--success)' : 'var(--danger)'};">€${l.amt.toFixed(2)}</div>
+              <strong style="font-size:15px; color:${isPabo ? 'var(--success)' : 'var(--danger)'};">€${l.amt.toFixed(2)}</strong>
             </div>
-            <div style="display:flex; flex-direction:column; gap:5px;">
-              <button class="small-btn success" onclick="openSettleModal(${i})">Settle</button>
-              <button class="small-btn danger" onclick="deleteLoan(${i})">Delete</button>
+            <div style="font-size:12px; color:var(--text-muted); display:flex; justify-content:space-between; width:100%;">
+              <span><span class="badge ${isPabo ? 'badge-pabo' : 'badge-dibo'}">${isPabo ? '🟢 Pabo' : '🔴 Dibo'}</span> ${l.entryDate ? '• Entered: ' + l.entryDate : ''}</span>
+            </div>
+            <div class="btn-container" style="width:100%; margin-top:6px;">
+              <button class="app-btn success" onclick="openSettleModal(${i})"><span class="icon">🤝</span>Settle</button>
+              <button class="app-btn danger" onclick="deleteLoan(${i})"><span class="icon">🗑️</span>Delete</button>
             </div>
           </div>
         </div>`;
@@ -1190,17 +1207,17 @@
       let pct = Math.min(100, (g.saved / g.target) * 100);
       goalHTML += `
         <div class="item-row">
-          <div class="item-header">
-            <div>
+          <div class="item-header" style="flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between; width:100%;">
               <strong>🎯 ${g.title}</strong>
-              <div style="font-size:13px; color:var(--text-muted);">Saved: €${g.saved.toFixed(2)} / €${g.target.toFixed(2)}</div>
+              <span style="font-size:13px; color:var(--success);">€${g.saved.toFixed(2)} / €${g.target.toFixed(2)}</span>
             </div>
-            <div>
-              <button class="small-btn success" onclick="addMoneyToGoal(${i})">+ Add</button>
-              <button class="small-btn danger" onclick="deleteGoal(${i})">🗑️</button>
+            <div class="progress-bar"><div class="progress-bar-inner" style="width:${pct}%"></div></div>
+            <div class="btn-container" style="width:100%; margin-top:6px;">
+              <button class="app-btn success" onclick="addMoneyToGoal(${i})"><span class="icon">➕</span>Add €</button>
+              <button class="app-btn danger" onclick="deleteGoal(${i})"><span class="icon">🗑️</span>Delete</button>
             </div>
           </div>
-          <div class="progress-bar"><div class="progress-bar-inner" style="width:${pct}%"></div></div>
         </div>`;
     });
     document.getElementById("goalList").innerHTML = goalHTML || `<p style="font-size:13px; color:var(--text-muted);">No goals.</p>`;
@@ -1213,15 +1230,15 @@
       dashDocHTML += `<div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border);"><span>${d.name}</span><span class="badge ${st.cls}">${st.text}</span></div>`;
       docHTML += `
         <div class="item-row">
-          <div class="item-header">
-            <div>
+          <div class="item-header" style="flex-direction:column; gap:6px;">
+            <div style="display:flex; justify-content:space-between; width:100%;">
               <strong>${d.name}</strong>
-              <div style="font-size:12px; color:var(--text-muted);">Expiry: ${d.exp}</div>
               <span class="badge ${st.cls}">${st.text}</span>
             </div>
-            <div style="display:flex; gap:5px;">
-              ${d.fileData ? `<button class="small-btn" onclick="viewDoc(${i})">👁️ View</button>` : ""}
-              <button class="small-btn danger" onclick="deleteDoc(${i})">🗑️</button>
+            <div style="font-size:12px; color:var(--text-muted);">Expiry: ${d.exp} ${d.entryDate ? '• Entered: ' + d.entryDate : ''}</div>
+            <div class="btn-container" style="width:100%; margin-top:6px;">
+              ${d.fileData ? `<button class="app-btn primary" onclick="viewDoc(${i})"><span class="icon">👁️</span>View File</button>` : ""}
+              <button class="app-btn danger" onclick="deleteDoc(${i})"><span class="icon">🗑️</span>Delete</button>
             </div>
           </div>
         </div>`;
@@ -1232,7 +1249,15 @@
 
     let apptHTML = "", dashApptHTML = "";
     db.appts.forEach((a, i) => {
-      apptHTML += `<div class="item-row"><div class="item-header"><div><strong>📌 ${a.title}</strong><div style="font-size:13px; color:var(--accent);">${a.date}</div></div><button class="small-btn danger" onclick="deleteAppt(${i})">🗑️</button></div></div>`;
+      apptHTML += `
+        <div class="item-row">
+          <div class="item-header" style="flex-direction:column; gap:6px;">
+            <div><strong>📌 ${a.title}</strong><div style="font-size:13px; color:var(--accent);">🗓️ ${a.date} ${a.time ? 'at ' + a.time : ''}</div></div>
+            <div class="btn-container" style="width:100%; margin-top:6px;">
+              <button class="app-btn danger" onclick="deleteAppt(${i})"><span class="icon">🗑️</span>Delete Appt</button>
+            </div>
+          </div>
+        </div>`;
       if (i < 3) dashApptHTML += `<div style="padding:6px 0; border-bottom:1px solid var(--border);"><b>${a.title}</b> — <span style="color:var(--accent);">${a.date}</span></div>`;
     });
     document.getElementById("apptList").innerHTML = apptHTML || `<p style="font-size:13px; color:var(--text-muted);">No appointments.</p>`;
@@ -1242,6 +1267,20 @@
     document.getElementById("lawyerPhone").value = db.lawyer.phone || "";
     document.getElementById("lawyerAddress").value = db.lawyer.address || "";
     document.getElementById("lawyerNote").value = db.lawyer.note || "";
+
+    if (db.lawyer.name || db.lawyer.phone) {
+      document.getElementById("lawyerDisplay").innerHTML = `
+        <div class="item-row">
+          <strong>👨‍⚖️ ${db.lawyer.name || 'Advocate'}</strong>
+          ${db.lawyer.address ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📍 ${db.lawyer.address}</div>` : ""}
+          ${db.lawyer.note ? `<div style="font-size:12px; color:var(--text-muted); margin-top:4px;">📝 ${db.lawyer.note}</div>` : ""}
+          <div class="btn-container" style="margin-top:10px;">
+            ${db.lawyer.phone ? `<button class="app-btn success" onclick="window.location.href='tel:${db.lawyer.phone}'"><span class="icon">📞</span>Call Lawyer</button>` : ""}
+          </div>
+        </div>`;
+    } else {
+      document.getElementById("lawyerDisplay").innerHTML = "";
+    }
   }
 
   renderAll();
