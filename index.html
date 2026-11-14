@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ProbashiMate Italy - Essential</title>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'><rect width='1' height='2' fill='%23009246'/><rect x='1' width='1' height='2' fill='%23FFFFFF'/><rect x='2' width='1' height='2' fill='%23CE2B37'/></svg>">
 <style>
@@ -31,15 +31,30 @@
     --success: #16a34a;
   }
   * { box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 15px; background: var(--bg-color); color: var(--text-color); transition: background 0.3s, color 0.3s; max-width: 600px; margin-inline: auto; padding-bottom: 40px; }
   header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   h1 { font-size: 20px; color: var(--accent); margin: 0; display: flex; align-items: center; gap: 8px; }
   h3 { margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 6px; }
   .theme-btn { background: var(--card-bg); border: 1px solid var(--border); color: var(--text-color); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
 
-  /* Global Search Bar */
-  .global-search-container { margin-bottom: 12px; position: relative; }
-  .global-search-input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--accent); background: var(--card-bg); color: var(--text-color); font-size: 14px; outline: none; }
+  /* Professional Inline Global Search */
+  .search-wrapper { position: relative; margin-bottom: 14px; }
+  .search-box-row { display: flex; align-items: center; background: var(--card-bg); border: 1.5px solid var(--accent); border-radius: 10px; padding: 2px 10px; }
+  .search-box-row input { flex: 1; border: none; background: transparent; color: var(--text-color); padding: 9px 6px; font-size: 14px; outline: none; }
+  .clear-search-btn { background: none; border: none; color: var(--text-muted); font-size: 16px; cursor: pointer; padding: 4px 6px; display: none; }
+ 
+  /* Inline Search Results Panel (Keyboard-safe) */
+  #inlineSearchResults {
+    display: none;
+    background: var(--card-bg);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+  .search-section-title { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 6px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .search-section-title:first-child { margin-top: 0; }
 
   .tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 6px; margin-bottom: 15px; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
   .tabs::-webkit-scrollbar { display: none; }
@@ -51,7 +66,7 @@
 
   .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
   .form-input { padding: 10px; margin: 6px 0; width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-color); color: var(--text-color); font-size: 14px; outline: none; }
-  .submit-btn, .reset-btn { width: 100%; padding: 10px; border-radius: 8px; cursor: pointer; border: none; margin-top: 8px; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
+  .submit-btn, .reset-btn { width: 100%; padding: 11px; border-radius: 8px; cursor: pointer; border: none; margin-top: 8px; font-weight: 600; font-size: 14px; transition: opacity 0.2s; }
   .submit-btn { background: var(--accent); color: #000; }
   .submit-btn:hover { opacity: 0.9; }
   .reset-btn { background: var(--danger); color: white; }
@@ -91,7 +106,7 @@
   .badge-pabo { background: rgba(34, 197, 94, 0.2); color: var(--success); }
   .badge-dibo { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
 
-  .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 10px; background: var(--bg-color); }
+  .item-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; background: var(--bg-color); }
   .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
   .small-btn { padding: 6px 9px; border-radius: 6px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 12px; font-weight: 600; }
   .small-btn.danger { border-color: var(--danger); color: var(--danger); }
@@ -105,7 +120,7 @@
 
   /* Modal */
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; }
-  .modal-content { background: var(--card-bg); border: 1px solid var(--border); padding: 18px; border-radius: 12px; max-width: 480px; width: 100%; max-height: 90vh; overflow: auto; }
+  .modal-content { background: var(--card-bg); border: 1px solid var(--border); padding: 18px; border-radius: 12px; max-width: 480px; width: 100%; max-height: 85vh; overflow: auto; }
   .modal-content img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
   .modal-content iframe { width: 100%; height: 60vh; border: none; margin-top: 10px; border-radius: 8px; }
 
@@ -146,11 +161,11 @@
   </div>
 </div>
 
-<!-- File Preview Modal -->
+<!-- File & Backup Preview Modal -->
 <div id="previewModal" class="modal" onclick="closeModal('previewModal', event)">
   <div class="modal-content" style="text-align:center;" onclick="event.stopPropagation()">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <strong id="modalTitle">Document Preview</strong>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <strong id="modalTitle">Preview</strong>
       <button class="small-btn danger" onclick="document.getElementById('previewModal').style.display='none'">Close ✖</button>
     </div>
     <div id="modalBody"></div>
@@ -165,10 +180,10 @@
       <button class="small-btn danger" onclick="document.getElementById('spendModal').style.display='none'">✖</button>
     </div>
     <p id="spendSourceInfo" style="font-size:12px; color:var(--text-muted); margin-top:0;"></p>
-    
+   
     <label style="font-size:12px; color:var(--text-muted);">Amount Spent (€):</label>
     <input type="number" step="0.01" id="spendAmt" class="form-input" placeholder="e.g. 25.50">
-    
+   
     <label style="font-size:12px; color:var(--text-muted);">Where / What did you spend on?</label>
     <input type="text" id="spendWhere" class="form-input" placeholder="e.g. Supermercato, Rent, Coffee, Mobile, Ticket">
     <div class="chip-group">
@@ -209,26 +224,22 @@
   </div>
 </div>
 
-<!-- Universal Global Search Modal / Result View -->
-<div id="searchModal" class="modal" onclick="closeModal('searchModal', event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <strong style="color:var(--accent); font-size:16px;">🔍 Search Results</strong>
-      <button class="small-btn danger" onclick="document.getElementById('searchModal').style.display='none'">Close ✖</button>
-    </div>
-    <div id="searchModalBody" style="max-height:70vh; overflow-y:auto;"></div>
-  </div>
-</div>
-
 <header>
   <h1>🇮🇹 ProbashiMate <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">Essential</span></h1>
   <button class="theme-btn" onclick="toggleTheme()">☀️ / 🌙</button>
 </header>
 
-<!-- Global Live Search Bar -->
-<div class="global-search-container">
-  <input type="text" id="globalSearchInput" class="global-search-input" placeholder="🔍 Search by name (e.g. Rahim, PostePay, Supermercato)..." oninput="handleGlobalSearch(this.value)">
+<!-- Professional Inline Global Search Bar -->
+<div class="search-wrapper">
+  <div class="search-box-row">
+    <span>🔍</span>
+    <input type="text" id="globalSearchInput" placeholder="Search person, card, expense, doc..." oninput="handleGlobalSearch(this.value)">
+    <button id="clearSearchBtn" class="clear-search-btn" onclick="clearGlobalSearch()">✖</button>
+  </div>
 </div>
+
+<!-- Clean Inline Search Results (Appears directly below search bar, never hidden by keyboard) -->
+<div id="inlineSearchResults"></div>
 
 <!-- Navigation Tabs -->
 <div class="tabs">
@@ -444,12 +455,26 @@
   </div>
 
   <div class="card">
-    <h3>☁️ Backup & Restore System</h3>
-    <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download a backup file or copy backup text to keep your cards, cash, loans, summary, documents, and appointments safe.</p>
+    <h3>☁️ Export Backup</h3>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:0;">Download a backup file or copy backup text to save in Apple Notes / WhatsApp.</p>
     <button class="submit-btn" onclick="exportBackup()">📥 Download / Copy Backup (.json)</button>
-    <label style="font-size:13px; color:var(--text-muted); display:block; margin-top:15px;">Restore from Backup File:</label>
-    <input type="file" id="importFile" accept=".json" class="form-input" onchange="importBackup(event)">
-    <button class="reset-btn" style="margin-top:20px;" onclick="resetAll()">⚠️ Reset All App Data</button>
+  </div>
+
+  <div class="card">
+    <h3>📲 Restore Backup (2 Easy Ways)</h3>
+   
+    <!-- Method 1: Paste directly from Notes -->
+    <label style="font-size:13px; color:var(--accent); font-weight:bold; display:block; margin-top:6px;">Option 1: Paste Backup Text (From Notes / WhatsApp)</label>
+    <textarea id="pasteBackupInput" class="form-input" style="height:100px; font-family:monospace; font-size:12px;" placeholder='Paste your copied backup text here (starting with { "pin": ... })'></textarea>
+    <button class="submit-btn" style="background:var(--success); color:#000;" onclick="importBackupFromText()">✅ Restore from Pasted Text</button>
+
+    <hr style="border:0; border-top:1px solid var(--border); margin:18px 0;">
+
+    <!-- Method 2: Upload .json file -->
+    <label style="font-size:13px; color:var(--text-muted); display:block;">Option 2: Upload Backup File (.json):</label>
+    <input type="file" id="importFile" accept=".json,application/json,text/plain" class="form-input" onchange="importBackup(event)">
+   
+    <button class="reset-btn" style="margin-top:25px;" onclick="resetAll()">⚠️ Reset All App Data</button>
   </div>
 </div>
 
@@ -536,77 +561,111 @@
     document.documentElement.setAttribute("data-theme", current === "light" ? "dark" : "light");
   }
 
-  // Global Search Feature Implementation
+  // Professional Inline Global Search
+  function clearGlobalSearch() {
+    document.getElementById("globalSearchInput").value = "";
+    document.getElementById("clearSearchBtn").style.display = "none";
+    document.getElementById("inlineSearchResults").style.display = "none";
+  }
+
   function handleGlobalSearch(query) {
     let q = query.trim().toLowerCase();
-    let modal = document.getElementById("searchModal");
-    let body = document.getElementById("searchModalBody");
+    let resultsBox = document.getElementById("inlineSearchResults");
+    let clearBtn = document.getElementById("clearSearchBtn");
 
     if (!q) {
-      modal.style.display = "none";
+      resultsBox.style.display = "none";
+      clearBtn.style.display = "none";
       return;
     }
+
+    clearBtn.style.display = "block";
 
     let matchedLoans = db.loans.filter(l => l.person.toLowerCase().includes(q) || (l.note && l.note.toLowerCase().includes(q)));
     let matchedBanks = db.banks.filter(b => b.name.toLowerCase().includes(q) || (b.card && b.card.toLowerCase().includes(q)));
     let matchedExpenses = db.expenses.filter(e => e.where.toLowerCase().includes(q) || e.sourceName.toLowerCase().includes(q) || (e.date && e.date.includes(q)));
     let matchedDocs = db.docs.filter(d => d.name.toLowerCase().includes(q));
 
-    let html = "";
+    let html = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:13px; font-weight:bold; color:var(--text-color);">Results for "${query}"</span>
+        <button class="small-btn danger" style="padding:3px 8px;" onclick="clearGlobalSearch()">Close ✖</button>
+      </div>`;
+
+    let hasResults = false;
 
     // Loans Results
     if (matchedLoans.length > 0) {
-      html += `<h4 style="color:var(--accent); margin-bottom:6px;">🤝 Matching Lent & Borrow Records</h4>`;
+      hasResults = true;
+      html += `<div class="search-section-title">🤝 Lent & Borrow (Dena-Paona)</div>`;
       matchedLoans.forEach(l => {
         let isPabo = l.type === "pabo";
         html += `
-          <div class="item-row" style="margin-bottom:8px;">
-            <strong>👤 ${l.person}</strong> — <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold;">€${l.amt.toFixed(2)}</span>
-            <div style="font-size:12px; color:var(--text-muted);">${isPabo ? '🟢 Lent (Pabo)' : '🔴 Borrowed (Dibo)'} ${l.note ? ' | ' + l.note : ''}</div>
+          <div class="item-row">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>👤 ${l.person}</strong>
+              <span style="color:${isPabo ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size:15px;">€${l.amt.toFixed(2)}</span>
+            </div>
+            <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">
+              ${isPabo ? '🟢 Pabo (Lent)' : '🔴 Dibo (Borrowed)'} ${l.note ? ' • ' + l.note : ''}
+            </div>
           </div>`;
       });
     }
 
     // Banks Results
     if (matchedBanks.length > 0) {
-      html += `<h4 style="color:var(--accent); margin-top:12px; margin-bottom:6px;">💳 Matching Bank Cards</h4>`;
+      hasResults = true;
+      html += `<div class="search-section-title">💳 Bank Cards & Balances</div>`;
       matchedBanks.forEach(b => {
         html += `
-          <div class="item-row" style="margin-bottom:8px;">
-            <strong>💳 ${b.name}</strong> (${b.card || 'No No.'}) — <span style="color:var(--success); font-weight:bold;">€${b.bal.toFixed(2)}</span>
+          <div class="item-row">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong>💳 ${b.name}</strong>
+                <div style="font-size:11px; color:var(--text-muted);">${b.card || 'No Card No.'}</div>
+              </div>
+              <span style="color:var(--success); font-weight:bold; font-size:15px;">€${b.bal.toFixed(2)}</span>
+            </div>
           </div>`;
       });
     }
 
     // Expenses Results
     if (matchedExpenses.length > 0) {
-      html += `<h4 style="color:var(--accent); margin-top:12px; margin-bottom:6px;">💸 Matching Transactions / Expenses</h4>`;
+      hasResults = true;
+      html += `<div class="search-section-title">💸 Card & Cash Transactions</div>`;
       matchedExpenses.forEach(e => {
         html += `
-          <div class="item-row" style="margin-bottom:8px;">
-            <strong>${e.where}</strong> — <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
-            <div style="font-size:12px; color:var(--text-muted);">📅 ${e.date} | Source: ${e.sourceName}</div>
+          <div class="item-row">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>${e.where}</strong>
+              <span style="color:var(--danger); font-weight:bold;">-€${e.amount.toFixed(2)}</span>
+            </div>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:2px;">📅 ${e.date} • Via: <b>${e.sourceName}</b></div>
           </div>`;
       });
     }
 
     // Docs Results
     if (matchedDocs.length > 0) {
-      html += `<h4 style="color:var(--accent); margin-top:12px; margin-bottom:6px;">📄 Matching Documents</h4>`;
+      hasResults = true;
+      html += `<div class="search-section-title">📄 Saved Documents</div>`;
       matchedDocs.forEach(d => {
         html += `
-          <div class="item-row" style="margin-bottom:8px;">
-            <strong>${d.name}</strong> (Expiry: ${d.exp})
+          <div class="item-row">
+            <strong>${d.name}</strong>
+            <div style="font-size:11px; color:var(--text-muted);">Expiry: ${d.exp}</div>
           </div>`;
       });
     }
 
-    if (!html) {
-      html = `<p style="font-size:13px; color:var(--text-muted);">No matching records found for "<b>${query}</b>".</p>`;
+    if (!hasResults) {
+      html += `<p style="font-size:13px; color:var(--text-muted); margin:6px 0;">No matching records found.</p>`;
     }
 
-    body.innerHTML = html;
-    modal.style.display = "flex";
+    resultsBox.innerHTML = html;
+    resultsBox.style.display = "block";
   }
 
   // Cash in Hand
@@ -696,7 +755,7 @@
     }
   }
 
-  // Lent & Borrow (Dena-Paona Tracker)
+  // Lent & Borrow
   function saveLoan() {
     let type = document.getElementById("loanType").value;
     let person = document.getElementById("loanPerson").value.trim();
@@ -1011,7 +1070,7 @@
     alert("✅ Lawyer details saved!");
   }
 
-  // Backup & Restore (iOS Safe Backup Function)
+  // Export & Restore Backup (Both File & Direct Pasted Text)
   function exportBackup() {
     let dataStr = JSON.stringify(db, null, 2);
     let isIOSStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
@@ -1019,14 +1078,14 @@
     if (isIOSStandalone) {
       let modalTitle = document.getElementById("modalTitle");
       let modalBody = document.getElementById("modalBody");
-      
-      modalTitle.innerText = "☁️ Backup Data (iOS Home Screen)";
+     
+      modalTitle.innerText = "☁️ Copy Backup Text";
       modalBody.innerHTML = `
         <p style="font-size:12px; color:var(--text-muted); margin-top:0;">
-          Safari Home Screen-e download direct support kore na. Nicher text box-er sob copy kore ekti .json file baniye save kore rakhun:
+          Nicher button-e click kore copy korun, ebong Apple Notes-e paste kore save rakhun. Pore restore korte oi text-ta copy kore "Option 1: Paste Backup Text" box-e dilei hobe!
         </p>
-        <textarea class="form-input" style="height:150px; font-family:monospace; font-size:11px;" readonly>${dataStr}</textarea>
-        <button class="submit-btn" style="margin-top:10px;" onclick="navigator.clipboard.writeText(this.previousElementSibling.value); alert('✅ Backup data copied to clipboard!');">📋 Copy Backup Text</button>
+        <textarea id="exportTextArea" class="form-input" style="height:150px; font-family:monospace; font-size:11px;" readonly>${dataStr}</textarea>
+        <button class="submit-btn" style="margin-top:10px;" onclick="copyExportText()">📋 Copy All Backup Text</button>
       `;
       document.getElementById("previewModal").style.display = "flex";
     } else {
@@ -1037,6 +1096,46 @@
       document.body.appendChild(dl);
       dl.click();
       dl.remove();
+    }
+  }
+
+  function copyExportText() {
+    let copyArea = document.getElementById("exportTextArea");
+    copyArea.select();
+    copyArea.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyArea.value).then(() => {
+      alert("✅ Copied! Ekhon Apple Notes-e paste kore save rakhun.");
+    }).catch(() => {
+      document.execCommand("copy");
+      alert("✅ Copied! Ekhon Apple Notes-e paste kore save rakhun.");
+    });
+  }
+
+  // Restore directly from pasted text (Notes/WhatsApp)
+  function importBackupFromText() {
+    let rawText = document.getElementById("pasteBackupInput").value.trim();
+    if (!rawText) return alert("⚠️ Please paste your copied backup text first.");
+   
+    try {
+      // Clean smart quotes if iOS Notes converted straight quotes to curly quotes
+      let cleanedText = rawText
+        .replace(/[\u201C\u201D]/g, '"')
+        .replace(/[\u2018\u2019]/g, "'");
+
+      let parsed = JSON.parse(cleanedText);
+      if (parsed && typeof parsed === "object") {
+        db = parsed;
+        if (typeof db.cash !== "number") db.cash = 0;
+        if (!Array.isArray(db.expenses)) db.expenses = [];
+        if (!Array.isArray(db.loans)) db.loans = [];
+        saveDB();
+        document.getElementById("pasteBackupInput").value = "";
+        alert("✅ Backup restored successfully from pasted text!");
+      } else {
+        alert("❌ Invalid backup format.");
+      }
+    } catch (err) {
+      alert("❌ Invalid JSON text! Make sure you copied the full text starting with { and ending with }.");
     }
   }
 
@@ -1053,7 +1152,7 @@
           if (!Array.isArray(db.expenses)) db.expenses = [];
           if (!Array.isArray(db.loans)) db.loans = [];
           saveDB();
-          alert("✅ Backup restored successfully!");
+          alert("✅ Backup restored successfully from file!");
         }
       } catch (err) { alert("❌ Invalid backup file."); }
     };
